@@ -1,0 +1,2 @@
+collection_pid,title,parent,cmodel,tn
+islandora:test,Test Collection,islandora:root,islandora:collectionCModel,testCol-tn.png
