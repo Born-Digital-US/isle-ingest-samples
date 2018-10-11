@@ -57,6 +57,7 @@ docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandor
 * In the `Your data` tab, toggle / click the `Preview submited...` drop-down to verify there’s data in your rows
 
 * Go to the `Templating` tab:
+
   * If there is not yet a twig template:
 
     * Delete the sample `{% block content %} Hello {{ name }}{% endblock %}` from the `Twig Template Input` field.
@@ -70,6 +71,7 @@ docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandor
   * Else if there is a preexisting twig template -select the previously saved template.
 
 * Go to the `CMODEL Mapping` tab:
+
   * Select from the drop-down list; `cmodel` and click the `Check CMODELS` button.
 
   * A block of drop-downs should appear for each CModel you have in your input (.csv)
@@ -78,6 +80,7 @@ docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandor
       * TN - select `tn`
 
 * Go to the `Object Properties Tab` and within the `Source Field Mapping` table:
+
   * Set `Object Pid` to `collection_pid` and **uncheck** the checkbox for `Check to let Islandora build PID...`
 
   * Set `Parent Object` to `parent` and leave checkbox **checked** for `If value is not a well formed PID...`
