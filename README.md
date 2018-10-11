@@ -56,15 +56,15 @@
 
 * Go to the `Templating` tab:
 
-  * If there is not yet a twig template:
+    * If there is not yet a twig template:
 
-    * Delete the sample `{% block content %} Hello {{ name }}{% endblock %}` from the `Twig Template Input` field.
+      * Delete the sample `{% block content %} Hello {{ name }}{% endblock %}` from the `Twig Template Input` field.
 
-    * Copy and paste the `mods_twig_base.txt` template text into the template text area.
+      * Copy and paste the `mods_twig_base.txt` template text into the template text area.
 
-    * Within the `Manage your templates` section at the bottom, click the `Save Template As`
+      * Within the `Manage your templates` section at the bottom, click the `Save Template As`
 
-    * Enter a new name e.g. `bd_mods_template` in the `Name for your new template` field and then click the `Save Template` button. A green check mark will indicate a successful save.
+      * Enter a new name e.g. `bd_mods_template` in the `Name for your new template` field and then click the `Save Template` button. A green check mark will indicate a successful save.
 
   * Else if there is a preexisting twig template -select the previously saved template.
 
