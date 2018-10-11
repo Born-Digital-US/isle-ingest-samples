@@ -33,7 +33,9 @@
 
   * Installation for a running **ISLE** site with an installed and active Drupal site
     * Open a terminal and navigate to the ISLE project Repository directory and then run this command:
-      * `docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandora && git clone https://github.com/mnylc/islandora_multi_importer.git && chown -Rv islandora:www-data islandora_multi_importer && cd /var/www/html/sites/all/modules/islandora/islandora_multi_importer && composer install && drush en -y islandora_multi_importer'`
+```
+docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandora && git clone https://github.com/mnylc/islandora_multi_importer.git && chown -Rv islandora:www-data islandora_multi_importer && cd /var/www/html/sites/all/modules/islandora/islandora_multi_importer && composer install && drush en -y islandora_multi_importer'
+```
 
 ### Ingest Process
 
@@ -56,7 +58,7 @@
 
 * Go to the `Templating` tab:
 
-    * If there is not yet a twig template:
+  * If there is not yet a twig template:
 
       * Delete the sample `{% block content %} Hello {{ name }}{% endblock %}` from the `Twig Template Input` field.
 
@@ -66,28 +68,28 @@
 
       * Enter a new name e.g. `bd_mods_template` in the `Name for your new template` field and then click the `Save Template` button. A green check mark will indicate a successful save.
 
-    * Else if there is a preexisting twig template -select the previously saved template.
+  * Else if there is a preexisting twig template -select the previously saved template.
 
 * Go to the `CMODEL Mapping` tab:
 
-    * Select from the drop-down list; `cmodel` and click the `Check CMODELS` button.
+  * Select from the drop-down list; `cmodel` and click the `Check CMODELS` button.
 
-    * A block of drop-downs should appear for each CModel you have in your input (.csv)
+  * A block of drop-downs should appear for each CModel you have in your input (.csv)
       * DC - `default XSLT`
 
       * TN - select `tn`
 
 * Go to the `Object Properties Tab` and within the `Source Field Mapping` table:
 
-    * Set `Object Pid` to `collection_pid` and **uncheck** the checkbox for `Check to let Islandora build PID...`
+  * Set `Object Pid` to `collection_pid` and **uncheck** the checkbox for `Check to let Islandora build PID...`
 
-    * Set `Parent Object` to `parent` and leave checkbox **checked** for `If value is not a well formed PID...`
+  * Set `Parent Object` to `parent` and leave checkbox **checked** for `If value is not a well formed PID...`
 
-    * Set `Object Label` to `title`
+  * Set `Object Label` to `title`
 
-    * Set `Sequence and Ordering` to `collection_pid` (_most likely default_)
+  * Set `Sequence and Ordering` to `collection_pid` (_most likely default_)
 
-    * Set `Remote DS sources` to `ZIP`
+  * Set `Remote DS sources` to `ZIP`
 
 * Leave the `What Type of Batch Action…` as it is (`ingest new objects`) (_most likely default_)
 
@@ -95,7 +97,7 @@
 
 * Click the `Choose File` button and select the zip file: `testCol-tn.png.zip` and the click the `Upload` button.
 
-    * **Please note:** There will be this warning `For security reasons, your upload has been renamed to testCol-tn.png_.zip.` Ignore it.
+  * **Please note:** There will be this warning `For security reasons, your upload has been renamed to testCol-tn.png_.zip.` Ignore it.
 
 
 * Click the `Ingest` button
