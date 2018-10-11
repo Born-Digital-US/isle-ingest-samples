@@ -57,7 +57,6 @@ docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandor
 * In the `Your data` tab, toggle / click the `Preview submited...` drop-down to verify there’s data in your rows
 
 * Go to the `Templating` tab:
-
   * If there is not yet a twig template:
 
     * Delete the sample `{% block content %} Hello {{ name }}{% endblock %}` from the `Twig Template Input` field.
