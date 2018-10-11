@@ -44,6 +44,8 @@ docker exec -i isle-apache-ld sh -c 'cd /var/www/html/sites/all/modules/islandor
 
 * The `PDF.js` viewer is enabled within the PDF Solution Pack.
 
+* The `Islandora Compound Object Navigation` should be setup as a `Content` block.
+
 #### 1. Create the Test Collection
 
 * In the Drupal site, Navigation section on the left, click the `Multi Import Objects` link
