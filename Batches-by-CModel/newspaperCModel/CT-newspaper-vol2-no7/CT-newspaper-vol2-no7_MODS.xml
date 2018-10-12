@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"> 
+  
+<titleInfo>
+	<title>Connecticut Western News Vol. 2 No. 7</title>
+</titleInfo>
+
+
+
+
+
+
+
+<subject>
+	<topic>news</topic>
+</subject>
+
+<subject>
+	<geographic>Salisbury, Litchfield Co., Conn</geographic>
+</subject>
+
+
+ 
+
+ 
+
+ 
+
+  
+
+<originInfo>
+ 
+	<dateCreated encoding="w3cdtf" keyDate="yes">08/30/1872</dateCreated>
+ 
+	<dateIssued encoding="w3cdtf" keyDate="yes">08/30/1872</dateIssued>
+ 
+    
+	<publisher>J.L. Pease</publisher>
+ 
+    <place>
+      <placeTerm type="text">Canaan, CT</placeTerm>
+    </place>
+ 
+</originInfo>
+ 
+
+<abstract>Vestigia nulla retrorsum.</abstract>
+ 
+
+ 
+
+<typeOfResource>text</typeOfResource>
+ 
+  
+<genre>newspaper</genre>
+ 
+  
+ 
+
+<language>
+	<languageTerm type="code" authority="iso639-2b">english</languageTerm>
+</language>
+ 
+
+ 
+
+<relatedItem type="host" displayLabel="Collection">
+	<titleInfo>
+      <title></title>
+    </titleInfo>
+</relatedItem>
+
+ 
+  
+<accessCondition type="use and reproduction">No Copyright _ United States</accessCondition>
+<note type="ownership">Library of Congress</note>
+<identifier type="local">CWN-v2n7</identifier>
+
+<recordInfo>
+	<languageOfCataloging>
+		<languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+</recordInfo>
+</mods>
