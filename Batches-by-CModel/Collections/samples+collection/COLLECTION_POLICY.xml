@@ -1,0 +1,26 @@
+
+<collection_policy xmlns="http://www.islandora.ca" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="" xsi:schemaLocation="http://www.islandora.ca http://syn.lib.umanitoba.ca/collection_policy.xsd">
+  <content_models>
+    <content_model name="Islandora Collection Content Model" dsid="" namespace="samples" pid="islandora:collectionCModel"></content_model>
+    <content_model name="Islandora Audio Content Model" dsid="" namespace="samples" pid="islandora:sp-audioCModel"></content_model>
+    <content_model name="Islandora Basic Image Content Model" dsid="" namespace="samples" pid="islandora:sp_basic_image"></content_model>
+    <content_model name="Islandora Binary Object Content Model" dsid="" namespace="samples" pid="islandora:binaryObjectCModel"></content_model>
+    <content_model name="Islandora Page Content Model" dsid="" namespace="samples" pid="islandora:pageCModel"></content_model>
+    <content_model name="Islandora Internet Archive Book Content Model" dsid="" namespace="samples" pid="islandora:bookCModel"></content_model>
+    <content_model name="Islandora Compound Object Content Model" dsid="" namespace="samples" pid="islandora:compoundCModel"></content_model>
+    <content_model name="Islandora Disk Image Content Model" dsid="" namespace="samples" pid="islandora:sp_disk_image"></content_model>
+    <content_model name="Islandora Simple Text Content Model" dsid="" namespace="samples" pid="islandora:sp_example_text"></content_model>
+    <content_model name="Islandora Large Image Content Model" dsid="" namespace="samples" pid="islandora:sp_large_image_cmodel"></content_model>
+    <content_model name="Islandora Newspaper Content Model" dsid="" namespace="samples" pid="islandora:newspaperCModel"></content_model>
+    <content_model name="Islandora Newspaper Issue Content Model" dsid="" namespace="samples" pid="islandora:newspaperIssueCModel"></content_model>
+    <content_model name="Islandora Newspaper Page Content Model" dsid="" namespace="samples" pid="islandora:newspaperPageCModel"></content_model>
+    <content_model name="Islandora PDF Content Model" dsid="" namespace="samples" pid="islandora:sp_pdf"></content_model>
+    <content_model name="Citation Content Model" dsid="" namespace="samples" pid="ir:citationCModel"></content_model>
+    <content_model name="Thesis Content Model" dsid="" namespace="samples" pid="ir:thesisCModel"></content_model>
+    <content_model name="Islandora Video Content Model" dsid="" namespace="samples" pid="islandora:sp_videoCModel"></content_model>
+    <content_model name="Islandora Web ARChive Content Model" dsid="" namespace="samples" pid="islandora:sp_web_archive"></content_model>
+  </content_models>
+  <search_terms></search_terms>
+  <staging_area></staging_area>
+  <relationship>isMemberOfCollection</relationship>
+</collection_policy>
