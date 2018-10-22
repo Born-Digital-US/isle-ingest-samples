@@ -1,10 +1,3 @@
-curl -k https://isle.localdomain:443 | grep ""
-curl -k https://isle.localdomain:443 | grep ""
-curl -k https://isle.localdomain:443/islandora/object/samples%3A4 | grep ""
-curl -k https://isle.localdomain:443/islandora/object/samples%3A5 | grep ""
-curl -k https://isle.localdomain:443/islandora/object/samples%3A | grep ""
-curl -k https://isle.localdomain:443/islandora/object/samples%3A18 | grep ""
-
 Feature: Test FeatureContext
   In order to prove the Drupal context is working properly
   As a developer
