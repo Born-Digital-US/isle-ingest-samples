@@ -1,0 +1,44 @@
+default:
+  autoload:
+    '': %paths.base%/features/bootstrap
+  suites:
+    #paths:
+    #    - %paths.base%/features
+    default:
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\DrushContext
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://127.0.0.1:8080
+      # base_url: http://dev.healthypeople:8888 # for local dev
+      javascript_session: selenium2
+      default_session: selenium2
+      browser_name: chrome
+      goutte: ~
+      selenium2:
+        wd_host: localhost:4444/wd/hub
+        capabilities:
+          browserName: chrome
+          browser: chrome
+          version: 'ANY'
+          browserVersion: 'ANY'
+          chrome:
+            switches:
+              - "--no-sandbox"
+              - "--disable-setuid-sandbox"
+              #- "--disable-dev-shm-usage"
+              - "--headless"
+              #- "--disable-gpu"
+              - "--timeout 15000"
+              - "--allow-insecure-localhost"
+              - "--allow-running-insecure-content"
+              - "--ignore-certificate-errors"
+              - "--window-size=1280,1600"
+    Drupal\DrupalExtension:
+      blackbox: ~
+      region_map:
+        footer: '#footer'
