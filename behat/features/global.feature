@@ -7,7 +7,6 @@ Feature: Test FeatureContext
   Scenario: Viewing sample:1
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A1"
-    Then I should see a "body" element
     Then I should see "American Goldfinch (Audio)"
 
   @javascript
