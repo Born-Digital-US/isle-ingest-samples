@@ -74,8 +74,10 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 	 */
 	public function iBustCache()
 	{
-			shell_exec('wget http://127.0.0.1:8080/2020/data-search/Search-the-Data#objid=5338 &');
-			sleep(10);
-			shell_exec('service apache2 restart');
+			// hopefully never need this SUPER hack
+			
+			// shell_exec('wget http://127.0.0.1:8080/2020/data-search/Search-the-Data#objid=5338 &');
+			// sleep(10);
+			// shell_exec('service apache2 restart');
 	}
 }
