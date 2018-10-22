@@ -13,8 +13,8 @@ default:
         - Drupal\DrupalExtension\Context\DrushContext
   extensions:
     Behat\MinkExtension:
-      base_url: http://127.0.0.1:8080
-      # base_url: http://dev.healthypeople:8888 # for local dev
+      base_url: https://isle.localdomain:443
+      # base_url: https://isle.localdomain:8443/islandora/object/samples%3A5 # for local dev
       javascript_session: selenium2
       default_session: selenium2
       browser_name: chrome
