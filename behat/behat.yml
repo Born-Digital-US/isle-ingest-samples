@@ -13,7 +13,7 @@ default:
         - Drupal\DrupalExtension\Context\DrushContext
   extensions:
     Behat\MinkExtension:
-      base_url: https://isle.localdomain:443
+      base_url: https://isle.localdomain
       # base_url: https://isle.localdomain:8443/islandora/object/samples%3A5 # for local dev
       javascript_session: selenium2
       default_session: selenium2
