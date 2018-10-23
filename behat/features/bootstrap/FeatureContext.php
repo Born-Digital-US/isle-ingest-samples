@@ -6,6 +6,7 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Mink\Driver\Selenium2Driver;
+use Behat\Behat\Hook\Scope\AfterStepScope;
 
 /**
  * Defines application features from the specific context.
@@ -20,6 +21,26 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 	* context constructor through behat.yml.
 	*/
 	public function __construct() {
+	}
+
+	/**
+	 * @AfterStep
+	 */
+	public function takeScreenshotAfterFailedStep(AfterStepScope $scope) {
+		if ($scope->getTestResult()->getResultCode() == 99) {
+			$this->takeScreenshot();
+		}
+	}
+
+	/**
+	 * Store a screenshot.
+	 */
+	private function takeScreenshot() {
+		$screenshot = $this->getSession()->getDriver()->getScreenshot();
+		$path = '/var/www/projectname/' . date('d-m-y') . '-' . uniqid() . '.png';
+
+		file_put_contents($path, $screenshot);
+		print 'Screenshot at: ' . $path;
 	}
 
 
@@ -75,7 +96,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 	public function iBustCache()
 	{
 			// hopefully never need this SUPER hack
-			
+
 			// shell_exec('wget http://127.0.0.1:8080/2020/data-search/Search-the-Data#objid=5338 &');
 			// sleep(10);
 			// shell_exec('service apache2 restart');
