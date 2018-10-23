@@ -13,14 +13,14 @@ default:
         - Drupal\DrupalExtension\Context\DrushContext
   extensions:
     Behat\MinkExtension:
-      base_url: https://isle.localdomain
+      base_url: https://isle-apache-ld
       # base_url: https://isle.localdomain:8443/islandora/object/samples%3A5 # for local dev
       javascript_session: selenium2
       default_session: selenium2
       browser_name: chrome
       goutte: ~
       selenium2:
-        wd_host: localhost:4444/wd/hub
+        wd_host: http://127.0.0.1:4444/wd/hub
         capabilities:
           browserName: chrome
           browser: chrome
