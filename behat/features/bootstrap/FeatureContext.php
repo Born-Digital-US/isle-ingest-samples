@@ -37,7 +37,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 	 */
 	private function takeScreenshot() {
 		$screenshot = $this->getSession()->getDriver()->getScreenshot();
-		$path = '/var/www/projectname/' . date('d-m-y') . '-' . uniqid() . '.png';
+		$path = '/home/circleci/born-digital/data/bd-samples/behat/screenshot' . date('d-m-y') . '-' . uniqid() . '.png';
 
 		file_put_contents($path, $screenshot);
 		print 'Screenshot at: ' . $path;
