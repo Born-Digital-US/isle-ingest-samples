@@ -1,9 +1,5 @@
 default:
-  autoload:
-    '': %paths.base%/features/bootstrap
   suites:
-    #paths:
-    #    - %paths.base%/features
     default:
       contexts:
         - FeatureContext
@@ -13,32 +9,23 @@ default:
         - Drupal\DrupalExtension\Context\DrushContext
   extensions:
     Behat\MinkExtension:
-      base_url: https://isle-apache-ld
-      # base_url: https://isle.localdomain:8443/islandora/object/samples%3A5 # for local dev
-      javascript_session: selenium2
-      default_session: selenium2
-      browser_name: chrome
-      goutte: ~
+      sessions:
+        default:
+          goutte:
+            guzzle_parameters:
+              verify: false
+      javascript_session: 'selenium2'
       selenium2:
-        wd_host: http://127.0.0.1:4444/wd/hub
+        wd_host: http://hub:4444/wd/hub
         capabilities:
-          browserName: chrome
-          browser: chrome
-          version: 'ANY'
-          browserVersion: 'ANY'
           chrome:
             switches:
-              - "--no-sandbox"
-              - "--disable-setuid-sandbox"
-              #- "--disable-dev-shm-usage"
               - "--headless"
-              #- "--disable-gpu"
-              - "--timeout 15000"
+              - "--disable-gpu"
+              # None of the following seem to work, but keeping them for now as long
+              # they don't seem to cause harm
               - "--allow-insecure-localhost"
               - "--allow-running-insecure-content"
               - "--ignore-certificate-errors"
-              - "--window-size=1280,1600"
-    Drupal\DrupalExtension:
-      blackbox: ~
-      region_map:
-        footer: '#footer'
+      browser_name: 'chrome'
+      files_path: %paths.base%/features/assets/
