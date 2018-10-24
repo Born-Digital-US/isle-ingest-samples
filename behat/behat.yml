@@ -125,7 +125,7 @@ circleci:
               assets_path: %paths.base%/features/assets/
   extensions:
     Behat\MinkExtension:
-      base_url: https://isle-apache-ld
+      base_url: http://apache
 
 # Staging server profile. Use --profile=staging in the behat command.
 staging:
