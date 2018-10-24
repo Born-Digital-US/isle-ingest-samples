@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <titleInfo>
+    <title>Embargoes collection</title>
+  </titleInfo>
+  <name type="personal">
+    <namePart/>
+    <role>
+      <roleTerm authority="marcrelator" type="text"/>
+    </role>
+  </name>
+  <typeOfResource collection="yes"/>
+  <genre authority="lctgm"/>
+  <originInfo>
+    <dateCreated/>
+  </originInfo>
+  <language>
+    <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+  </language>
+  <abstract/>
+  <identifier type="local"/>
+  <physicalDescription>
+    <form authority="marcform"/>
+    <extent/>
+  </physicalDescription>
+  <note/>
+  <accessCondition/>
+  <subject>
+    <topic/>
+    <geographic/>
+    <temporal/>
+    <hierarchicalGeographic>
+      <continent/>
+      <country/>
+      <province/>
+      <region/>
+      <county/>
+      <city/>
+      <citySection/>
+    </hierarchicalGeographic>
+    <cartographics>
+      <coordinates/>
+    </cartographics>
+  </subject>
+</mods>

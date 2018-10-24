@@ -1,0 +1,19 @@
+
+<rdf:RDF xmlns:fedora="info:fedora/fedora-system:def/relations-external#" xmlns:fedora-model="info:fedora/fedora-system:def/model#" xmlns:islandora="http://islandora.ca/ontology/relsext#" xmlns:islandora-embargo="info:islandora/islandora-system:def/scholar#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="info:fedora/embargoes:collection">
+    <fedora:isMemberOfCollection rdf:resource="info:fedora/islandora:root"></fedora:isMemberOfCollection>
+    <fedora-model:hasModel rdf:resource="info:fedora/islandora:collectionCModel"></fedora-model:hasModel>
+    <isViewableByRole xmlns="http://islandora.ca/ontology/relsint#">administrator</isViewableByRole>
+    <isViewableByRole xmlns="http://islandora.ca/ontology/relsint#">repository admin</isViewableByRole>
+    <isViewableByRole xmlns="http://islandora.ca/ontology/relsint#">Hampshire</isViewableByRole>
+    <isViewableByRole xmlns="http://islandora.ca/ontology/relsint#">Mt Holyoke</isViewableByRole>
+    <isViewableByRole xmlns="http://islandora.ca/ontology/relsint#">Smith</isViewableByRole>
+    <islandora:isViewableByUser>fedoraAdmin</islandora:isViewableByUser>
+    <islandora:isViewableByUser>compass_admin</islandora:isViewableByUser>
+    <islandora:isViewableByRole>administrator</islandora:isViewableByRole>
+    <islandora:isViewableByRole>repository admin</islandora:isViewableByRole>
+    <islandora:isViewableByRole>Hampshire</islandora:isViewableByRole>
+    <islandora:isViewableByRole>Mt Holyoke</islandora:isViewableByRole>
+    <islandora:isViewableByRole>Smith</islandora:isViewableByRole>
+  </rdf:Description>
+</rdf:RDF>

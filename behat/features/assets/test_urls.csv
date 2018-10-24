@@ -1,0 +1,10 @@
+Test ID,Notes,staging,dev,vagrant_pat
+islandora cm compound,Compound object display,object/mtholyoke:16017,object/mtholyoke:13889,islandora/object/test:18
+islandora cm large image,Large image object display,object/mtholyoke:29442,object/islandora:283,islandora/object/smith:1
+islandora cm pdf,PDF object display,object/hampshire:1747,object/islandora:583,
+islandora embargo,What is seen when visiting the display for an object with embargoed datastreams,object/mtholyoke:3996,object/testo:56,
+islandora cm basic image,Basic image object display,,object/mtholyoke:22433,
+hampshire collections,I am on the solr collection page for Hampshire,collections/hampshire-college,collections/hampshire-college,collections/hampshire-college-collections
+smith collections,I am on the solr collection page for Smith,collections/smith-college-collections,collections/smith-college-collections,collections/smith-college-collections
+mtholyoke collections,I am on the solr collection page for Mt Holyoke,collections/mount-holyoke-college-collections,collections/mount-holyoke-college-collections,collections/mount-holyoke-college-collections
+object with contact form,I am looking at a large image object with an islandora webform button,object/mtholyoke:26457,object/islandora:283,object/test:18

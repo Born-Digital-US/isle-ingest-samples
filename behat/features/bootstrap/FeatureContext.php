@@ -566,7 +566,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 (function(){
   var elem = document.evaluate($selector, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   if(elem.length > 0) {
-  elem.scrollIntoView(false);
+  elem.scrollIntoView(false);   
   }
 })()
 JS;
