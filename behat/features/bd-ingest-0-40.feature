@@ -1,7 +1,14 @@
-Feature: Test FeatureContext
-  In order to prove the Drupal context is working properly
+Feature: Test BriefIngest (through line 56, no video no newspaper issues)
+  In order to prove the Brief Ingest properly loaded
   As a developer
   I need to test some sample data
+
+  @javascript
+  Scenario: Viewing newspaper root
+    Given I am an anonymous user
+    And I am on "/islandora/object/samples%3Anewspaper"
+    Then I should see a "body" element
+    Then I should see "Connecticut Western News (Newspaper)"
 
   @javascript
   Scenario: Viewing sample:1
@@ -15,6 +22,12 @@ Feature: Test FeatureContext
     Then I should see "Worm-eating Warbler (Audio)"
 
   @javascript
+  Scenario: Viewing sample:3
+    Given I am on "/islandora/object/samples%3A3"
+    Then I should see a "body" element
+    Then I should see "Red-winged Blackbird (Audio)"
+
+  @javascript
   Scenario: Viewing sample:4
     Given I am on "/islandora/object/samples%3A4"
     Then I should see a "body" element
@@ -26,17 +39,8 @@ Feature: Test FeatureContext
     Then I should see a "body" element
     Then I should see "Letter of note (Basic Image)"
 
-  # REMOVED TO SPEED THINGS UP
-  #  @javascript
-  #  Scenario: Viewing sample:7
-  #    Given I am an anonymous user
-  #    And I am on "/islandora/object/samples%3A7#page/1/mode/1up"
-  #    Then I should see a "body" element
-  #    Then I should see "The Use of the Antennæ in Insects (Book)"
-  #
-  #  @javascript
-  #  Scenario: Viewing sample:18
-  #    Given I am an anonymous user
-  #    And I am on "/islandora/object/samples%3A18"
-  #    Then I should see a "body" element
-  #    Then I should see "samples:14-005"
+  @javascript
+  Scenario: Viewing sample:6
+    Given I am on "/islandora/object/samples%3A6"
+    Then I should see a "body" element
+    Then I should see "Apple Tree of note (Basic Image)"
