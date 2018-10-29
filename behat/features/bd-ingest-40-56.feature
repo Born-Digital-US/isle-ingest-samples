@@ -64,7 +64,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A15"
     Then I should see a "body" element
-    Then I should see "samples:14-001"
+    Then I should see "samples:14-006"
 
   @javascript
   Scenario: Viewing sample:16
