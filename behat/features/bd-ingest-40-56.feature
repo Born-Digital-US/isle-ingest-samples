@@ -22,35 +22,35 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A9"
     Then I should see a "body" element
-    Then I should see "The Use of the Antennæ in Insects (Book)"
+    Then I should see "samples:7-002"
 
   @javascript
   Scenario: Viewing sample:10
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A10"
     Then I should see a "body" element
-    Then I should see "samples:07-004"
+    Then I should see "samples:7-004"
 
   @javascript
   Scenario: Viewing sample:11
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A11"
     Then I should see a "body" element
-    Then I should see "samples:07-005"
+    Then I should see "samples:7-005"
 
   @javascript
   Scenario: Viewing sample:12
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A12"
     Then I should see a "body" element
-    Then I should see "samples:07-003"
+    Then I should see "samples:7-003"
 
   @javascript
   Scenario: Viewing sample:13
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A13"
     Then I should see a "body" element
-    Then I should see "samples:07-001"
+    Then I should see "samples:7-001"
 
   @javascript
   Scenario: Viewing sample:14
