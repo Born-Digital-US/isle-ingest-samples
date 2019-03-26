@@ -111,7 +111,7 @@ dev:
     Behat\MinkExtension:
       base_url: https://compass-dev.fivecolleges.edu
 
-circleci:
+travis:
   suites:
     default:
       contexts:
