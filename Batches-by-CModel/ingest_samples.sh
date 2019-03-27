@@ -58,6 +58,7 @@ echo "Ingesting video content"
 drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
 drush -u 1 islandora_batch_ingest
 
-echo "Ingesting newspaper issues. This may take a while..."
+echo "Pre-processing newspaper issues. This may take a while..."
 drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
+echo "Newspaper batch pre-processed. Ingesting..."
 drush -u 1 islandora_batch_ingest
