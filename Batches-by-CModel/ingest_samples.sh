@@ -59,6 +59,15 @@ drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIP
 drush -u 1 islandora_batch_ingest
 
 echo "Pre-processing newspaper issues. This may take a while..."
-drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
-echo "Newspaper batch pre-processed. Ingesting..."
+echo "Vol 1 No 7"
+drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files/CT-newspaper-vol1-no7 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
+echo "Newspaper batch Vol 1 No 7 pre-processed. Ingesting..."
+drush -v -u 1 islandora_batch_ingest
+echo "Vol 1 No 8"
+drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files/CT-newspaper-vol1-no8 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
+echo "Newspaper batch Vol 1 No 8 pre-processed. Ingesting..."
+drush -v -u 1 islandora_batch_ingest
+echo "Vol 2 No 7"
+drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files/CT-newspaper-vol2-no7 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
+echo "Newspaper batch Vol 2 No 7 pre-processed. Ingesting..."
 drush -v -u 1 islandora_batch_ingest
