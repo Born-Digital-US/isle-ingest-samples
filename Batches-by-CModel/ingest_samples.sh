@@ -66,12 +66,14 @@ else
   drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files1 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
   echo "Newspaper batch Vol 1 No 7 pre-processed. Ingesting..."
   drush -v -u 1 islandora_batch_ingest
-  echo "Vol 1 No 8"
-  drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files2 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
-  echo "Newspaper batch Vol 1 No 8 pre-processed. Ingesting..."
-  drush -v -u 1 islandora_batch_ingest
-  echo "Vol 2 No 7"
-  drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files3 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
-  echo "Newspaper batch Vol 2 No 7 pre-processed. Ingesting..."
-  drush -v -u 1 islandora_batch_ingest
+  
+  # 50 minute time limit for FREE accounts
+  # echo "Vol 1 No 8"
+  # drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files2 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
+  # echo "Newspaper batch Vol 1 No 8 pre-processed. Ingesting..."
+  # drush -v -u 1 islandora_batch_ingest
+  # echo "Vol 2 No 7"
+  # drush -u 1 islandora_newspaper_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/newspaperIssues/files3 --namespace=samples --parent=samples:newspaper --content_models=islandora:newspaperIssueCModel --aggregate_ocr
+  # echo "Newspaper batch Vol 2 No 7 pre-processed. Ingesting..."
+  # drush -v -u 1 islandora_batch_ingest
 fi
