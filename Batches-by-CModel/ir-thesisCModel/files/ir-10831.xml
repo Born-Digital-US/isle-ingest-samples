@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns="http://www.loc.gov/mods/v3" xmlns:etd="http://www.ndltd.org/standards/metadata/etdms/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <mods:titleInfo>
+    <mods:title>Scalable Data-driven Modeling and Analytics for Smart Buildings</mods:title>
+    <mods:subTitle></mods:subTitle>
+  </mods:titleInfo>
+  <mods:name type="personal">
+    <mods:role>
+      <mods:roleTerm authority="marcrelator" type="text">author</mods:roleTerm>
+    </mods:role>
+    <mods:namePart type="given">Srinivasan</mods:namePart>
+    <mods:namePart type="family">Iyengar</mods:namePart>
+    <mods:nameIdentifier></mods:nameIdentifier>
+  </mods:name>
+  <mods:name type="personal">
+    <mods:role>
+      <mods:roleTerm authority="marcrelator" type="text">Thesis advisor</mods:roleTerm>
+    </mods:role>
+    <mods:displayForm>Prashant Shenoy</mods:displayForm>
+  </mods:name>
+  <mods:name type="personal">
+    <mods:role>
+      <mods:roleTerm authority="marcrelator" type="text">Committee member</mods:roleTerm>
+    </mods:role>
+    <mods:displayForm>David Irwin</mods:displayForm>
+  </mods:name>
+  <mods:name type="corporate" authority="lcnaf">
+    <mods:role>
+      <mods:roleTerm authority="marcrelator" type="text">Degree grantor</mods:roleTerm>
+    </mods:role>
+    <mods:namePart>UMass Amherst</mods:namePart>
+    <mods:namePart>College of Information and Computer Sciences</mods:namePart>
+  </mods:name>
+  <mods:typeOfResource>text</mods:typeOfResource>
+  <mods:genre>Dissertation/Thesis</mods:genre>
+  <mods:originInfo>
+    <mods:dateIssued keyDate="yes">2019-02</mods:dateIssued>
+    <mods:issuance>monographic</mods:issuance>
+  </mods:originInfo>
+  <mods:language>
+    <mods:languageTerm authority="iso639-2b" type="code">eng</mods:languageTerm>
+  </mods:language>
+  <mods:physicalDescription>
+    <mods:form authority="marcform">electronic</mods:form>
+    <mods:extent></mods:extent>
+  </mods:physicalDescription>
+  <mods:abstract>Buildings account for over 40% of the energy and 75% of the electricity usage. Thus, by reducing our energy footprint in buildings, we can improve our overall energysustainability. Further, the proliferation of networked sensors and IoT devices in recent years have enabled monitoring of buildings to provide data at various granularity. For example, smart plugs monitor appliance level usage inside the house, while solar meters monitor residential rooftop solar installations. Furthermore, smart meters record energy usage at a grid-scale.&#xD;
+&#xD;
+In this thesis, I argue that data-driven modeling applied to the IoT data from a smart building, at varying granularity, in association with third party data can help to understand and reduce human energy consumption. I present four data-driven modeling approaches &#x2014; that use sophisticated techniques from Machine Learning, Optimization, and Time Series Analysis &#x2014; applied at different granularities.&#xD;
+&#xD;
+First, I study IoT devices inside the house and discuss an approach called NIMD that au- tomatically models individual electrical loads found in a household. The analytical model resulting from this approach can be used in several applications. For example, these models can improve the performance of NILM algorithms to disaggregate loads in a given household. Further, faulty or energy-inefficient appliances can be identified by observing deviations in model parameters over its lifetime.&#xD;
+&#xD;
+Second, I examine data from solar meters and present a machine learning framework called SolarCast to forecast energy generation from residential rooftop installations. The predictions enable exploiting the benefits of locally-generated solar energy.&#xD;
+&#xD;
+Third, I employ a sensorless approach utilizing a graphical model representation to re- port city-scale photovoltaic panel health and identify anomalies in solar energy production. Immediate identification of faults maximizes the solar investment by aiding in optimal operational performance.&#xD;
+&#xD;
+Finally, I focus on grid-level smart meter data and use correlations between energy usage and external weather to derive probabilistic estimates of energy, which is leveraged to identify the least efficient buildings from a large population along with the underlying cause of energy inefficiency. The identified homes can be targeted for custom energy efficiency programs.</mods:abstract>
+  <mods:note></mods:note>
+  <mods:location>
+    <mods:url></mods:url>
+  </mods:location>
+  <mods:note type="statement of responsibility"></mods:note>
+  <mods:subject authority="lcsh">
+    <mods:topic></mods:topic>
+    <mods:geographic></mods:geographic>
+    <mods:temporal></mods:temporal>
+  </mods:subject>
+  <mods:identifier type="isbn"></mods:identifier>
+  <mods:classification authority="lcc"></mods:classification>
+  <mods:classification edition="21" authority="ddc"></mods:classification>
+  <mods:extension>
+    <etd:degree>
+      <etd:name>Doctor of Philosophy</etd:name>
+      <etd:level></etd:level>
+      <etd:discipline>Information and Computer Sciences</etd:discipline>
+    </etd:degree>
+  </mods:extension>
+  <mods:accessCondition type="use and reproduction">author</mods:accessCondition>
+  <mods:physicalDescription authority="local">PUBLISHED</mods:physicalDescription>
+  <mods:name type="personal">
+    <mods:role>
+      <mods:roleTerm authority="marcrelator" type="text">Committee member</mods:roleTerm>
+    </mods:role>
+    <mods:displayForm>Deepak Ganesan</mods:displayForm>
+  </mods:name>
+  <mods:name type="personal">
+    <mods:role>
+      <mods:roleTerm authority="marcrelator" type="text">Committee member</mods:roleTerm>
+    </mods:role>
+    <mods:displayForm>Daniel Sheldon</mods:displayForm>
+  </mods:name>
+</mods:mods>

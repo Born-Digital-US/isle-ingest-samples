@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <titleInfo>
+    <title>Making Student Research Data Discoverable: A Pilot Program Using Dataverse</title>
+    <subTitle></subTitle>
+  </titleInfo>
+  <titleInfo type="abbreviated">
+    <title></title>
+  </titleInfo>
+  <genre></genre>
+  <abstract>INTRODUCTION The support and curation of research data underlying theses and dissertations are an opportunity for institutions to enhance their ETD collections. This article describes a pilot data archiving service that leverages Emory University&#x2019;s existing Electronic Theses and Dissertations (ETDs) program. DESCRIPTION OF PROGRAM This pilot service tested the appropriateness of Dataverse, a data repository, as a data archiving and access solution for Emory University using research data identified in Emory University&#x2019;s ETD repository, developed the legal documents necessary for a full implementation of Dataverse on campus, and expanded outreach efforts to meet the research data needs of graduate students. This article also situates the pilot service within the context of Emory Libraries and explains how it relates to other library efforts currently underway. NEXT STEPS The pilot project team plans to seek permission from alumni whose data were included in the pilot to make them available publicly in Dataverse, and the team will revise the ETD license agreement to allow this type of use. The team will also automate the ingest of supplemental ETD research data into the data repository where possible and create a workshop series for students who are creating research data as part of their theses or dissertations.</abstract>
+  <accessCondition type="useAndReproduction">CC BY 4.0</accessCondition>
+  <name type="personal">
+    <role>
+      <roleTerm authority="marcrelator" type="text">author</roleTerm>
+    </role>
+    <namePart type="given">Jennifer</namePart>
+    <namePart type="family">Doty</namePart>
+    <displayForm></displayForm>
+    <affiliation></affiliation>
+    <nameIdentifier>https://orcid.org/0000-0001-6079-4058</nameIdentifier>
+  </name>
+  <name type="corporate">
+    <namePart>Group Author</namePart>
+  </name>
+  <name type="personal">
+    <role>
+      <roleTerm authority="marcrelator" type="text">editor</roleTerm>
+    </role>
+    <namePart type="given">Given Name</namePart>
+    <namePart type="family">Family Name</namePart>
+  </name>
+  <name type="personal">
+    <role>
+      <roleTerm authority="marcrelator" type="text">translator</roleTerm>
+    </role>
+    <namePart type="given">Given Name</namePart>
+    <namePart type="family">Family Name</namePart>
+  </name>
+  <originInfo>
+    <dateIssued qualifier="">2015</dateIssued>
+    <publisher>Pacific University Libraries</publisher>
+    <place>
+      <placeTerm type="text"></placeTerm>
+    </place>
+  </originInfo>
+  <typeOfResource>text</typeOfResource>
+  <location>
+    <url>https://jlsc-pub.org/articles/abstract/10.7710/2162-3309.1234/#</url>
+  </location>
+  <note type="type of work"></note>
+  <subject>
+    <topic></topic>
+  </subject>
+  <note type="publication status"></note>
+  <identifier type="isbn"></identifier>
+  <identifier type="issn">2162-3309</identifier>
+  <identifier type="doi">http://doi.org/10.7710/2162-3309.1234</identifier>
+  <identifier type="accessnum"></identifier>
+  <identifier type="pmc"></identifier>
+  <identifier type="uri"></identifier>
+  <identifier type="citekey"></identifier>
+  <part>
+    <date></date>
+    <detail type="volume">
+      <number>3</number>
+    </detail>
+    <detail type="issue">
+      <number>2</number>
+    </detail>
+    <extent unit="page">
+      <start>eP1234</start>
+      <end></end>
+    </extent>
+  </part>
+  <language>
+    <languageTerm>English</languageTerm>
+  </language>
+  <relatedItem type="host">
+    <titleInfo>
+      <title>Journal of Librarianship and Scholarly Communication</title>
+    </titleInfo>
+    <titleInfo type="abbreviated">
+      <title>JLSC</title>
+    </titleInfo>
+    <originInfo>
+      <issuance></issuance>
+    </originInfo>
+    <genre></genre>
+    <identifier type="issn">2162-3309</identifier>
+    <identifier type="serial number"></identifier>
+    <name type="corporate">
+      <namePart></namePart>
+      <role>
+        <roleTerm authority="marcrelator" type="text">author</roleTerm>
+      </role>
+    </name>
+  </relatedItem>
+  <note></note>
+  <accessCondition type="use and reproduction">author</accessCondition>
+  <physicalDescription authority="local">PRE-PUBLICATION</physicalDescription>
+  <name type="personal">
+    <role>
+      <roleTerm authority="marcrelator" type="text">author</roleTerm>
+    </role>
+    <namePart type="given">Melanie T.</namePart>
+    <namePart type="family">Kowalski</namePart>
+    <displayForm/>
+    <affiliation/>
+    <nameIdentifier/>
+  </name>
+  <name type="personal">
+    <role>
+      <roleTerm authority="marcrelator" type="text">author</roleTerm>
+    </role>
+    <namePart type="given">Bethany C.</namePart>
+    <namePart type="family">Nash</namePart>
+    <displayForm/>
+    <affiliation/>
+    <nameIdentifier/>
+  </name>
+  <name type="personal">
+    <role>
+      <roleTerm authority="marcrelator" type="text">author</roleTerm>
+    </role>
+    <namePart type="given">Simon F.</namePart>
+    <namePart type="family">O'Riordan</namePart>
+    <displayForm/>
+    <affiliation/>
+    <nameIdentifier/>
+  </name>
+</mods>

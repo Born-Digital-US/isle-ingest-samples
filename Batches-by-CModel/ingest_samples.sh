@@ -59,6 +59,13 @@ echo "Ingesting video content"
 drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
 drush -u 1 islandora_batch_ingest
 
+echo "Ingesting citation content"
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=/var/www/html/sites/default/files/bd-samples/Batches-by-CModel/ir-citationCModel/files --namespace=samples --parent=samples:collection --content_models=ir:citationCModel
+drush -u 1 islandora_batch_ingest
+
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=/var/www/html/sites/default/files/bd-samples/Batches-by-CModel/ir-thesisCModel/files --namespace=samples --parent=samples:collection --content_models=ir:thesisCModel
+drush -u 1 islandora_batch_ingest
+
 
 # echo "Pre-processing newspaper issues. This may take a while..."
 # echo "Vol 1 No 7"

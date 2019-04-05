@@ -6,7 +6,7 @@ To ingest this newspaper to islandora:root, use the following drush commands:
 
 ```bash
 # Modify the scan target as appropriate.
-drush -u 1 islandora_batch_with_derivs_preprocess --key_datastream=MODS --scan_target=/var/www/html/sites/default/files/bd-samples/Batches-by-CModel/Newspaper --use_pids=true --namespace=samples --parent=samples:collection --content_models=islandora:newspaperCModel
+drush -u 1 islandora_batch_with_derivs_preprocess --key_datastream=MODS --scan_target=/var/www/html/sites/default/files/bd-samples/Batches-by-CModel/Newspaper/files --use_pids=true --namespace=samples --parent=samples:collection --content_models=islandora:newspaperCModel
 drush -u 1 islandora_batch_ingest
 
 ```
