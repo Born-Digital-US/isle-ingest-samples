@@ -60,10 +60,10 @@ drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIP
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting citation content"
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=/var/www/html/sites/default/files/bd-samples/Batches-by-CModel/ir-citationCModel/files --namespace=samples --parent=samples:collection --content_models=ir:citationCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/ir-citationCModel/files --namespace=samples --parent=samples:collection --content_models=ir:citationCModel
 drush -u 1 islandora_batch_ingest
 
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=/var/www/html/sites/default/files/bd-samples/Batches-by-CModel/ir-thesisCModel/files --namespace=samples --parent=samples:collection --content_models=ir:thesisCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/ir-thesisCModel/files --namespace=samples --parent=samples:collection --content_models=ir:thesisCModel
 drush -u 1 islandora_batch_ingest
 
 
