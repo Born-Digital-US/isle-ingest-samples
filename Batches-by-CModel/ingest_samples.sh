@@ -32,31 +32,45 @@ drush -u 1 islandora_batch_with_derivs_preprocess --key_datastream=MODS --scan_t
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting audio content"
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/audioCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp-audioCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/audioCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp-audioCModel
+# why are we doing batches of one, you ask? because we were getting random PID assignments which made testing difficult and we wanted to control the order
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/audioCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp-audioCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/audioCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp-audioCModel
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting basic image content"
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/basicImageCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_basic_image
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/basicImageCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_basic_image
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/basicImageCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_basic_image
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/basicImageCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_basic_image
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting book content"
-drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files --namespace=samples --parent=samples:collection
+drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files/book_Tides_of_Malta --namespace=samples --parent=samples:collection
+drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files/book_Use_of_Antenna_in_Insects --namespace=samples --parent=samples:collection
 drush -v -u 1 islandora_batch_ingest
 
 echo "Ingesting compound content"
-drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files --namespace=samples --parent=samples:collection
+drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files/HistoricWesternMass-01 --namespace=samples --parent=samples:collection
+drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files/HistoricWesternMass-02 --namespace=samples --parent=samples:collection
+drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files/HistoricWesternMass-03 --namespace=samples --parent=samples:collection
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting large images"
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting pdf content"
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting video content"
-drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting citation content"
