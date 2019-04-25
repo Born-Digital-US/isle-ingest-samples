@@ -55,6 +55,22 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+     * @Then I should see that the page title is :$expectedTitle
+     */
+  public function iShouldSeeThatThePageTitleIs($expectedTitle)
+  { // Source: https://stackoverflow.com/questions/40804157/how-to-assert-page-tab-window-title-in-behat-mink
+      $titleElement = $this->getSession()->getPage()->find('css', 'head title');
+      if ($titleElement === null) {
+          throw new PendingException('Page title element was not found!');
+      } else {
+          $title = $titleElement->getText();
+          if ($expectedTitle !== $title) {
+              throw new PendingException("Incorrect title! Expected:$expectedTitle | Actual:$title ");
+          }
+      }
+  }
+
+  /**
    * @Then /^"([^"]*)" selector should be visible$/
    */
   public function selectorshouldBeVisible($selector) {
@@ -566,7 +582,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 (function(){
   var elem = document.evaluate($selector, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   if(elem.length > 0) {
-  elem.scrollIntoView(false);   
+  elem.scrollIntoView(false);
   }
 })()
 JS;

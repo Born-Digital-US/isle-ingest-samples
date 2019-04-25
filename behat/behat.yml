@@ -7,8 +7,13 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\DrushContext
+        - FeatureContext:
+            parameters:
+              environment_identifier: 'dev'
+              assets_path: %paths.base%/features/assets/
   extensions:
     Behat\MinkExtension:
+      base_url: http://apache
       sessions:
         default:
           goutte:
@@ -110,22 +115,6 @@ dev:
   extensions:
     Behat\MinkExtension:
       base_url: https://compass-dev.fivecolleges.edu
-
-travis:
-  suites:
-    default:
-      contexts:
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - FeatureContext:
-            parameters:
-              environment_identifier: 'dev'
-              assets_path: %paths.base%/features/assets/
-  extensions:
-    Behat\MinkExtension:
-      base_url: http://apache
 
 # Staging server profile. Use --profile=staging in the behat command.
 staging:
