@@ -54,20 +54,36 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->behat_test_collection_pid = 'behattest:collection';
   }
 
+  // /**
+  //    * @Then I should see that the page title is :$expectedTitle
+  //    */
+  // public function iShouldSeeThatThePageTitleIs($expectedTitle)
+  // { // Source: https://stackoverflow.com/questions/40804157/how-to-assert-page-tab-window-title-in-behat-mink
+  //     $titleElement = $this->getSession()->getPage()->find('css', 'head title');
+  //     if ($titleElement === null) {
+  //         throw new PendingException('Page title element was not found!');
+  //     } else {
+  //         $title = $titleElement->getText();
+  //         if ($expectedTitle !== $title) {
+  //             throw new PendingException("Incorrect title! Expected:$expectedTitle | Actual:$title ");
+  //         }
+  //     }
+  // }
+
   /**
-     * @Then I should see that the page title is :$expectedTitle
-     */
-  public function iShouldSeeThatThePageTitleIs($expectedTitle)
-  { // Source: https://stackoverflow.com/questions/40804157/how-to-assert-page-tab-window-title-in-behat-mink
-      $titleElement = $this->getSession()->getPage()->find('css', 'head title');
-      if ($titleElement === null) {
-          throw new PendingException('Page title element was not found!');
-      } else {
-          $title = $titleElement->getText();
-          if ($expectedTitle !== $title) {
-              throw new PendingException("Incorrect title! Expected:$expectedTitle | Actual:$title ");
-          }
-      }
+   * @Then I should see that the page title is :arg1
+   */
+  public function iShouldSeeThatThePageTitleIs($arg1)
+  {
+    $titleElement = $this->getSession()->getPage()->find('css', 'head title');
+    if ($titleElement === null) {
+        throw new Exception('Page title element was not found!');
+    } else {
+        $title = $titleElement->getText();
+        if ($arg1 !== $title) {
+            throw new Exception("Incorrect title! Expected:$arg1 | Actual:$title ");
+        }
+    }
   }
 
   /**

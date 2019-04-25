@@ -14,8 +14,14 @@ Feature: Test IsleServices
   # Able to view Fedora services panels e.g. /objects, /describe etc
   # Able to view Fedoragsearch panels e.g. /fedoragsearch/rest?operation=updateIndex
 
-  # @javascript
+  @traefik
   Scenario: traefik online
-    Given I am on "/dashboard/"
-    Then I should see that the page title is "Page not found | ISLE.localdomain"
+    Given I am on "/"
+    Then I should see that the page title is "Traefik"
+    # Then I should 
+
+  @solr
+  Scenario: solr online
+    Given I am on "/solr/"
+    Then I should see that the page title is "Solr Admin"
     # Then I should see a "body" element

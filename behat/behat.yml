@@ -1,4 +1,4 @@
-default:
+default: # Our DEFAULT profile targets the APACHE container with the @apache tag
   suites:
     default:
       contexts:
@@ -11,6 +11,8 @@ default:
             parameters:
               environment_identifier: 'dev'
               assets_path: %paths.base%/features/assets/
+      filters:
+        tags: "@apache"
   extensions:
     Behat\MinkExtension:
       base_url: http://apache
@@ -74,6 +76,26 @@ default:
       directory: %paths.base%/debug/logs
       screenshot: true
       clean_start: true
+
+# tests to global services require base_url overrides, which each require a "profile"
+# to include a test in these profiles, tag it appropriately
+solr: # SOLR profile
+  suites:
+    default:
+      filters:
+        tags: "@solr"
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://solr:8080
+traefik: # TRAEFIK profile
+  suites:
+    default:
+      filters:
+        tags: "@traefik"
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://traefik:8080
+# TODO need other service profiles
 
 # Local vagrant profile for pat dunlavey. Use --profile=vagrant_pat in the behat command.
 pat:
