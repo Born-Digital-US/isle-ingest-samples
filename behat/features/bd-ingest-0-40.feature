@@ -12,20 +12,20 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   @apache
   Scenario: Viewing sample:1
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see a "body" element
+    Then I should see "Worm-eating Warbler (Audio)"
+
+  @apache
+  Scenario: Viewing sample:2
     Given I am on "/islandora/object/samples%3A2"
     Then I should see "American Goldfinch (Audio)"
 
   @apache
-  Scenario: Viewing sample:2
+  Scenario: Viewing sample:3
     Given I am on "/islandora/object/samples%3A3"
     Then I should see a "body" element
     Then I should see "Red-winged Blackbird (Audio)"
-
-  @apache
-  Scenario: Viewing sample:3
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see a "body" element
-    Then I should see "Worm-eating Warbler (Audio)"
 
   @apache
     Scenario: Viewing sample:4
@@ -35,12 +35,12 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   @apache
   Scenario: Viewing sample:5
-    Given I am on "/islandora/object/samples%3A6"
-    Then I should see a "body" element
-    Then I should see "Palm Tree type (Basic Image)"
-
-  @apache
-  Scenario: Viewing sample:6
     Given I am on "/islandora/object/samples%3A5"
     Then I should see a "body" element
     Then I should see "Letter of note (Basic Image)"
+
+  @apache
+  Scenario: Viewing sample:6
+    Given I am on "/islandora/object/samples%3A6"
+    Then I should see a "body" element
+    Then I should see "Palm Tree type (Basic Image)"
