@@ -24,6 +24,17 @@ trait LogInAs
         $this->loginForm($user, $pass);
     }
 
+    /**
+     * @Given I log in as isle
+     */
+    public function logInAsIsle()
+    {
+        $user = 'isle';
+        $pass = 'isle'; # env('ADMIN_PASSWORD');
+
+        $this->loginForm($user, $pass);
+    }
+
     public function loginForm($user, $pass)
     {
         /**

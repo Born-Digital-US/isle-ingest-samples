@@ -214,6 +214,27 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
+   * @Given I am now logged in as :name
+   */
+  public function iAmNowLoggedInAs($name) {
+    // from https://www.jeffgeerling.com/blog/2018/logging-existing-user-behat-test-drupal-extension
+    $domain = $this->getMinkParameter('base_url');
+
+    // Pass base url to drush command.
+    $uli = $this->getDriver('drush')->drush('uli', [
+      "--name '" . $name . "'",
+      "--browser=0",
+      "--uri=$domain",
+    ]);
+
+    // Trim EOL characters.
+    $uli = trim($uli);
+
+    // Log in.
+    $this->getSession()->visit($uli);
+  }
+
+  /**
    * Click some selector
    *
    * @When /^I click on the selector "([^"]*)"$/

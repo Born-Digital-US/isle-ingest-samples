@@ -2,7 +2,6 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
   suites:
     default:
       contexts:
-        - FeatureContext
         - Drupal\DrupalExtension\Context\DrupalContext
         - Drupal\DrupalExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MessageContext
@@ -11,6 +10,7 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
             parameters:
               environment_identifier: 'dev'
               assets_path: %paths.base%/features/assets/
+
       filters:
         tags: "@apache"
   extensions:
@@ -65,13 +65,13 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
         success_message_selector: '.messages.status'
         warning_message_selector: '.messages.warning'
 
-#      api_driver: 'drush'
       api_driver: 'drupal'
       drush:
-        alias: 'local'
+        alias: 'self'
         root: '/var/www/html'
       drupal:
         drupal_root: '/var/www/html'
+
     Lakion\Behat\MinkDebugExtension:
       directory: %paths.base%/debug/logs
       screenshot: true
