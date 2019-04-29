@@ -46,41 +46,31 @@ drush -u 1 islandora_batch_ingest
 
 echo "Ingesting book content"
 drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files --namespace=samples --parent=samples:collection
-# if we have to go back to splitting this up, we need to split it to files1 and files2
-#drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files/book_Tides_of_Malta --namespace=samples --parent=samples:collection
-#drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files/book_Use_of_Antenna_in_Insects --namespace=samples --parent=samples:collection
+drush -u 1 islandora_book_batch_preprocess --type=directory --scan_target=$SCRIPT_DIR/bookCModel/files2 --namespace=samples --parent=samples:collection
 drush -v -u 1 islandora_batch_ingest
 
 echo "Ingesting compound content"
 drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files --namespace=samples --parent=samples:collection
-# if we have to go back to splitting this up, we need to split it to files1, etc
-# drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files/HistoricWesternMass-01 --namespace=samples --parent=samples:collection
-# drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files/HistoricWesternMass-02 --namespace=samples --parent=samples:collection
-# drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files/HistoricWesternMass-03 --namespace=samples --parent=samples:collection
+drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files2 --namespace=samples --parent=samples:collection
+drush -u 1 islandora_compound_batch_preprocess --scan_target=$SCRIPT_DIR/compoundCModel/files3 --namespace=samples --parent=samples:collection
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting large images"
 drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
-# if we have to go back to splitting this up, we need to split it to files1, etc
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/largeImageCModel/files3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_large_image_cmodel
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting pdf content"
 drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
-# if we have to go back to splitting this up, we need to split it to files1, etc
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/pdfCModel/files3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_pdf
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting video content"
 drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
-# if we have to go back to splitting this up, we need to split it to files1, etc
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files/1 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files/2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
-# drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files/3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files2 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
+drush -u 1 islandora_batch_scan_preprocess --type=directory --scan_target=$SCRIPT_DIR/videoCModel/files3 --namespace=samples --parent=samples:collection --content_models=islandora:sp_videoCModel
 drush -u 1 islandora_batch_ingest
 
 echo "Ingesting citation content"
