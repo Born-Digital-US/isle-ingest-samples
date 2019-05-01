@@ -8,7 +8,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A7#page/1/mode/1up"
     Then I should see a "body" element
-    Then I should see "On the Tides at Malta (Book)"
+    Then I should see "The Use of the Antennæ in Insects (Book)"
 
   @apache
   Scenario: Viewing samples:8
@@ -57,7 +57,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A14#page/1/mode/1up"
     Then I should see a "body" element
-    Then I should see "The Use of the Antennæ in Insects (Book)"
+    Then I should see "On the Tides at Malta (Book)"
 
   @apache
   Scenario: Viewing samples:15
@@ -127,81 +127,81 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A24"
     Then I should see a "body" element
-    Then I should see "Holyoke 1872"
+    Then I should see "Springfield 1875"
 
   @apache
   Scenario: Viewing samples:25
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A25"
     Then I should see a "body" element
-    Then I should see "Holyoke 1872"
+    Then I should see "Springfield 1875"
 
   @apache
   Scenario: Viewing samples:26
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A26"
     Then I should see a "body" element
-    Then I should see "Holyoke / S. Hadley 1881"
+    Then I should see "Turners Falls 1877"
 
   @apache
   Scenario: Viewing samples:27
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A27"
     Then I should see a "body" element
-    Then I should see "Springfield 1875"
+    Then I should see "Amherst College, Lawrence Observatory (Large Image)"
 
   @apache
   Scenario: Viewing samples:28
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A28"
     Then I should see a "body" element
-    Then I should see "Springfield 1875"
+    Then I should see "Easthampton Town Hall (Large Image)"
 
   @apache
   Scenario: Viewing samples:29
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A29"
     Then I should see a "body" element
-    Then I should see "Turners Falls 1877"
-
-  @apache
-  Scenario: Viewing samples:32
-    Given I am an anonymous user
-    And I am on "/islandora/object/samples%3A32"
-    Then I should see a "body" element
-    Then I should see "Amherst College, Lawrence Observatory (Large Image)"
+    Then I should see "Nehemiah Strong House (Large Image)"
 
   @apache
   Scenario: Viewing samples:30
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A30"
     Then I should see a "body" element
-    Then I should see "Easthampton Town Hall (Large Image)"
+    Then I should see "Nonantum Hill Nursery materials (PDF)"
 
   @apache
   Scenario: Viewing samples:31
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A31"
     Then I should see a "body" element
-    Then I should see "Nehemiah Strong House (Large Image)"
+    Then I should see "Catalogue of fruit and ornamental trees, shrubbery, and plants, for sale at the nurseries at Linnaean Hill, Rock Creek, near Washington, D.C. (PDF)"
 
   @apache
-  Scenario: Viewing samples:35
+  Scenario: Viewing samples:32
     Given I am an anonymous user
-    And I am on "/islandora/object/samples%3A35"
+    And I am on "/islandora/object/samples%3A32"
     Then I should see a "body" element
-    Then I should see "Nonantum Hill Nursery materials (PDF)"
+    Then I should see "Catalogue of the plants found in New Bedford and its vicinity; arranged according to the season of their flowering. (PDF)"
 
   @apache
   Scenario: Viewing samples:33
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A33"
     Then I should see a "body" element
-    Then I should see "Catalogue of fruit and ornamental trees, shrubbery, and plants, for sale at the nurseries at Linnaean Hill, Rock Creek, near Washington, D.C. (PDF)"
+    Then I should see "Brim Coffee (Video)"
 
   @apache
   Scenario: Viewing samples:34
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A34"
     Then I should see a "body" element
-    Then I should see "Catalogue of the plants found in New Bedford and its vicinity; arranged according to the season of their flowering. (PDF)"
+    Then I should see "AMF: Roadmaster Evel Knievel Bicycles (Video)"
+
+  @apache
+  Scenario: Viewing samples:35
+    Given I am an anonymous user
+    And I am on "/islandora/object/samples%3A35"
+    Then I should see a "body" element
+    Then I should see "American Safety Razor (Video)"

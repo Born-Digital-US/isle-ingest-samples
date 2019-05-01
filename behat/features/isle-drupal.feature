@@ -14,7 +14,8 @@ Feature: Drupal Basics
     Given I am an anonymous user
     And I am on "/"
     Then I should see a "body" element
-    Then I should see "Powered by Drupal" # THEME DEPENDENT
+    # THEME DEPENDENT
+    Then I should see "Powered by Drupal"
 
   @apache
   Scenario: Viewing login page anonymously
