@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd">
+  <titleInfo>
+    <title>Worm-eating Warbler (REPLACED)</title>
+    <subTitle></subTitle>
+  </titleInfo>
+  <name type="personal">
+    <namePart>Hal Mitchell</namePart>
+    <role>
+      <roleTerm authority="marcrelator" type="text">Creator</roleTerm>
+    </role>
+  </name>
+  <subject>
+    <geographic>Holly Springs, Marshall County, Mississippi</geographic>
+    <topic></topic>
+    <temporal></temporal>
+    <hierarchicalGeographic>
+      <continent></continent>
+      <country></country>
+      <province></province>
+      <region></region>
+      <county></county>
+      <city></city>
+      <citySection></citySection>
+    </hierarchicalGeographic>
+    <cartographics>
+      <coordinates></coordinates>
+    </cartographics>
+  </subject>
+  <originInfo>
+    <dateCreated encoding="w3cdtf" keyDate="yes">2016-04-01</dateCreated>
+    <dateIssued encoding="w3cdtf" keyDate="yes"></dateIssued>
+    <publisher>https://www.xeno-canto.org/309896</publisher>
+    <place>
+      <placeTerm authority="marccountry" type="code"></placeTerm>
+    </place>
+    <place>
+      <placeTerm type="text"></placeTerm>
+    </place>
+  </originInfo>
+  <abstract>heard calling in large oak tree near steep ravine. responded aggressively to playback. REPLACED.</abstract>
+  <genre></genre>
+  <relatedItem type="host" displayLabel="Collection">
+    <titleInfo>
+      <title/>
+    </titleInfo>
+  </relatedItem>
+  <accessCondition type="use and reproduction">No Copyright _ United States</accessCondition>
+  <note type="ownership"/>
+  <identifier type="local">sound3</identifier>
+  <recordInfo>
+    <languageOfCataloging>
+      <languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+  </recordInfo>
+  <typeOfResource>sound recording-musical</typeOfResource>
+  <tableOfContents></tableOfContents>
+  <language>
+    <languageTerm authority="iso639-2b" type="code"></languageTerm>
+  </language>
+  <physicalDescription>
+    <form authority="marcform">sound recording</form>
+    <extent></extent>
+  </physicalDescription>
+  <note></note>
+</mods>

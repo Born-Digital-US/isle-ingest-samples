@@ -20,19 +20,18 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Worm-eating Warbler (Audio)"
 
   @apache
-  Scenario: Viewing sample:2search
-    Given I am on "/islandorsearchsamples%3A2"
-    Then I should see "Amerisearchinch (Audio)"
+  Scenario: Viewing sample:2
+    Given I am on "/islandora/object/samples%3A2"
+    Then I should see "American Goldfinch (Audio)"
 
   @apache
-  Scenario: Viewing sample:3search
-    Given I am on "/islandorsearchsamples%3A3"
-    Then I should see a "bodsearcht
-    Then I should see "Red-wsearchckbird (Audio)"
+  Scenario: Viewing sample:3
+    Given I am on "/islandora/object/samples%3A3"
+    Then I should see a "body" element
+    Then I should see "Red-winged Blackbird (Audio)"
 
-  # Able to delete TN derivative for AUDIO object? *** 
-  # Able to upload (replace) thumbnail for Audio object?
-  # Able to regenerate all derivatives for AUDIO object? ***
+
+
   ## TESTS TODO: 
 
   @api @apache
@@ -44,7 +43,6 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     # Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-    # TODO add the "delete TN" actions, do a search and assert no TN visible
     Given I click "replace" in the "TN" row
     Then I should see "Label: TN Datastream"
     When I attach the file "assets/ducky-5.jpg" to "edit-file-upload"
@@ -55,8 +53,86 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A3"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    # Given I wait for AJAX to finish
+    Then I should see "PARENT COLLECTIONS"
+    Then I click "Datastreams"
+    Given I click "replace" in the "TN" row
+    Then I should see "Label: TN Datastream"
+    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    And I press "Upload"
+    # When wait 3 seconds
+    # And I press "Add Contents"
+    # Then I should see "Worm-eating Warbler (Audio)"
+
+
+  # Ab/islandora/object/samples%3A1#overlay-context=islandora/object/samples%253A1le to delete TN derivative for AUDIO object? *** 
+  @api @apache 
+  Scenario: Delete TN derivative for Audio Object 
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    # Given I wait for AJAX to finish
+    When wait 3 seconds
+    #Then I should see "PARENT COLLECTIONS"
+    Then I click "Datastreams"
+    Given I click "delete" in the "TN" row
+    Then I check the box "Delete Derivatives" 
+    # TODO add the "delete TN" actions, do a search and assert no TN visible
+    #Replace original TN
+    ## Given I am logged in as a user with the "administrator" role
+    ## Given I am on "/islandora/object/samples%3A3"
+    ## Then I should see the link "Manage"
+    ## When I click "Manage"
+    ## # Given I wait for AJAX to finish
+    ## Then I should see "PARENT COLLECTIONS"
+    ## Then I click "Datastreams"
+    ## Given I click "replace" in the "TN" row
+    ## Then I should see "Label: TN Datastream"
+    ## When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    ## And I press "Upload"
+    ## # When wait 3 seconds
+    ## # And I press "Add Contents"
+    ## # Then I should see "Worm-eating Warbler (Audio)"
+
+  #Add Original Thumbnail and Thumbnail datastream back
+  @api @apache
+  Scenario: Add TN Datastream 
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "Add a datastream"
+    Then I fill in "edit-dsid" with "TN"
+    Then I fill in "edit-label" with "Thumbnail"
+    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    And I press "Upload"
+    ## When I wait for 3 seconds
+    And I press "Add Datastream"
+    Then I should see "Worm-eating Warbler (Audio)"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "regenerate" in the "TN" row
+    Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
+    Then I click "Regenerate"
+
+  # Able to upload (replace) thumbnail for Audio object?
+  # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
 
     ## Click Manage, click Properties, Press "Regenerate all derivatives"
+    @api @apache
+    Scenario: Regenerate all Audio derivatives
+      Given I am logged in as a user with the "administrator" role
+      Given I am on "/islandora/object/samples%3A3"
+      Then I should see the link "Manage"
+      When I click "Manage"
+
     ## figure out how to check for original thumbnail image
     ## maybe: load search https://isle.localdomain/islandora/search/Worm-eating%20Warbler?type=dismax
     ##   ask for "a" tag with href="/islandora/object/samples%3A1" and look for the child img tag, and assert that it's src attribute is 
@@ -73,7 +149,6 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should get a 200 HTTP response
 
   # Able to search for newly ingested AUDIO object using Islandora simple search?
-  ## TODO get Gavin to show us how to enable Islandora simple search, or just use known URL patterns?
   ## Tests: load https://isle.localdomain/islandora/search/Audio?type=dismax and look for the things we expect:
   ##   islandora:audio_collection, samples:2, samples:3, samples:1
   @api @apache
@@ -126,27 +201,46 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   # Able to edit MODS datastream for AUDIO object? ("replace") ****
   @api @apache
   Scenario: Edit MODS datastream for Audio object
-    Given I am logged in as a user with the "adminisfilltrator" role
-    Given I am on "/islandora/object/samples%3A1"fill
-    Then I should see "Worm-eating Warbler (Audio)" fill 
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see "Worm-eating Warbler (Audio)"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    ## What am I replacing it with?
+    When I attach the file "assets/MODS-replace-warbler.xml" to "edit-file-upload"
+    ## Pat/Derrick should Replacing MODS update automatically after replace?
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
-    Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20EDITED?type=dismax"
+    Given the cache has been cleared
+    Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
     Then I should see "samples:1"
+    Then I should see "Worm-eating Warbler (REPLACED)"
   # Able to search for newly edited AUDIO object’s title using Islandora simple search?
+    Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
+    Then I should see "Worm-eating Warbler (REPLACED)"
+    # Put original MODS back
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see "Worm-eating Warbler (Audio)"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "replace" in the "MODS" row
+    Then I should see "Replace Datastream"
+    Then I should see "Label: MODS Record"
+    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.xml" to "edit-file-upload"
+    Given the cache has been cleared
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see "Worm-eating Warbler (Audio)"
+
 
   ## TESTS: admin view https://isle.localdomain/islandora/object/samples%3A2, click Manage, click Datastreams,
   ##   "Edit" on the "MODS" line, change title to (Audio-edited), press Update, should see "American Goldfinch (Audio-edited)"
   #    NOW TEST FOR search results. load hhttps://isle.localdomain/islandora/search/%22audio-edited%22?type=dismax and ensure "samples:2" and "(Audio-edited)"
   ##   (to undo) Manage, Mods edit, remove "-edited", "Update", assert original title
   @api @apache
-  Scenario: Edit Audio object title 2
+  Scenario: Edit Audio (Goldfinch) object title 
     Given I am logged in as a user with the "administrator" role
     Given I am on "islandora/object/samples%3A2"
     Then I should see "American Goldfinch (Audio)"  
