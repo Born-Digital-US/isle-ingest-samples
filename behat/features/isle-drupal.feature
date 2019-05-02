@@ -9,7 +9,7 @@ Feature: Drupal Basics
   # If Drupal multisite, able to login to multisite (not parent) site?
   # Drupal Status Report not showing errors? https://<domain>/node#overlay=admin/reports/status
 
-  @apache
+  @apache @javascript
   Scenario: Viewing homepage
     Given I am an anonymous user
     And I am on "/"

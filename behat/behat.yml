@@ -22,7 +22,7 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
             guzzle_parameters:
               verify: false
       javascript_session: 'selenium2'
-      default_session: 'selenium2'
+      # default_session: 'selenium2'
       goutte: ~
       selenium2:
         wd_host: http://hub:4444/wd/hub
