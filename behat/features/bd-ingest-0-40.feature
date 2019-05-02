@@ -178,7 +178,14 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     # Able to search for newly edited AUDIO object’s title using Islandora simple search? (Noah, help with search? says not pressable or clickable)
     ##When I fill in "edit-islandora-simple-search-query" with "Worm-eating Warbler (Audio) - EDITED"
     ##When I press "submit"
-    ##Then I should see "samples:1"
+    ##Then I should see "samples:1"@api @apache
+  Scenario: Check for Audio Objects using simple search
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/Audio?type=dismax"
+    Then I should see "islandora:audio_collection"
+    Then I should see "samples:3"
+    Then I should see "samples:2"
+    Then I should see "samples:1"
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20EDITED?type=dismax"
     Then I should see "samples:1"
     # Undo Changes
@@ -215,7 +222,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
     Given the cache has been cleared
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
-    Then I should see "samples:1"
+    Then I should see "samples:1"  
     Then I should see "Worm-eating Warbler (REPLACED)"
   # Able to search for newly edited AUDIO object’s title using Islandora simple search?
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
@@ -306,13 +313,87 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   
 
 
+  # Able to ingest these test BASIC IMAGE sample objects?
 
 
+  # Able to view a BASIC IMAGE object?
   @apache
-    Scenario: Viewing sample:4
-      Given I am on "/islandora/object/samples%3A4"
-      Then I should see a "body" element
-      Then I should see "Apple Tree of note (Basic Image)"
+  Scenario: Viewing sample:4
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see a "body" element
+    Then I should see "Apple Tree of note (Basic Image)"
+
+  # Able to download a BASIC IMAGE object?
+  @api @apache
+  Scenario: Check for Basic Image download
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should get a 200 HTTP response
+
+  # Able to search for newly ingested BASIC IMAGE object using Islandora simple search?
+  @api @apache
+  Scenario: Check for Basic Images using simple search
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/Basic%20Image?type=dismax"
+    Then I should see "islandora:sp_basic_image_collection"
+    Then I should see "samples:4"
+    Then I should see "samples:5"
+    Then I should see "samples:6"
+
+  # Able to edit BASIC IMAGE object’s title using the XML form?
+   @api @apache
+  Scenario: Edit Basic Image title
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image)"  
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I should see "Title"
+    Then I fill in "edit-titleinfo-title" with "Apple Tree of note (Basic Image) - EDITED"
+    When I press "update"
+    Then I should see "Apple Tree of note (Basic Image) - EDITED"
+    # Able to search for newly edited Basic Image's title using Islandora simple search?
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/Basic%20Image?type=dismax"
+    Then I should see "islandora:sp_basic_image_collection"
+    Then I should see "samples:4"
+    Then I should see "samples:5"
+    Then I should see "samples:6"
+    Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%29%20-%20EDITED?type=dismax"
+    Then I should see "samples:4"
+    # Undo Changes
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image) - EDITED"  
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I should see "Title"
+    Then I fill in "edit-titleinfo-title" with "Apple Tree of note (Basic Image)"
+    When press "update"
+    Then I should see "Apple Tree of note (Basic Image)"
+    When I fill in "edit-islandora-simple-search-query" with "Apple Tree of note (Basic Image)"
+    When I press "search"
+    Then I should see "samples:4"
+
+
+  # Able to search for newly edited BASIC IMAGE object’s title using Islandora simple search?
+
+  # Able to edit the Item Label of an BASIC IMAGE object's Properties?
+
+  # Able to search for newly edited Item Label of an BASIC IMAGE object's Properties using Islandora simple search?
+
+  # Able to edit MODS datastream for BASIC IMAGE object?
+
+  # Able to search for newly edited MODS datastream for BASIC IMAGE object using Islandora simple search?
+
+  # Able to delete TN derivative for BASIC IMAGE object?
+
+  # Able to regenerate all derivatives for BASIC IMAGE object?
+
+  
 
   @apache
   Scenario: Viewing sample:5
