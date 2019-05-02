@@ -22,18 +22,25 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
             guzzle_parameters:
               verify: false
       javascript_session: 'selenium2'
+      default_session: 'selenium2'
+      goutte: ~
       selenium2:
         wd_host: http://hub:4444/wd/hub
         capabilities:
+          browserName: chrome
+          browser: chrome
+          version: 'ANY'
+          browserVersion: 'ANY'
           chrome:
             switches:
+              - "--no-sandbox"
               - "--headless"
               - "--disable-gpu"
-              # None of the following seem to work, but keeping them for now as long
-              # they don't seem to cause harm
+              - "--timeout 15000"
               - "--allow-insecure-localhost"
               - "--allow-running-insecure-content"
               - "--ignore-certificate-errors"
+              - "--window-size=1280,1600"
       browser_name: 'chrome'
       files_path: %paths.base%/features/assets/
     Drupal\DrupalExtension:

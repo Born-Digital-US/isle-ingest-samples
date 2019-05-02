@@ -15,6 +15,7 @@ Feature: Drupal Basics
     And I am on "/"
     Then I should see a "body" element
     # THEME DEPENDENT
+    And I wait for AJAX to finish
     Then I should see "Powered by Drupal"
 
   @apache
