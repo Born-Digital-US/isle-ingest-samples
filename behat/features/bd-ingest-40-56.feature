@@ -185,21 +185,21 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see a "body" element
     Then I should see "Catalogue of the plants found in New Bedford and its vicinity; arranged according to the season of their flowering. (PDF)"
 
-  @apache
+  @apache @video 
   Scenario: Viewing samples:33
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A33"
     Then I should see a "body" element
     Then I should see "Brim Coffee (Video)"
 
-  @apache
+  @apache @video 
   Scenario: Viewing samples:34
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A34"
     Then I should see a "body" element
     Then I should see "AMF: Roadmaster Evel Knievel Bicycles (Video)"
 
-  @apache
+  @apache @video 
   Scenario: Viewing samples:35
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A35"

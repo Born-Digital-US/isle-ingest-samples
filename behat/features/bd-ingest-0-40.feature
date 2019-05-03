@@ -101,7 +101,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   #Add Original Thumbnail and Thumbnail datastream back
   @api @apache
-  Scenario: Add TN Datastream 
+  Scenario: Add Audio Object TN Datastream 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
     Then I should see the link "Manage"
@@ -218,7 +218,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
     When I attach the file "assets/MODS-replace-warbler.xml" to "edit-file-upload"
-    ## Pat/Derrick should Replacing MODS update automatically after replace?
+    ## Pat/Derek should Replacing MODS update automatically after replace?
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
     Given the cache has been cleared
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
@@ -361,6 +361,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "samples:4"
     Then I should see "samples:5"
     Then I should see "samples:6"
+     # Able to search for newly edited BASIC IMAGE object’s title using Islandora simple search?
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%29%20-%20EDITED?type=dismax"
     Then I should see "samples:4"
     # Undo Changes
@@ -379,21 +380,161 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "samples:4"
 
 
-  # Able to search for newly edited BASIC IMAGE object’s title using Islandora simple search?
 
   # Able to edit the Item Label of an BASIC IMAGE object's Properties?
-
-  # Able to search for newly edited Item Label of an BASIC IMAGE object's Properties using Islandora simple search?
+  @api @apache
+  Scenario: Edit Basic Image Item Label
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image)"  
+    Then I click "Manage"
+    Then I click "Properties"
+    Then I should see "A human-readable label"
+    Then I fill in "edit-object-label" with "Apple Tree of note (Basic Image-LABEL-EDITED)"
+    When I press "Update Properties"
+    Then I should see "Apple Tree of note (Basic Image-LABEL-EDITED)"
+    # Able to search for newly edited Item Label of an BASIC IMAGE object's Properties using Islandora simple search?
+    Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image-LABEL-EDITED%29?type=dismax"
+    Then I should see "samples:4"
+    # Undo changes to object label
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image-LABEL-EDITED)"
+    Then I click "Manage"
+    Then I click "Properties"
+    Then I should see "A human-readable label"
+    Then I fill in "edit-object-label" with "Apple Tree of note (Basic Image)"
+    When I press "Update Properties"
+    Then I should see "Apple Tree of note (Basic Image)"
+    # Search for original object label to confirm that it is back to its original state
+    Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%29?type=dismax"
+    Then I should see "samples:4"
 
   # Able to edit MODS datastream for BASIC IMAGE object?
-
-  # Able to search for newly edited MODS datastream for BASIC IMAGE object using Islandora simple search?
-
-  # Able to delete TN derivative for BASIC IMAGE object?
-
-  # Able to regenerate all derivatives for BASIC IMAGE object?
+  # Able to Replace MODS datastream for BASIC IMAGE object?
+  ## @api @apache
+  ## Scenario: Replace MODS datastream for Basic Image object
+  ##   Given I am logged in as a user with the "administrator" role
+  ##   Given I am on "/islandora/object/samples%3A4"
+  ##   Then I should see "Apple Tree of note (Basic Image)"
+  ##   Then I click "Manage"
+  ##   Then I click "Datastreams"
+  ##   Then I should see "MODS Record"
+  ##   Given I click "replace" in the "MODS" row
+  ##   Then I should see "Replace Datastream"
+  ##   Then I should see "Label: MODS Record"
+  ##   When I attach the file "assets/MODS-replace-apple-tree.xml" to "edit-file-upload"
+  ##   Then I press "Upload"
+  ##   Then I wait 3 seconds
+  ##   Then I press "Add Contents"
+  ##   Then I wait 3 seconds
+  ##   Given the cache has been cleared
+  ##   Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
+  ##   ## Pat/Derek should Replacing MODS update automatically after replace? !!! ACCORDING TO DEREK THIS IS A PROBLEM
+  ##  # Able to search for newly edited MODS datastream for BASIC IMAGE object using Islandora simple search?
+  ##   Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
+  ##   Then I should see "samples:4"  
+  ##   Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
+  ## @api @apache
+  ## Scenario: Undo Changes to MODS datastream for Basic Image object
+  ##   Given the cache has been cleared
+  ##   Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
+  ##   Then I should see "samples:4"  
+  ##   Then I should see "Worm-eating Warbler (REPLACED)"
+  ##   # Put original MODS back
+  ##   Given I am on "/islandora/object/samples%3A4"
+  ##   Then I should see "Worm-eating Warbler (Audio)"
+  ##   Then I click "Manage"
+  ##   Then I click "Datastreams"
+  ##   Then I should see "MODS Record"
+  ##   Given I click "replace" in the "MODS" row
+  ##   Then I should see "Replace Datastream"
+  ##   Then I should see "Label: MODS Record"
+  ##   When I attach the file "Batches-by-CModel/basicImageCModel/files/1/Apple Tree of note.xml" to "edit-file-upload"
+  ##   Then I press "Upload"
+  ##   Then I wait 3 seconds
+  ##   Then I press "Add Contents"
+  ##   Then I wait 3 seconds
+  ##   Given the cache has been cleared
+  ##   Then I should see "Apple Tree of note (Basic Image)"
+  ##   Given I am on "/islandora/object/samples%3A4"
+  ##   Then I should see "Apple Tree of note (Basic Image)"
 
   
+  # Able to delete TN derivative for BASIC IMAGE object?
+  @api @apache
+  Scenario: Delete Basic Image TN derivative and TN datastream
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I should see "PARENT COLLECTIONS"
+    Then I click "Datastreams"
+    Given I click "delete" in the "TN" row
+    Then I check the box "Delete Derivatives"
+    Given I press "Delete"
+    Given I am on "/islandora/search/samples%3A4?type=dismax"
+    Then the "dl.solr-thumb" element should contain "defaultimg.png"
+
+  @api @apache
+  Scenario: Test for No TN Image
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/samples%3A4?type=dismax"
+    Then the "dl.solr-thumb" element should contain "defaultimg.png"
+
+  @api @apache
+  Scenario: Test for TN Image
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/samples%3A4?type=dismax"
+    Then the "dl.solr-thumb" element should contain "TN/view"
+
+  #Replace original TN
+  @api @apache
+  Scenario: Add Basic Image TN Datastream
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "Add a datastream"
+    Then I fill in "edit-dsid" with "TN"
+    Then I fill in "edit-label" with "Thumbnail"
+    When I attach the file "Batches-by-CModel/basicImageCModel/files/1/Apple Tree of note.jpg" to "edit-file-upload"
+    And I press "Upload"
+    And I press "Add Datastream"
+    Then I should see "Apple Tree of note"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    ## When I wait for 3 seconds
+    Then I click "Datastreams"
+    Given I click "regenerate" in the "TN" row
+    Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
+    Then I press "Regenerate"
+    Given I am on "/islandora/search/samples%3A4?type=dismax"
+    Then the "dl.solr-thumb" element should contain "TN/view"
+
+
+  # Able to regenerate all derivatives for BASIC IMAGE object?
+  @api @apache @javascript
+  Scenario: Regenerate Basic Image TN Derivatives
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    When wait 10 seconds
+    Then I click "Datastreams"
+    Given I click "regenerate" in the "TN" row
+    Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
+    Then I press "Regenerate"
+    When wait 10 seconds
+    Given I am on "/islandora/search/samples%3A4?type=dismax"
+    Then the "dl.solr-thumb" element should contain "TN/view"
+  
+  ## Javascript test
+  @api @apache @javascript
+  Scenario: Java wait test
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    When wait 5 seconds
 
   @apache
   Scenario: Viewing sample:5
@@ -406,3 +547,14 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/object/samples%3A6"
     Then I should see a "body" element
     Then I should see "Palm Tree type (Basic Image)"
+
+
+
+
+
+
+
+
+
+
+
