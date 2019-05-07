@@ -70,37 +70,37 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Ab/islandora/object/samples%3A1#overlay-context=islandora/object/samples%253A1le to delete TN derivative for AUDIO object? *** 
-  @api @apache 
+  @api @apache @javascript
   Scenario: Delete TN derivative for Audio Object 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
     Then I should see the link "Manage"
     When I click "Manage"
-    # Given I wait for AJAX to finish
+    Given I wait for AJAX to finish
     When wait 3 seconds
-    #Then I should see "PARENT COLLECTIONS"
+    Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "delete" in the "TN" row
     Then I check the box "Delete Derivatives" 
     # TODO add the "delete TN" actions, do a search and assert no TN visible
     #Replace original TN
-    ## Given I am logged in as a user with the "administrator" role
-    ## Given I am on "/islandora/object/samples%3A3"
-    ## Then I should see the link "Manage"
-    ## When I click "Manage"
-    ## # Given I wait for AJAX to finish
-    ## Then I should see "PARENT COLLECTIONS"
-    ## Then I click "Datastreams"
-    ## Given I click "replace" in the "TN" row
-    ## Then I should see "Label: TN Datastream"
-    ## When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
-    ## And I press "Upload"
-    ## # When wait 3 seconds
-    ## # And I press "Add Contents"
-    ## # Then I should see "Worm-eating Warbler (Audio)"
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A3"
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Given I wait for AJAX to finish
+    Then I should see "PARENT COLLECTIONS"
+    Then I click "Datastreams"
+    Given I click "replace" in the "TN" row
+    Then I should see "Label: TN Datastream"
+    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    And I press "Upload"
+    When wait 3 seconds
+    And I press "Add Contents"
+    Then I should see "Worm-eating Warbler (Audio)"
 
   #Add Original Thumbnail and Thumbnail datastream back
-  @api @apache
+  @api @apache @javascript
   Scenario: Add Audio Object TN Datastream 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
@@ -112,7 +112,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I fill in "edit-label" with "Thumbnail"
     When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
     And I press "Upload"
-    ## When I wait for 3 seconds
+    When I wait for 3 seconds
     And I press "Add Datastream"
     Then I should see "Worm-eating Warbler (Audio)"
     Then I should see the link "Manage"

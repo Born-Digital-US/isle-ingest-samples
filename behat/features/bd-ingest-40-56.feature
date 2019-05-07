@@ -187,9 +187,27 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to ingest these test VIDEO sample objects?
-  # @api @apache
-  # Scenario: Injest Video Sample Objects
-    #Given 
+  @api @apache @javascript 
+  Scenario: Injest Video Sample Objects
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/islandora/object/samples%3Acollection"
+    Then I should see "ICG Samples"
+    Then I click "Manage"
+    Then I click "Add an object to this Collection"
+    When select "Islandora Video Content Model" from "models"
+    Then I press "Next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Videos/ZsafetyRazorTEST.xml" to "edit-file-upload"
+    Then I press "Upload"
+    Then I press "Next"
+    Then I fill in "edit-titleinfo-title" with "Z American Safey Razor  (Video) TEST OBJECT"
+    Then I press "Next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Videos/ZsafetyRazorTEST.mp4" to "edit-file-upload"
+    Then I press "Upload"
+    ##When wait 15 seconds
+    Then I press "Ingest"
+
+
+
 
   # Able to view a VIDEO object?
   @apache @video 
@@ -296,7 +314,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "assets/MODS-replace-brim-coffee.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/MODS-replace-brim-coffee.xml" to "edit-file-upload"
     And grab me a screenshot
     Then I press "Upload"
     Then wait 1 seconds
@@ -370,7 +388,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   #Replace original TN
-  @api @apache @javascript
+  @api @apache
   Scenario: Add Video TN Datastream
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
