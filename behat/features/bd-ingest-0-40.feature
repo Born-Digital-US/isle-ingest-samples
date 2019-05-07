@@ -34,7 +34,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   ## TESTS TODO: 
 
-  @api @apache
+  @api @apache @javascript
   Scenario: Replace Audio Thumbnail 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A3"
@@ -44,7 +44,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "replace" in the "TN" row
-    Then I should see "Label: TN Datastream"
+    Then I should see "Update Datastream"
     When I attach the file "assets/ducky-5.jpg" to "edit-file-upload"
     And I press "Upload"
     # When wait 3 seconds
@@ -341,7 +341,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "samples:6"
 
   # Able to edit BASIC IMAGE object’s title using the XML form?
-   @api @apache
+  @api @apache
   Scenario: Edit Basic Image title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -381,7 +381,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
 
-  # Able to edit the Item Label of an BASIC IMAGE object's Properties?
+  # Able to edit the Item Label of a BASIC IMAGE object's Properties?
   @api @apache
   Scenario: Edit Basic Image Item Label
     Given I am logged in as a user with the "administrator" role

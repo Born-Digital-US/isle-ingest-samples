@@ -42,7 +42,7 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
               - "--ignore-certificate-errors"
               - "--window-size=1280,1600"
       browser_name: 'chrome'
-      files_path: %paths.base%/features/assets/
+      files_path: /var/www/html/sites/behat/features/
     Drupal\DrupalExtension:
       blackbox: ~
       region_map:
