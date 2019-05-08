@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"> 
+  
+<titleInfo>
+	<title>Z Red-winged Blackbird (Audio) TEST OBJECT</title>
+</titleInfo>
+
+
+
+<name type="personal">
+	<namePart>Peter Boesman</namePart>
+	<role>
+		<roleTerm authority="marcrelator" type="text">Creator</roleTerm>
+	</role>
+</name>
+
+
+
+
+
+<subject>
+	<geographic>San Blas area, Nayarit, Mexico</geographic>
+</subject>
+
+
+ 
+
+ 
+
+ 
+
+  
+
+<originInfo>
+ 
+	<dateCreated encoding="w3cdtf" keyDate="yes">2002-04-01</dateCreated>
+ 
+	<dateIssued encoding="w3cdtf" keyDate="yes"></dateIssued>
+ 
+    
+	<publisher>https://www.xeno-canto.org/218220</publisher>
+ 
+ 
+</originInfo>
+ 
+
+ 
+
+ 
+
+ 
+  
+<genre>sound recording</genre>
+ 
+  
+ 
+
+ 
+
+ 
+
+<relatedItem type="host" displayLabel="Collection">
+	<titleInfo>
+      <title></title>
+    </titleInfo>
+</relatedItem>
+
+ 
+  
+<accessCondition type="use and reproduction">No Copyright _ United States</accessCondition>
+<note type="ownership"></note>
+<identifier type="local">sound2</identifier>
+
+<recordInfo>
+	<languageOfCataloging>
+		<languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+</recordInfo>
+</mods>

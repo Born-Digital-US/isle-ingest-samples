@@ -11,6 +11,42 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Connecticut Western News (Newspaper)"
 
   # Able to ingest the test AUDIO sample objects?
+    #(DO NOT USE JAVASCRIPT)
+  @api @apache
+  Scenario: Injest Audio Sample Objects
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/islandora/object/samples%3Acollection"
+    Then I should see "ICG Samples"
+    Then I click "Manage"
+    Then I click "Add an object to this Collection"
+    When select "Islandora Audio Content Model" from "models"
+    Then I press "Next"
+    #When wait 20 seconds
+    Then I press "Next"
+    Then I fill in "edit-titleinfo-title" with "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    Then I press "Next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Audio/ZRed-winged BlackbirdTest.mp3" to "edit-audio-file-upload"
+    Then I press "Upload"
+    #When wait 20 seconds
+    Given I check the box "Upload Thumbnail"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Audio/ZRed-winged BlackbirdTest.png" to "edit-thumbnail-file-upload"
+    Then I press "Upload"
+    Then I press "Ingest"
+    When I am on "/islandora/object/samples%3Acollection"
+    Then I click "last"
+    Then I should see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    When I click "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    Then I should see "In collections"
+    When I click "Manage"
+    Then I click "Properties"
+    Then I should see "Item Label"
+    Then I press "Permanently remove 'Z Red-winged Blackbird (Audio...' from repository"
+    Then I should see "This action cannot be undone."
+    Then I press "Delete"
+    #When wait 15 seconds
+    When I am on "/islandora/object/samples%3Acollection"
+    Then I click "last"
+    Then I should not see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
   ## TEST: check URLs for ingested objects
 
   @apache
@@ -33,40 +69,42 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   ## TESTS TODO: 
-
+  # Able to upload (replace) thumbnail for Audio object?
   @api @apache @javascript
   Scenario: Replace Audio Thumbnail 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A3"
     Then I should see the link "Manage"
     When I click "Manage"
-    # Given I wait for AJAX to finish
+    Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "replace" in the "TN" row
     Then I should see "Update Datastream"
     When I attach the file "assets/ducky-5.jpg" to "edit-file-upload"
     And I press "Upload"
-    # When wait 3 seconds
-    # And I press "Add Contents"
-    # Then I should see "Worm-eating Warbler (Audio)"
+    When wait 3 seconds
+    And I press "Add Contents"
+    Then I should see "Red-winged Blackbird (Audio)"
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
+  @api @pache @javascript
+  Scenario: Undo replacement of Audio Thumbnail
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A3"
     Then I should see the link "Manage"
     When I click "Manage"
-    # Given I wait for AJAX to finish
+    Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "replace" in the "TN" row
     Then I should see "Label: TN Datastream"
-    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
     And I press "Upload"
-    # When wait 3 seconds
-    # And I press "Add Contents"
-    # Then I should see "Worm-eating Warbler (Audio)"
+    When wait 3 seconds
+    And I press "Add Contents"
+    Then I should see "Red-winged Blackbird (Audio)"
 
 
   # Ab/islandora/object/samples%3A1#overlay-context=islandora/object/samples%253A1le to delete TN derivative for AUDIO object? *** 
@@ -82,26 +120,27 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I click "Datastreams"
     Given I click "delete" in the "TN" row
     Then I check the box "Delete Derivatives" 
+    Then I press "Delete"
     # TODO add the "delete TN" actions, do a search and assert no TN visible
     #Replace original TN
-    Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A3"
-    Then I should see the link "Manage"
-    When I click "Manage"
-    Given I wait for AJAX to finish
-    Then I should see "PARENT COLLECTIONS"
-    Then I click "Datastreams"
-    Given I click "replace" in the "TN" row
-    Then I should see "Label: TN Datastream"
-    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
-    And I press "Upload"
-    When wait 3 seconds
-    And I press "Add Contents"
-    Then I should see "Worm-eating Warbler (Audio)"
+    #(Can't replace at this point because after the first step there is no TN Datastream)
+    ##Given I am logged in as a user with the "administrator" role
+    ##Given I am on "/islandora/object/samples%3A3"
+    ##Then I should see the link "Manage"
+    ##When I click "Manage"
+    ##Given I wait for AJAX to finish
+    ##Then I should see "PARENT COLLECTIONS"
+    ##Then I click "Datastreams"
+    ##Given I click "replace" in the "TN" row
+    ##Then I should see "Label: TN Datastream"
+    ##When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    ##And I press "Upload"
+    ##When wait 3 seconds
+    ##And I press "Add Contents"
+    ##Then I should see "Worm-eating Warbler (Audio)"
 
-  #Add Original Thumbnail and Thumbnail datastream back
-  @api @apache @javascript
-  Scenario: Add Audio Object TN Datastream 
+    #Add Original Thumbnail and Thumbnail datastream back
+    #(No need to have this be separate scenario)
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
     Then I should see the link "Manage"
@@ -110,9 +149,9 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I click "Add a datastream"
     Then I fill in "edit-dsid" with "TN"
     Then I fill in "edit-label" with "Thumbnail"
-    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
     And I press "Upload"
-    When I wait for 3 seconds
+    When wait 3 seconds
     And I press "Add Datastream"
     Then I should see "Worm-eating Warbler (Audio)"
     Then I should see the link "Manage"
@@ -120,18 +159,28 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I click "Datastreams"
     Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
-    Then I click "Regenerate"
-
-  # Able to upload (replace) thumbnail for Audio object?
+    Then I press "Regenerate"
+  
   # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
 
     ## Click Manage, click Properties, Press "Regenerate all derivatives"
-    @api @apache
-    Scenario: Regenerate all Audio derivatives
+    @api @apache @javascript
+    Scenario: Regenerate all derivatives for Audio Object
       Given I am logged in as a user with the "administrator" role
       Given I am on "/islandora/object/samples%3A3"
       Then I should see the link "Manage"
       When I click "Manage"
+      Then I click "Properties"
+      Then I should see "Item Label"
+      Then I press "Regenerate all derivatives"
+      Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
+      Given I press "Regenerate"
+      Given wait 20 seconds
+      Then I should see the link "Derivatives successfully created."
+      Given I click "Derivatives successfully created." 
+      Then I should see "Created"
+
+
 
     ## figure out how to check for original thumbnail image
     ## maybe: load search https://isle.localdomain/islandora/search/Worm-eating%20Warbler?type=dismax
@@ -176,11 +225,9 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     When I press "Update"
     Then I should see "Worm-eating Warbler (Audio) - EDITED"
     # Able to search for newly edited AUDIO object’s title using Islandora simple search? (Noah, help with search? says not pressable or clickable)
-    ##When I fill in "edit-islandora-simple-search-query" with "Worm-eating Warbler (Audio) - EDITED"
-    ##When I press "submit"
-    ##Then I should see "samples:1"@api @apache
-  Scenario: Check for Audio Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    When I fill in "edit-islandora-simple-search-query" with "Worm-eating Warbler (Audio) - EDITED"
+    When I press "search"
+    Then I should see "samples:1"
     Given I am on "/islandora/search/Audio?type=dismax"
     Then I should see "islandora:audio_collection"
     Then I should see "samples:3"
@@ -189,8 +236,11 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20EDITED?type=dismax"
     Then I should see "samples:1"
     # Undo Changes
+  @api @apache
+  Scenario: Undo Changes to Audio object title
+    Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler (Audio) - EDITED"
+    Then I should see "Worm-eating Warbler"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
@@ -199,7 +249,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I fill in "edit-titleinfo-title" with "Worm-eating Warbler (Audio)"
     When I press "Update"
     Then I should see "Worm-eating Warbler (Audio)"
-    When I fill in "edit-islandora-simple-search-query" with "Worm-eating Warbler (Audio) - EDITED"
+    When I fill in "edit-islandora-simple-search-query" with "Worm-eating Warbler (Audio)"
     When I press "search"
     Then I should see "samples:1"
   ## I undid my changes right in the test, because if the title was changed then the test would fail the next time
@@ -221,13 +271,23 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     ## Pat/Derek should Replacing MODS update automatically after replace?
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
     Given the cache has been cleared
-    Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
-    Then I should see "samples:1"  
+    #Extra step required to forced reindexing
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see "Worm-eating Warbler (Audio)"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I press "Update"
+    Given I am on "/islandora/object/samples%3A1"
     Then I should see "Worm-eating Warbler (REPLACED)"
   # Able to search for newly edited AUDIO object’s title using Islandora simple search?
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
     Then I should see "Worm-eating Warbler (REPLACED)"
     # Put original MODS back
+  @api @apache
+  Scenario: Restore Orginal MODS datastream for Audio Object
+    Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
     Then I should see "Worm-eating Warbler (Audio)"
     Then I click "Manage"
@@ -236,7 +296,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.xml" to "edit-file-upload"
     Given the cache has been cleared
     Given I am on "/islandora/object/samples%3A1"
     Then I should see "Worm-eating Warbler (Audio)"
@@ -314,6 +374,35 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to ingest these test BASIC IMAGE sample objects?
+  @api @apache
+  Scenario: Injest Basic Image Sample Objects
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/islandora/object/samples%3Acollection"
+    Then I should see "ICG Samples"
+    Then I click "Manage"
+    Then I click "Add an object to this Collection"
+    When select "Islandora Basic Image Content Model" from "models"
+    Then I press "Next"
+    Then I press "Next"
+    Then I fill in "edit-titleinfo-title" with "Z Palm Tree (Basic Image) TEST OBJECT"
+    Then I press "Next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Image/ZPalm Tree typeTEST.jpg" to "edit-file-upload"
+    Then I press "Upload"
+    Then I press "Ingest"
+    When I am on "/islandora/object/samples%3Acollection"
+    Then I click "last"
+    Then I should see the link "Z Palm Tree (Basic Image) TEST OBJECT"
+    When I click "Z Palm Tree (Basic Image) TEST OBJECT"
+    Then I should see "In collections"
+    When I click "Manage"
+    Then I click "Properties"
+    Then I should see "Item Label"
+    Then I press "Permanently remove 'Z Palm Tree (Basic Image)...' from repository"
+    Then I should see "This action cannot be undone."
+    Then I press "Delete"
+    When I am on "/islandora/object/samples%3Acollection"
+    Then I click "last"
+    Then I should not see the link "Z Palm Tree (Basic Image) TEST OBJECT"
 
 
   # Able to view a BASIC IMAGE object?
@@ -352,7 +441,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I click "edit" in the "MODS" row
     Then I should see "Title"
     Then I fill in "edit-titleinfo-title" with "Apple Tree of note (Basic Image) - EDITED"
-    When I press "update"
+    When I press "Update"
     Then I should see "Apple Tree of note (Basic Image) - EDITED"
     # Able to search for newly edited Basic Image's title using Islandora simple search?
     Given I am logged in as a user with the "administrator" role
@@ -365,15 +454,18 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%29%20-%20EDITED?type=dismax"
     Then I should see "samples:4"
     # Undo Changes
+  @api @apache
+  Scenario: Undo Changes to Basic Image Title
+    Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
-    Then I should see "Apple Tree of note (Basic Image) - EDITED"  
+    Then I should see "Apple Tree of note"  
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I should see "Title"
     Then I fill in "edit-titleinfo-title" with "Apple Tree of note (Basic Image)"
-    When press "update"
+    When press "Update"
     Then I should see "Apple Tree of note (Basic Image)"
     When I fill in "edit-islandora-simple-search-query" with "Apple Tree of note (Basic Image)"
     When I press "search"
@@ -397,6 +489,9 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image-LABEL-EDITED%29?type=dismax"
     Then I should see "samples:4"
     # Undo changes to object label
+  @api @apache
+  Scenario: Undo Changes to Basic Image Item Label
+    Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
     Then I should see "Apple Tree of note (Basic Image-LABEL-EDITED)"
     Then I click "Manage"
@@ -411,53 +506,51 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to edit MODS datastream for BASIC IMAGE object?
   # Able to Replace MODS datastream for BASIC IMAGE object?
-  ## @api @apache
-  ## Scenario: Replace MODS datastream for Basic Image object
-  ##   Given I am logged in as a user with the "administrator" role
-  ##   Given I am on "/islandora/object/samples%3A4"
-  ##   Then I should see "Apple Tree of note (Basic Image)"
-  ##   Then I click "Manage"
-  ##   Then I click "Datastreams"
-  ##   Then I should see "MODS Record"
-  ##   Given I click "replace" in the "MODS" row
-  ##   Then I should see "Replace Datastream"
-  ##   Then I should see "Label: MODS Record"
-  ##   When I attach the file "assets/MODS-replace-apple-tree.xml" to "edit-file-upload"
-  ##   Then I press "Upload"
-  ##   Then I wait 3 seconds
-  ##   Then I press "Add Contents"
-  ##   Then I wait 3 seconds
-  ##   Given the cache has been cleared
-  ##   Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
-  ##   ## Pat/Derek should Replacing MODS update automatically after replace? !!! ACCORDING TO DEREK THIS IS A PROBLEM
-  ##  # Able to search for newly edited MODS datastream for BASIC IMAGE object using Islandora simple search?
-  ##   Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
-  ##   Then I should see "samples:4"  
-  ##   Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
-  ## @api @apache
-  ## Scenario: Undo Changes to MODS datastream for Basic Image object
-  ##   Given the cache has been cleared
-  ##   Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
-  ##   Then I should see "samples:4"  
-  ##   Then I should see "Worm-eating Warbler (REPLACED)"
-  ##   # Put original MODS back
-  ##   Given I am on "/islandora/object/samples%3A4"
-  ##   Then I should see "Worm-eating Warbler (Audio)"
-  ##   Then I click "Manage"
-  ##   Then I click "Datastreams"
-  ##   Then I should see "MODS Record"
-  ##   Given I click "replace" in the "MODS" row
-  ##   Then I should see "Replace Datastream"
-  ##   Then I should see "Label: MODS Record"
-  ##   When I attach the file "Batches-by-CModel/basicImageCModel/files/1/Apple Tree of note.xml" to "edit-file-upload"
-  ##   Then I press "Upload"
-  ##   Then I wait 3 seconds
-  ##   Then I press "Add Contents"
-  ##   Then I wait 3 seconds
-  ##   Given the cache has been cleared
-  ##   Then I should see "Apple Tree of note (Basic Image)"
-  ##   Given I am on "/islandora/object/samples%3A4"
-  ##   Then I should see "Apple Tree of note (Basic Image)"
+  @api @apache @javascript
+  Scenario: Replace MODS datastream for Basic Image object
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image)"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "replace" in the "MODS" row
+    Then I should see "Replace Datastream"
+    Then I should see "Label: MODS Record"
+    When I attach the file "assets/MODS-replace-apple-tree.xml" to "edit-file-upload"
+    Then I press "Upload"
+    Then wait 3 seconds
+    Then I press "Add Contents"
+    Then wait 3 seconds
+    Given the cache has been cleared
+    Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
+    ## Pat/Derek should Replacing MODS update automatically after replace? !!! ACCORDING TO DEREK THIS IS A PROBLEM
+   # Able to search for newly edited MODS datastream for BASIC IMAGE object using Islandora simple search?
+    Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%20-%20MODS%20-%20REPLACED?type=dismax"
+    Then I should see "samples:4"  
+    Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
+  @api @apache @javascript
+  Scenario: Undo Changes to MODS datastream for Basic Image object
+    Given I am logged in as a user with the "administrator" role
+    Given the cache has been cleared
+    # Put original MODS back
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "replace" in the "MODS" row
+    Then I should see "Replace Datastream"
+    Then I should see "Label: MODS Record"
+    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/basicImageCModel/files/1/Apple Tree of note.xml" to "edit-file-upload"
+    Then I press "Upload"
+    Then wait 3 seconds
+    Then I press "Add Contents"
+    Then wait 3 seconds
+    Given the cache has been cleared
+    Then I should see "Apple Tree of note (Basic Image)"
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image)"
 
   
   # Able to delete TN derivative for BASIC IMAGE object?
@@ -481,14 +574,8 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/samples%3A4?type=dismax"
     Then the "dl.solr-thumb" element should contain "defaultimg.png"
 
-  @api @apache
-  Scenario: Test for TN Image
-    Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/search/samples%3A4?type=dismax"
-    Then the "dl.solr-thumb" element should contain "TN/view"
-
   #Replace original TN
-  @api @apache
+  @api @apache @javascript
   Scenario: Add Basic Image TN Datastream
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -498,13 +585,13 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I click "Add a datastream"
     Then I fill in "edit-dsid" with "TN"
     Then I fill in "edit-label" with "Thumbnail"
-    When I attach the file "Batches-by-CModel/basicImageCModel/files/1/Apple Tree of note.jpg" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/basicImageCModel/files/1/Apple Tree of note.jpg" to "edit-file-upload"
     And I press "Upload"
     And I press "Add Datastream"
     Then I should see "Apple Tree of note"
     Then I should see the link "Manage"
     When I click "Manage"
-    ## When I wait for 3 seconds
+    When wait 3 seconds
     Then I click "Datastreams"
     Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
