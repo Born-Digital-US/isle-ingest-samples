@@ -3,7 +3,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   As a developer
   I need to test some sample data
 
-  @apache @book
+  @api @apache @book
   Scenario: Viewing samples:7
     Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3A7#page/1/mode/1up"
@@ -23,7 +23,20 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I click "Return to Book View"
     # then you could test more of the pages
 
-  @apache @book
+  # Able to ingest these test BOOK sample objects?
+  # Able to view a BOOK object?
+  # Able to download a BOOK object?
+  # Able to search for newly ingested BOOK object using Islandora simple search?
+  # Able to edit BOOK object’s title using the XML form?
+  # Able to search for newly edited BOOK object’s title using Islandora simple search?
+  # Able to edit the Item Label of an BOOK object's Properties?
+  # Able to search for newly edited Item Label of an BOOK object's Properties using Islandora simple search?
+  # Able to edit MODS datastream for BOOK object?
+  # Able to search for newly edited MODS datastream for BOOK object using Islandora simple search?
+  # Able to delete TN derivative for BOOK object?
+  # Able to regenerate all derivatives for BOOK object?
+
+  @api @apache @book
   Scenario: Viewing samples:14
     Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3A14"
@@ -49,6 +62,19 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     And I am on "/islandora/object/samples%3A21"
     Then I should see a "body" element
     Then I should see "Amherst 1886"
+
+  # Able to ingest these test COMPOUND OBJECT sample objects?
+  # Able to view a COMPOUND OBJECT object?
+  # Able to download a COMPOUND OBJECT object?
+  # Able to search for newly ingested COMPOUND OBJECT object using Islandora simple search?
+  # Able to edit COMPOUND OBJECT object’s title using the XML form?
+  # Able to search for newly edited COMPOUND OBJECT object’s title using Islandora simple search?
+  # Able to edit the Item Label of an COMPOUND OBJECT object's Properties?
+  # Able to search for newly edited Item Label of an COMPOUND OBJECT object's Properties using Islandora simple search?
+  # Able to edit MODS datastream for COMPOUND OBJECT object?
+  # Able to search for newly edited MODS datastream for COMPOUND OBJECT object using Islandora simple search?
+  # Able to delete TN derivative for COMPOUND OBJECT object?
+  # Able to regenerate all derivatives for COMPOUND OBJECT object?
 
   @apache @compound
   Scenario: Viewing samples:22
@@ -98,11 +124,26 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Amherst College, Lawrence Observatory (Large Image)"
 
   @apache @largeimage
-  Scenario: Viewing samples:28
+  Scenario: Viewing samples:30
     Given I am an anonymous user
-    And I am on "/islandora/object/samples%3A28"
+    And I am on "/islandora/object/samples%3A30"
     Then I should see a "body" element
     Then I should see "Easthampton Town Hall (Large Image)"
+
+  # Able to ingest these test LARGE IMAGE sample objects?
+  # Able to view a LARGE IMAGE object?
+  # Able to download a LARGE IMAGE object?
+  # Able to search for newly ingested LARGE IMAGE object using Islandora simple search?
+  # Able to edit LARGE IMAGE object’s title using the XML form?
+  # Able to search for newly edited  LARGE IMAGE object’s title using Islandora simple search?
+  # Able to edit the Item Label of an LARGE IMAGE object's Properties?
+  # Able to search for newly edited Item Label of an LARGE IMAGE object's Properties using Islandora simple search?
+  # Able to edit MODS datastream for LARGE IMAGE object?
+  # Able to search for newly edited MODS datastream for LARGE IMAGE object using Islandora simple search?
+  # Able to delete TN derivative for LARGE IMAGE object?
+  # Able to regenerate all derivatives for LARGE IMAGE object?
+
+
 
   @apache @largeimage
   Scenario: Viewing samples:29
@@ -117,6 +158,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     And I am on "/islandora/object/samples%3A30"
     Then I should see a "body" element
     Then I should see "Nonantum Hill Nursery materials (PDF)"
+
 
   @apache @pdf
   Scenario: Viewing samples:31
@@ -135,7 +177,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to ingest these test VIDEO sample objects?
     #(Javascript does not work because it cannot interact with second "Next" button)
-  @api @apache
+  @api @apache @video
   Scenario: Injest Video Sample Objects
     Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3Acollection"
@@ -183,14 +225,14 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Brim Coffee (Video)"
 
   # Able to download a VIDEO object?
-  @api @apache
+  @api @apache @video
     Scenario: Check for Video download
       Given I am logged in as a user with the "administrator" role
       Given I am on "/islandora/object/samples%3A33"
       Then I should get a 200 HTTP response
 
   # Able to search for newly ingested VIDEO object using Islandora simple search?
-  @api @apache
+  @api @apache @video
   Scenario: Check for Videos using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/video?type=dismax"
@@ -201,7 +243,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to edit VIDEO object’s title using the XML form?
-  @api @apache
+  @api @apache @video
   Scenario: Edit Basic Video title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
@@ -234,7 +276,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to edit the Item Label of an VIDEO object's Properties?
-  @api @apache
+  @api @apache @video
   Scenario: Edit Video Item Label
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
@@ -268,7 +310,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   # Able to search for newly edited MODS datastream for VIDEO object using Islandora simple search?
 
   # Able to replace MODS datastreams
-  @api @apache @javascript
+  @api @apache @javascript @video
   Scenario: Replace MODS datastream for Video
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
@@ -325,13 +367,13 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to delete TN derivative for VIDEO object?
-  @api @apache
+  @api @apache @video
   Scenario: Test for Video TN Image
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/samples%3A33?type=dismax"
     Then the "dl.solr-thumb" element should contain "TN/view"
 
-  @api @apache
+  @api @apache @video
   Scenario: Delete Video TN derivative and TN datastream
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
@@ -345,7 +387,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/samples%3A33?type=dismax"
     Then the "dl.solr-thumb" element should contain "defaultimg.png"
 
-  @api @apache
+  @api @apache @video
   Scenario: Test for No Video TN Image
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/samples%3A33?type=dismax"
@@ -353,7 +395,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   #Replace original TN
-  @api @apache
+  @api @apache @video
   Scenario: Add Video TN Datastream
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
@@ -379,7 +421,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then the "dl.solr-thumb" element should contain "TN/view"
 
   # Able to regenerate all derivatives for VIDEO object?
-  @api @apache @javascript
+  @api @apache @javascript @video
   Scenario: Regenerate Video TN Derivatives
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"

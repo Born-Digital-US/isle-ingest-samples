@@ -3,16 +3,24 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   As a developer
   I need to test some sample data
 
-  @apache
+  @apache @newspaper
   Scenario: Viewing newspaper root
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3Anewspaper"
     Then I should see a "body" element
     Then I should see "Connecticut Western News (Newspaper)"
 
+  @api @apache @setup
+  Scenario: Enable Simple Search
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/admin/structure/block"
+    Then I should see the link "Add block"
+    Given I select "Sidebar first" from "edit-blocks-islandora-solr-simple-region"
+    Then I press "Save blocks"
+  
   # Able to ingest the test AUDIO sample objects?
     #(DO NOT USE JAVASCRIPT)
-  @api @apache
+  @api @apache @audio
   Scenario: Injest Audio Sample Objects
     Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3Acollection"
@@ -49,18 +57,18 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should not see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
   ## TEST: check URLs for ingested objects
 
-  @apache
+  @apache @audio
   Scenario: Viewing sample:1
     Given I am on "/islandora/object/samples%3A1"
     Then I should see a "body" element
     Then I should see "Worm-eating Warbler (Audio)"
 
-  @apache
+  @apache @audio
   Scenario: Viewing sample:2
     Given I am on "/islandora/object/samples%3A2"
     Then I should see "American Goldfinch (Audio)"
 
-  @apache
+  @apache @audio
   Scenario: Viewing sample:3
     Given I am on "/islandora/object/samples%3A3"
     Then I should see a "body" element
@@ -70,7 +78,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   ## TESTS TODO: 
   # Able to upload (replace) thumbnail for Audio object?
-  @api @apache @javascript
+  @api @apache @javascript @audio
   Scenario: Replace Audio Thumbnail 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A3"
@@ -89,7 +97,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
-  @api @pache @javascript
+  @api @pache @javascript @audio
   Scenario: Undo replacement of Audio Thumbnail
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A3"
@@ -108,7 +116,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Ab/islandora/object/samples%3A1#overlay-context=islandora/object/samples%253A1le to delete TN derivative for AUDIO object? *** 
-  @api @apache @javascript
+  @api @apache @javascript @audio
   Scenario: Delete TN derivative for Audio Object 
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
@@ -164,7 +172,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
 
     ## Click Manage, click Properties, Press "Regenerate all derivatives"
-    @api @apache @javascript
+    @api @apache @javascript @audio
     Scenario: Regenerate all derivatives for Audio Object
       Given I am logged in as a user with the "administrator" role
       Given I am on "/islandora/object/samples%3A3"
@@ -191,7 +199,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to download an AUDIO object?
   ## TESTS: load https://isle.localdomain/islandora/object/samples%3A1/datastream/OBJ and check for status 200 response code
-  @api @apache
+  @api @apache @audio
   Scenario: Check for Audio OBJ download
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1/datastream/OBJ"
@@ -200,7 +208,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   # Able to search for newly ingested AUDIO object using Islandora simple search?
   ## Tests: load https://isle.localdomain/islandora/search/Audio?type=dismax and look for the things we expect:
   ##   islandora:audio_collection, samples:2, samples:3, samples:1
-  @api @apache
+  @api @apache @audio
   Scenario: Check for Audio Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Audio?type=dismax"
@@ -211,7 +219,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
    
 
   # Able to edit AUDIO object’s title using the XML form? ("edit")
-  @api @apache
+  @api @apache @audio
   Scenario: Edit Audio object title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
@@ -236,7 +244,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20EDITED?type=dismax"
     Then I should see "samples:1"
     # Undo Changes
-  @api @apache
+  @api @apache @audio
   Scenario: Undo Changes to Audio object title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
@@ -256,7 +264,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to edit MODS datastream for AUDIO object? ("replace") ****
-  @api @apache
+  @api @apache @audio
   Scenario: Replace MODS datastream for Audio Object
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
@@ -288,7 +296,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
     Then I should see "Worm-eating Warbler (REPLACED)"
     # Put original MODS back
-  @api @apache
+  @api @apache @audio
   Scenario: Restore Original MODS datastream for Audio Object
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
@@ -318,7 +326,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   ##   "Edit" on the "MODS" line, change title to (Audio-edited), press Update, should see "American Goldfinch (Audio-edited)"
   #    NOW TEST FOR search results. load hhttps://isle.localdomain/islandora/search/%22audio-edited%22?type=dismax and ensure "samples:2" and "(Audio-edited)"
   ##   (to undo) Manage, Mods edit, remove "-edited", "Update", assert original title
-  @api @apache
+  @api @apache @audio
   Scenario: Edit Audio (Goldfinch) object title 
     Given I am logged in as a user with the "administrator" role
     Given I am on "islandora/object/samples%3A2"
@@ -353,7 +361,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   ## TESTS:  Click Manage, clikc Properties, change Item Label to (Audio-LABEL-EDITED)
   ### When I fill in "edit-object-label" with "American Goldfinch (Audio-LABEL-EDITED)"
   ## click update properties, check for "Successfully"
-  @api @apache
+  @api @apache @audio
   Scenario: Edit Audio object Item Label
     Given I am logged in as a user with the "administrator" role
     Given I am on "islandora/object/samples%3A2"
@@ -386,7 +394,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to ingest these test BASIC IMAGE sample objects?
-  @api @apache
+  @api @apache @basicimage
   Scenario: Injest Basic Image Sample Objects
     Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3Acollection"
@@ -418,21 +426,21 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to view a BASIC IMAGE object?
-  @apache
+  @apache @basicimage
   Scenario: Viewing sample:4
     Given I am on "/islandora/object/samples%3A4"
     Then I should see a "body" element
     Then I should see "Apple Tree of note (Basic Image)"
 
   # Able to download a BASIC IMAGE object?
-  @api @apache
+  @api @apache @basicimage
   Scenario: Check for Basic Image download
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
     Then I should get a 200 HTTP response
 
   # Able to search for newly ingested BASIC IMAGE object using Islandora simple search?
-  @api @apache
+  @api @apache @basicimage
   Scenario: Check for Basic Images using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Basic%20Image?type=dismax"
@@ -442,7 +450,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "samples:6"
 
   # Able to edit BASIC IMAGE object’s title using the XML form?
-  @api @apache @javascript
+  @api @apache @javascript @basicimage
   Scenario: Edit Basic Image title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -466,7 +474,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%29%20-%20EDITED?type=dismax"
     Then I should see "samples:4"
     # Undo Changes
-  @api @apache @javascript
+  @api @apache @javascript @basicimage
   Scenario: Undo Changes to Basic Image Title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -486,7 +494,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to edit the Item Label of a BASIC IMAGE object's Properties?
-  @api @apache
+  @api @apache @basicimage
   Scenario: Edit Basic Image Item Label
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -501,7 +509,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image-LABEL-EDITED%29?type=dismax"
     Then I should see "samples:4"
     # Undo changes to object label
-  @api @apache
+  @api @apache @basicimage
   Scenario: Undo Changes to Basic Image Item Label
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -518,7 +526,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to edit MODS datastream for BASIC IMAGE object?
   # Able to Replace MODS datastream for BASIC IMAGE object?
-  @api @apache @javascript
+  @api @apache @javascript @basicimage
   Scenario: Replace MODS datastream for Basic Image object
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -535,7 +543,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I press "Add Contents"
     Then wait 3 seconds
     Given I am on "/islandora/object/samples%3A4"
-    Then I should see "Apple Tree of note (Basic Image )"
+    Then I should see "Apple Tree of note (Basic Image)"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
@@ -550,7 +558,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%20-%20MODS%20-%20REPLACED?type=dismax"
     Then I should see "samples:4"  
     Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED )"
-  @api @apache @javascript
+  @api @apache @javascript @basicimage
   Scenario: Undo Changes to MODS datastream for Basic Image object
     Given I am logged in as a user with the "administrator" role
     Given the cache has been cleared
@@ -583,7 +591,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   
   # Able to delete TN derivative for BASIC IMAGE object?
-  @api @apache
+  @api @apache @basicimage
   Scenario: Delete Basic Image TN derivative and TN datastream
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -597,14 +605,14 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/samples%3A4?type=dismax"
     Then the "dl.solr-thumb" element should contain "defaultimg.png"
 
-  @api @apache
+  @api @apache @basicimage
   Scenario: Test for No TN Image
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/samples%3A4?type=dismax"
     Then the "dl.solr-thumb" element should contain "defaultimg.png"
 
   #Replace original TN
-  @api @apache @javascript
+  @api @apache @javascript @basicimage
   Scenario: Add Basic Image TN Datastream
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -630,7 +638,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to regenerate all derivatives for BASIC IMAGE object?
-  @api @apache @javascript
+  @api @apache @javascript @basicimage
   Scenario: Regenerate Basic Image TN Derivatives
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -652,13 +660,13 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/object/samples%3A4"
     When wait 5 seconds
 
-  @apache
+  @apache @basicimage
   Scenario: Viewing sample:5
     Given I am on "/islandora/object/samples%3A5"
     Then I should see a "body" element
     Then I should see "Letter of note (Basic Image)"
 
-  @apache
+  @apache @basicimage
   Scenario: Viewing sample:6
     Given I am on "/islandora/object/samples%3A6"
     Then I should see a "body" element
