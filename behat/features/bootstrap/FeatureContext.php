@@ -607,12 +607,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function iRunMysqladminHealthCheck()
   {
-      $output = shell_exec("mysqladmin status -h mysql");
+      $output = shell_exec("mysqladmin status -h mysql 2>&1");
 
       ###########  expecting ######################################
       # mysqladmin: connect to server at 'mysql' failed
       # error: 'Access denied for user 'root'@'192.168.144.8' (using password: NO)'
-      if (strpos($output, 'Access denied') !== false) {
+      if(strpos($output, 'Access denied') !== false){
         return;
       } else {
         throw new Exception("MYSQL CONNECTION REFUSED");
