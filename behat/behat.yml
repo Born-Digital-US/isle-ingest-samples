@@ -21,6 +21,7 @@ default: # Our DEFAULT profile targets the APACHE container with the @apache tag
           goutte:
             guzzle_parameters:
               verify: false
+              ssl.certificate_authority: false
       javascript_session: 'selenium2'
       # default_session: 'selenium2'
       goutte: ~
@@ -94,6 +95,7 @@ solr: # SOLR profile
   extensions:
     Behat\MinkExtension:
       base_url: http://solr:8080
+
 traefik: # TRAEFIK profile
   suites:
     default:
@@ -102,91 +104,39 @@ traefik: # TRAEFIK profile
   extensions:
     Behat\MinkExtension:
       base_url: http://traefik:8080
-# TODO need other service profiles
 
-# Local vagrant profile for pat dunlavey. Use --profile=vagrant_pat in the behat command.
-pat:
+fedora: # FEDORA profile
   suites:
     default:
       filters:
-#        tags: "@prod"
-      contexts:
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - FeatureContext:
-            parameters:
-              environment_identifier: 'vagrant_pat'
-              assets_path: %paths.base%/features/assets/
+        tags: "@fedora"
   extensions:
     Behat\MinkExtension:
-      goutte:
-        guzzle_parameters:
-          # Disable SSL certificate validation
-          verify: false
-          ssl.certificate_authority: false
-      base_url: https://compass.localdomain
+      base_url: http://fedora:8080
 
-# Dev server profile. Use --profile=dev in the behat command.
-dev:
-  suites:
-    default:
-      contexts:
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - FeatureContext:
-            parameters:
-              environment_identifier: 'dev'
-              assets_path: %paths.base%/features/assets/
-  extensions:
-    Behat\MinkExtension:
-      base_url: https://compass-dev.fivecolleges.edu
-
-# Staging server profile. Use --profile=staging in the behat command.
-staging:
-  suites:
-    default:
-      contexts:
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - FeatureContext:
-            parameters:
-              environment_identifier: 'staging'
-              assets_path: %paths.base%/features/assets/
-  extensions:
-    Behat\MinkExtension:
-      base_url: https://compass-stage.fivecolleges.edu
-
-# New prod server profile. Use --profile=newprod in the behat command.
-newprod:
+imageservices: # IMAGESERVICES profile
   suites:
     default:
       filters:
-        tags: "@prod"
-      contexts:
-        - Drupal\DrupalExtension\Context\DrupalContext
-        - Drupal\DrupalExtension\Context\MinkContext
-        - Drupal\DrupalExtension\Context\MessageContext
-        - Drupal\DrupalExtension\Context\DrushContext
-        - FeatureContext:
-            parameters:
-              environment_identifier: 'staging'
-              assets_path: %paths.base%/features/assets/
+        tags: "@imageservices"
   extensions:
     Behat\MinkExtension:
-      base_url: https://compass.fivecolleges.edu
+      base_url: http://image-services:8080
 
+portainer: # PORTAINER profile
+  suites:
+    default:
+      filters:
+        tags: "@portainer"
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://isle-portainer:8080
 
-##############################################################################
-######   DISABLED: behat should not be used on the production server!   ######
-## Production server profile. Use --profile=prod in the behat command.
-#prod:
-#  extensions:
-#    Behat\MinkExtension:
-#      base_url: https://compass.fivecolleges.edu
-##############################################################################
+mysql: # MYSQL profile
+  suites:
+    default:
+      filters:
+        tags: "@mysql"
+  extensions:
+    Behat\MinkExtension:
+      base_url: http://mysql:3306
