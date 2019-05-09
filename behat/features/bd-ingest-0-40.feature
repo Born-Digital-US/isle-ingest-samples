@@ -257,10 +257,10 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to edit MODS datastream for AUDIO object? ("replace") ****
   @api @apache
-  Scenario: Edit MODS datastream for Audio object
+  Scenario: Replace MODS datastream for Audio Object
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler (Audio)"
+    Then I should see "Worm-eating Warbler"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
@@ -268,17 +268,20 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
     When I attach the file "assets/MODS-replace-warbler.xml" to "edit-file-upload"
+    Given I press "Upload"
+    Then I press "Add Contents"
     ## Pat/Derek should Replacing MODS update automatically after replace?
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
-    Given the cache has been cleared
+    #Given the cache has been cleared
     #Extra step required to forced reindexing
     Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler (Audio)"
+    Then I should see "Worm-eating Warbler"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
+    Given the cache has been cleared
     Given I am on "/islandora/object/samples%3A1"
     Then I should see "Worm-eating Warbler (REPLACED)"
   # Able to search for newly edited AUDIO object’s title using Islandora simple search?
@@ -286,10 +289,10 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Worm-eating Warbler (REPLACED)"
     # Put original MODS back
   @api @apache
-  Scenario: Restore Orginal MODS datastream for Audio Object
+  Scenario: Restore Original MODS datastream for Audio Object
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler (Audio)"
+    Then I should see "Worm-eating Warbler"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
@@ -297,6 +300,15 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
     When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.xml" to "edit-file-upload"
+    Given I press "Upload"
+    Then I press "Add Contents"
+    Given I am on "/islandora/object/samples%3A1"
+    Then I should see "Worm-eating Warbler"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I press "Update"
     Given the cache has been cleared
     Given I am on "/islandora/object/samples%3A1"
     Then I should see "Worm-eating Warbler (Audio)"
@@ -430,7 +442,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "samples:6"
 
   # Able to edit BASIC IMAGE object’s title using the XML form?
-  @api @apache
+  @api @apache @javascript
   Scenario: Edit Basic Image title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -454,7 +466,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%29%20-%20EDITED?type=dismax"
     Then I should see "samples:4"
     # Undo Changes
-  @api @apache
+  @api @apache @javascript
   Scenario: Undo Changes to Basic Image Title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A4"
@@ -522,13 +534,22 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then wait 3 seconds
     Then I press "Add Contents"
     Then wait 3 seconds
+    Given I am on "/islandora/object/samples%3A4"
+    Then I should see "Apple Tree of note (Basic Image )"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I press "Update"
     Given the cache has been cleared
-    Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
+    Given I am on "/islandora/object/samples%3A4"
+    Given the cache has been cleared
+    Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED )"
     ## Pat/Derek should Replacing MODS update automatically after replace? !!! ACCORDING TO DEREK THIS IS A PROBLEM
    # Able to search for newly edited MODS datastream for BASIC IMAGE object using Islandora simple search?
     Given I am on "/islandora/search/Apple%20Tree%20of%20note%20%28Basic%20Image%20-%20MODS%20-%20REPLACED?type=dismax"
     Then I should see "samples:4"  
-    Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED"
+    Then I should see "Apple Tree of note (Basic Image - MODS - REPLACED )"
   @api @apache @javascript
   Scenario: Undo Changes to MODS datastream for Basic Image object
     Given I am logged in as a user with the "administrator" role
@@ -547,6 +568,14 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then wait 3 seconds
     Then I press "Add Contents"
     Then wait 3 seconds
+    Given I am on "/islandora/object/samples%3A4"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I press "Update"
+    Given the cache has been cleared
+    Given I am on "/islandora/object/samples%3A4"
     Given the cache has been cleared
     Then I should see "Apple Tree of note (Basic Image)"
     Given I am on "/islandora/object/samples%3A4"
