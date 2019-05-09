@@ -5,7 +5,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   @apache @book
   Scenario: Viewing samples:7
-    Given I am an anonymous user
+    Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3A7#page/1/mode/1up"
     Then I should see a "body" element
     Then I should see "The Use of the Antennæ in Insects (Book)"
@@ -23,51 +23,9 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I click "Return to Book View"
     # then you could test more of the pages
 
-  # @apache @book
-  # Scenario: Viewing samples:8
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A8"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:7-002"
-
-  # @apache @book
-  # Scenario: Viewing samples:9
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A9"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:7-005"
-
-  # @apache @book
-  # Scenario: Viewing samples:10
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A10"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:7-004"
-
-  # @apache @book
-  # Scenario: Viewing samples:11
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A11"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:7-003"
-
-  # @apache @book
-  # Scenario: Viewing samples:12
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A12"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:7-006"
-
-  # @apache @book
-  # Scenario: Viewing samples:13
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A13"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:7-001"
-
-  @apache @book 
+  @apache @book
   Scenario: Viewing samples:14
-    Given I am an anonymous user
+    Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3A14"
     Then I should see a "body" element
     Then I should see "On the Tides at Malta (Book)"
@@ -85,48 +43,6 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I click "Return to Book View"
     # then you could test more of the pages
 
-  # @apache @book
-  # Scenario: Viewing samples:15
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A15"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:14-002"
-
-  # @apache @book
-  # Scenario: Viewing samples:16
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A16"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:14-005"
-
-  # @apache @book
-  # Scenario: Viewing samples:17
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A17"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:14-004"
-
-  # @apache @book
-  # Scenario: Viewing samples:18
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A18"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:14-003"
-
-  # @apache @book
-  # Scenario: Viewing samples:19
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A19"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:14-006"
-
-  # @apache @book
-  # Scenario: Viewing samples:20
-  #   Given I am an anonymous user
-  #   And I am on "/islandora/object/samples%3A20"
-  #   Then I should see a "body" element
-  #   Then I should see "samples:14-001"
-
   @apache @compound
   Scenario: Viewing samples:21
     Given I am an anonymous user
@@ -141,12 +57,17 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see a "body" element
     Then I should see "Adams 1882"
 
-  @apache @compound
+  @apache @compound @javascript
   Scenario: Viewing samples:23
-    Given I am an anonymous user
+    Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3A23"
     Then I should see a "body" element
     Then I should see "Adams 1882"
+    Then I click "Manage"
+    Then I click "Compound"
+    Then I click "Reorder"
+    Then I should see "sample:22"
+    Then I should see "sample:21"
 
   @apache @compound
   Scenario: Viewing samples:24
@@ -214,7 +135,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to ingest these test VIDEO sample objects?
     #(Javascript does not work because it cannot interact with second "Next" button)
-  @api @apache 
+  @api @apache
   Scenario: Injest Video Sample Objects
     Given I am logged in as a user with the "administrator" role
     And I am on "/islandora/object/samples%3Acollection"
@@ -226,7 +147,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     # When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Videos/ZsafetyRazorTEST.xml" to "edit-file-upload"
     # Then I press "Upload"
     # When I wait for AJAX to finish
-    
+
     # (Next again because we always skip MARCXML)
     Then I press "Next"
     Then I fill in "edit-titleinfo-title" with "Z American Safey Razor (Video) TEST OBJECT"
@@ -254,7 +175,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to view a VIDEO object?
-  @apache @video 
+  @apache @video
   Scenario: Viewing samples:33
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A33"
@@ -284,7 +205,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   Scenario: Edit Basic Video title
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
-    Then I should see "Brim Coffee (Video)"  
+    Then I should see "Brim Coffee (Video)"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
@@ -298,7 +219,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "samples:33"
     # Undo Changes
     Given I am on "/islandora/object/samples%3A33"
-    Then I should see "Brim Coffee (Video) - EDITED"  
+    Then I should see "Brim Coffee (Video) - EDITED"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
@@ -317,7 +238,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   Scenario: Edit Video Item Label
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
-    Then I should see "Brim Coffee (Video)"  
+    Then I should see "Brim Coffee (Video)"
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
@@ -342,12 +263,12 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
 
   # Able to edit MODS datastream for VIDEO object?
-  
+
 
   # Able to search for newly edited MODS datastream for VIDEO object using Islandora simple search?
 
   # Able to replace MODS datastreams
-  @api @apache @javascript 
+  @api @apache @javascript
   Scenario: Replace MODS datastream for Video
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A33"
@@ -365,20 +286,20 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I press "Add Contents"
     Then wait 30 seconds
     Given the cache has been cleared
-    
+
     # TODO: this next assertion should succeed, but it doesn't:
     Then I should see "Brim Coffee (Video) - MODS - REPLACED"
     ## Pat/Derek should Replacing MODS update automatically after replace? !!! ACCORDING TO DEREK THIS IS A PROBLEM
-    
+
     #Able to search for newly replaced MODS datastreams using Islandora simple search?
     Given I am on "/islandora/search/Brim%20Coffee%20%28Video%29%20-%20MODS%20-%20REPLACED?type=dismax"
-    Then I should see "samples:33"  
+    Then I should see "samples:33"
     Then I should see "Brim Coffee (Video) - MODS - REPLACED"
-    
+
     # NOW WE UNDO
     Given the cache has been cleared
     Given I am on "/islandora/search/Brim%20Coffee%20%28Video%29%20-%20MODS%20-%20REPLACED?type=dismax"
-    Then I should see "samples:33"  
+    Then I should see "samples:33"
     Then I should see "Brim Coffee (Video) - MODS - REPLACED"
     # Put original MODS back
     Given I am on "/islandora/object/samples%3A33"
@@ -401,7 +322,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/object/samples%3A33"
     Then I should see "Brim Coffee (Video)"
 
-  
+
 
   # Able to delete TN derivative for VIDEO object?
   @api @apache
@@ -473,21 +394,21 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I am on "/islandora/search/samples%3A33?type=dismax"
     Then the "dl.solr-thumb" element should contain "TN/view"
 
-  @apache @video 
+  @apache @video
   Scenario: Viewing samples:33
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A33"
     Then I should see a "body" element
     Then I should see "Brim Coffee (Video)"
 
-  @apache @video 
+  @apache @video
   Scenario: Viewing samples:34
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A34"
     Then I should see a "body" element
     Then I should see "AMF: Roadmaster Evel Knievel Bicycles (Video)"
 
-  @apache @video 
+  @apache @video
   Scenario: Viewing samples:35
     Given I am an anonymous user
     And I am on "/islandora/object/samples%3A35"

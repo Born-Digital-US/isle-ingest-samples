@@ -130,7 +130,7 @@ portainer: # PORTAINER profile
         tags: "@portainer"
   extensions:
     Behat\MinkExtension:
-      base_url: http://isle-portainer:8080
+      base_url: http://isle-portainer:9000
 
 mysql: # MYSQL profile
   suites:
