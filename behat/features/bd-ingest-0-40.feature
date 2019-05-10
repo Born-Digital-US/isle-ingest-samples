@@ -390,39 +390,6 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   ### When I fill in "edit-object-label" with "Worm-eating Warbler (Audio-LABEL-EDITED)"
   ## click update properties, check for "Successfully"
   #   check search results, then undo and final assert original
-  
-
-
-  # Able to ingest these test BASIC IMAGE sample objects?
-  @api @apache @basicimage
-  Scenario: Injest Basic Image Sample Objects
-    Given I am logged in as a user with the "administrator" role
-    And I am on "/islandora/object/samples%3Acollection"
-    Then I should see "ICG Samples"
-    Then I click "Manage"
-    Then I click "Add an object to this Collection"
-    When select "Islandora Basic Image Content Model" from "models"
-    Then I press "Next"
-    Then I press "Next"
-    Then I fill in "edit-titleinfo-title" with "Z Palm Tree (Basic Image) TEST OBJECT"
-    Then I press "Next"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Image/ZPalm Tree typeTEST.jpg" to "edit-file-upload"
-    Then I press "Upload"
-    Then I press "Ingest"
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z Palm Tree (Basic Image) TEST OBJECT"
-    When I click "Z Palm Tree (Basic Image) TEST OBJECT"
-    Then I should see "In collections"
-    When I click "Manage"
-    Then I click "Properties"
-    Then I should see "Item Label"
-    Then I press "Permanently remove 'Z Palm Tree (Basic Image)...' from repository"
-    Then I should see "This action cannot be undone."
-    Then I press "Delete"
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z Palm Tree (Basic Image) TEST OBJECT"
 
 
   # Able to view a BASIC IMAGE object?
@@ -602,13 +569,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Given I click "delete" in the "TN" row
     Then I check the box "Delete Derivatives"
     Given I press "Delete"
-    Given I am on "/islandora/search/samples%3A4?type=dismax"
-    Then the "dl.solr-thumb" element should contain "defaultimg.png"
-
-  @api @apache @basicimage
-  Scenario: Test for No TN Image
-    Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/search/samples%3A4?type=dismax"
+    Given I am on "/islandora/search/\"Apple%20Tree\"?type=dismax"
     Then the "dl.solr-thumb" element should contain "defaultimg.png"
 
   #Replace original TN
