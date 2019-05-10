@@ -21,10 +21,12 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * An array
    */
   private $test_environments;
+
   private $environment_id;
   private $assets_path;
   private $user;
   private $behat_test_collection_pid;
+  private $fetched_object_pid;
 
   /**
    * Initializes context.
@@ -157,6 +159,25 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     else {
       throw new Exception("Selector ({$selector}) not found.");
     }
+  }
+
+  /**
+   * @Given that I navigate to the page for the object named :name
+   */
+  public function thatINavigateToThePageForTheObjectNamed($name)
+  {
+    $this->visitPath('/islandora/search/"'. $name .'"?type=dismax');
+
+    $session = $this->getSession();
+    $element = $session->getPage()->find('css', 'div.islandora-solr-content > div > div:nth-child(1) > div > dl.solr-fields.islandora-inline-metadata > dd.solr-value.pid');
+    # $this->fetched_object_pid = $element->getText();
+    $pid = $element->getText();
+
+    if(empty($pid)) {
+      throw new Exception("Could not make the behat test collection");
+    }
+    echo("Navigating to: /islandora/object/". $pid);
+    $this->visitPath("/islandora/object/". $pid );
   }
 
   /**
