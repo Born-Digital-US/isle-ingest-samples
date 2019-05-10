@@ -6,7 +6,7 @@ Feature: Test Audio CModel
 # Able to ingest the test AUDIO sample objects?
     #(DO NOT USE JAVASCRIPT)
   @api @apache @audio
-  Scenario: Injest Audio Sample Objects
+  Scenario: Ingest Audio Sample Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
     And I am on "/islandora/object/samples%3Acollection"
@@ -17,7 +17,7 @@ Feature: Test Audio CModel
     When select "Islandora Audio Content Model" from "models"
     Then I press "Next"
     Then I press "Next"
-    Then I fill in "edit-titleinfo-title" with "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    Then I fill in "edit-titleinfo-title" with "Z (Audio) TEST"
     Then I press "Next"
     When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Audio/ZRed-winged BlackbirdTest.mp3" to "edit-audio-file-upload"
     Then I press "Upload"
@@ -28,25 +28,15 @@ Feature: Test Audio CModel
     # Make sure the object ingested
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
-    # Delete new object
-    When I click "Z Red-winged Blackbird (Audio) TEST OBJECT"
-    Then I should see "In collections"
-    When I click "Manage"
-    Then I click "Properties"
-    Then I should see "Item Label"
-    Then I press "Permanently remove 'Z Red-winged Blackbird (Audio...' from repository"
-    Then I should see "This action cannot be undone."
-    Then I press "Delete"
-    # Check that new object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    Then I should see the link "Z (Audio) TEST"
+    
 
 
-    # Able to upload (replace) thumbnail for Audio object?
+  # Able to upload (replace) thumbnail for Audio object?
+  @api @apache @javascript @audio
+  Scenario: Replace Audio Thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A3"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -58,30 +48,31 @@ Feature: Test Audio CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Contents"
-    Then I should see "Red-winged Blackbird (Audio)"
+    Then I should see "Z (Audio) TEST"
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Re-upload original thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A3"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "replace" in the "TN" row
-    Then I should see "Label: TN Datastream"
     When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.png" to "edit-file-upload"
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Contents"
-    Then I should see "Red-winged Blackbird (Audio)"
+    Then I should see "Z (Audio) TEST"
 
 
-    # Able to delete TN derivative for AUDIO object? *** 
+  # Able to delete TN derivative for AUDIO object? *** 
+  @api @apache @javascript @audio
+  Scenario: Delete TN derivative for Audio Object
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A1"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -111,7 +102,7 @@ Feature: Test Audio CModel
 
     #Add Original Thumbnail and Thumbnail datastream back
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A1"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
@@ -122,7 +113,7 @@ Feature: Test Audio CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Datastream"
-    Then I should see "Worm-eating Warbler (Audio)"
+    Then I should see "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
@@ -131,8 +122,10 @@ Feature: Test Audio CModel
     Then I press "Regenerate"
   
   # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
+  @api @apache @javascript @audio
+  Scenario: Regenerate all derivatives for Audio Object
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A3"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Properties"
@@ -151,28 +144,32 @@ Feature: Test Audio CModel
     # Able to view / hear an AUDIO object?
     ## TESTS: Noah is skeptical that we can test for audio output
 
-    # Able to download an AUDIO object?
+  # Able to download an AUDIO object? *** TODO ASK NOAH HOW TO DO THIS LINK!? ***
+  @api @apache @audio
+  Scenario: Check for Audio OBJ download
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/object/samples%3A1/datastream/OBJ"
     Then I should get a 200 HTTP response
 
 
 
-    # Able to search for newly ingested AUDIO object using Islandora simple search?
+  # Able to search for newly ingested AUDIO object using Islandora simple search?
+  @api @apache @audio
+  Scenario: Check for Audio Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Audio?type=dismax"
     Then I should see "islandora:audio_collection"
-    Then I should see "samples:3"
-    Then I should see "samples:2"
-    Then I should see "samples:1"
+    Then I should see "Z (Audio) TEST"
 
 
 
-    # Able to edit MODS datastream for AUDIO object? ("replace") ****
+  # Able to edit MODS datastream for AUDIO object? ("replace") ****
+  @api @apache @audio
+  Scenario: Replace MODS datastream for Audio Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
+    Then I should see "Z (Audio) TEST"
     # Navigate to and replace MODS datastream
     Then I click "Manage"
     Then I click "Datastreams"
@@ -184,121 +181,128 @@ Feature: Test Audio CModel
     Given I press "Upload"
     Then I press "Add Contents"
     #Extra step required to forced reindexing
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
+    Then I should see "Z (Audio) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler (REPLACED)"
+    Given that I navigate to the page for the object named "Z (Audio) TEST REPLACED"
+    Then I should see "Z (Audio) TEST REPLACED"
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
-    Given I am on "/islandora/search/Worm-eating%20Warbler%20%28Audio%29%20-%20REPLACED?type=dismax"
-    Then I should see "Worm-eating Warbler (REPLACED)"
+    Given I am on "/islandora/search/Z%20%28Audio%29%20TEST%20REPLACED?type=dismax"
+    Then I should see "Z (Audio) TEST REPLACED"
   
     # Restore Original MODS Datastream
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler"
+    Given that I navigate to the page for the object named "Z (Audio) TEST REPLACED"
+    Then I should see "Z (Audio) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/audioCModel/files/1/Worm-eating Warbler.xml" to "edit-file-upload"
+    When I attach the file "assets/Audio/ZRed-winged BlackbirdTest.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
+    Then I should see "Z (Audio) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given I am on "/islandora/object/samples%3A1"
-    Then I should see "Worm-eating Warbler (Audio)"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
+    Then I should not see "Z (Audio) TEST REPLACED"
+    And I should see "Z (Audio) TEST"
 
 
-    # Able to edit Object Title for audio Object 
+  # Able to edit Object Title for audio Object 
+  @api @apache @audio
+  Scenario: Edit Audio object title 
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given I am on "islandora/object/samples%3A2"
-    Then I should see "American Goldfinch (Audio)"  
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
+    Then I should see "Z (Audio) TEST"  
     # Navigate to and change Object title
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I should see "Title of the work"
-    Then I fill in "edit-titleinfo-title" with "American Goldfinch (Audio-edited)"
+    Then I fill in "edit-titleinfo-title" with "Z (Audio-edited) TEST"
     When I press "Update"
-    Then I should see "American Goldfinch (Audio-edited)"
+    Then I should see "Z (Audio-edited) TEST"
     # Test that object title did change and that search picks it up
-    Given I am on "/islandora/search/American%20Goldfinch%20%28Audio-edited%29?type=dismax"
-    Then I should see "samples:2"
+    Given I am on "/islandora/search/Z%20%28Audio-edited%29%20TEST?type=dismax"
+    Then I should see "samples:"
     # Change Object title back to original
-    Given I am on "/islandora/object/samples%3A2"
-    Then I should see "American Goldfinch (Audio-edited)"
+    Given that I navigate to the page for the object named "Z (Audio"
+    Then I should see "Z (Audio-edited) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I should see "Title of the work"
-    Then I fill in "edit-titleinfo-title" with "American Goldfinch (Audio)"
+    Then I fill in "edit-titleinfo-title" with "Z (Audio) TEST"
     When I press "Update"
-    Then I should see "American Goldfinch (Audio)"
+    Then I should see "Z (Audio) TEST"
     # Check that object title is original and that search is picking it up
-    Given I am on "/islandora/search/American%20Goldfinch%20%28Audio%29?type=dismax"
-    Then I should see "samples:2"
+    Given I am on "/islandora/search/Z%20%28Audio%29%20TEST?type=dismax"
+    Then I should see "samples:"
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-    # Able to edit the Item Label of an AUDIO object's Properties?
+  # Able to edit the Item Label of an AUDIO object's Properties?
+  @api @apache @audio
+  Scenario: Edit Audio object Item Label
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given I am on "islandora/object/samples%3A2"
-    Then I should see "American Goldfinch (Audio)"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
+    Then I should see "Z (Audio) TEST"
     # Navigate to and change item label form  
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "American Goldfinch (Audio-LABEL-EDITED)"
+    Then I fill in "edit-object-label" with "Z (Audio-LABEL-EDITED) TEST"
     When I press "Update Properties"
-    Then I should see "American Goldfinch (Audio-LABEL-EDITED)"
+    Then I should see "Z (Audio-LABEL-EDITED) TEST"
     # Able to search for newly edited Item Label of an AUDIO object's Properties using Islandora simple search?
-    Given I am on "/islandora/search/American%20Goldfinch%20%28Audio-label-edited%29?type=dismax"
-    Then I should see "samples:2"
-    Given I am on "/islandora/object/samples%3A2"
-    Then I should see "American Goldfinch (Audio-LABEL-EDITED)"
+    Given I am on "/islandora/search/Z%20%28Audio-LABEL-EDITED%29%20TEST?type=dismax"
+    Then I should see "Z (Audio-LABEL-EDITED) TEST"
+    Given that I navigate to the page for the object named "Z (Audio-LABEL-EDITED) TEST"
+    Then I should see "Z (Audio-LABEL-EDITED) TEST"
     # Change item label back to original
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "American Goldfinch (Audio)"
+    Then I fill in "edit-object-label" with "Z (Audio) TEST"
     When I press "Update Properties"
-    Then I should see "American Goldfinch (Audio)"
+    Then I should see "Z (Audio) TEST"
     # Check that item label is now original
-    Given I am on "/islandora/search/American%20Goldfinch%20%28Audio%29?type=dismax"
-    Then I should see "samples:2"
+    Given I am on "/islandora/search/Z%20%28Audio%29%20TEST?type=dismax"
+    Then I should see "Z (Audio) TEST"
 
-
+  #Delete newly ingested object
+  @api @apache @audio
+  Scenario: Delete newly ingested object
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    Then I should see the link "Z (Audio) TEST"
     # Delete new object
-    When I click "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    When I click "Z (Audio) TEST"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
     Then I should see "Item Label"
-    Then I press "Permanently remove 'Z Red-winged Blackbird (Audio...' from repository"
+    Then I press "Permanently remove 'Z (Audio) TEST' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
     # Check that new object is deleted
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should not see the link "Z Red-winged Blackbird (Audio) TEST OBJECT"
+    Then I should not see the link "Z (Audio) TEST"

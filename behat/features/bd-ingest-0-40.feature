@@ -115,7 +115,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Red-winged Blackbird (Audio)"
 
 
-  # Ab/islandora/object/samples%3A1#overlay-context=islandora/object/samples%253A1le to delete TN derivative for AUDIO object? *** 
+  # Able to delete TN derivative for AUDIO object? *** 
   @api @apache @javascript @audio
   Scenario: Delete TN derivative for Audio Object 
     Given I am logged in as a user with the "administrator" role
@@ -327,7 +327,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
   #    NOW TEST FOR search results. load hhttps://isle.localdomain/islandora/search/%22audio-edited%22?type=dismax and ensure "samples:2" and "(Audio-edited)"
   ##   (to undo) Manage, Mods edit, remove "-edited", "Update", assert original title
   @api @apache @audio
-  Scenario: Edit Audio (Goldfinch) object title 
+  Scenario: Edit Audio object title 
     Given I am logged in as a user with the "administrator" role
     Given I am on "islandora/object/samples%3A2"
     Then I should see "American Goldfinch (Audio)"  

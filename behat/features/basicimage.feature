@@ -6,6 +6,9 @@ Feature: Test BasicImage CModel
   # Able to ingest these test BASIC IMAGE sample objects?
   @api @apache @basicimage
   Scenario: Injest and Test BasicImage Sample Object
+    # Given the following objects exist:
+    #     | title |
+    #     |   Z (Basic Image) TEST  |
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
     And I am on "/islandora/object/samples:collection"
@@ -22,7 +25,7 @@ Feature: Test BasicImage CModel
     Then I press "Next"
     #Then wait for the page to be loaded
     #Then I wait for AJAX to finish
-    Then I fill in "edit-titleinfo-title" with "Z Palm Tree (Basic Image) TEST OBJECT"
+    Then I fill in "edit-titleinfo-title" with "Z (Basic Image) TEST"
     Then I press "Next"
     When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Image/ZPalm Tree typeTEST.jpg" to "edit-file-upload"
     Then I press "Upload"
@@ -30,18 +33,18 @@ Feature: Test BasicImage CModel
     # Make sure the object ingested
     When I am on "/islandora/object/samples:collection"
     Then I click "last"
-    Then I should see the link "Z Palm Tree (Basic Image) TEST OBJECT"
-    # When I click "Z Palm Tree (Basic Image) TEST OBJECT"
+    Then I should see the link "Z (Basic Image) TEST"
+    # When I click "Z (Basic Image) TEST"
 
-    Given that I navigate to the page for the object named "Z Palm Tree (Basic Image) TEST OBJECT"
+    Given that I navigate to the page for the object named "Z (Basic Image) TEST"
 
     # Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
     Then I should see "Item Label"
-    Then I press "Permanently remove 'Z Palm Tree (Basic Image)...' from repository"
+    Then I press "Permanently remove 'Z (Basic Image) TEST' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
     When I am on "/islandora/object/samples:collection"
     Then I click "last"
-    Then I should not see the link "Z Palm Tree (Basic Image) TEST OBJECT"
+    Then I should not see the link "Z (Basic Image) TEST"
