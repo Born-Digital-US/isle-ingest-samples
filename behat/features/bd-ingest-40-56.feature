@@ -131,13 +131,124 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     Then I should see "Easthampton Town Hall (Large Image)"
 
   # Able to ingest these test LARGE IMAGE sample objects?
+  @api @apache @largeimage
+  Scenario: Injest Large Image Sample Object
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/islandora/object/samples%3Acollection"
+    Then I should see "ICG Samples"
+    Then I click "Manage"
+    Then I click "Add an object to this Collection"
+    When select "Islandora Large Image Content Model" from "models"
+    Then I press "Next"
+    # (Next again because we always skip MARCXML)
+    Then I press "Next"
+    Then I fill in "edit-titleinfo-title" with "Z Nehemiah Strong House (Large Image) TEST OBJECT"
+    Then I press "Next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Large Image/Z Nehemiah Strong House (Large Image) TEST OBJECT.tiff" to "edit-file-upload"
+    Then I press "Upload"
+    #When wait 20 seconds
+    Then I press "Ingest"
+    When I am on "/islandora/object/samples%3Acollection"
+    Then I click "last"
+    Then I should see the link "Z Nehemiah Strong House (Large Image) TEST OBJECT"
+    When I click "Z Nehemiah Strong House (Large Image) TEST OBJECT"
+    Then I should see "In collections"
+    When I click "Manage"
+    Then I click "Properties"
+    Then I should see "Item Label"
+    Then I press "Permanently remove 'Z Nehemiah Strong House ...' from repository"
+    Then I should see "This action cannot be undone."
+    Then I press "Delete"
+    #When wait 20 seconds
+    When I am on "/islandora/object/samples%3Acollection"
+    Then I click "last"
+    Then I should not see the link "Z Nehemiah Strong House (Large Image) TEST OBJECT"
+
   # Able to view a LARGE IMAGE object?
+  @apache @largeimage
+  Scenario: View Large Image Sample
+    Given I am an anonymous user
+    And I am on "/islandora/object/samples%3A30"
+    Then I should see a "body" element
+    Then I should see "Easthampton Town Hall (Large Image)"
+  
   # Able to download a LARGE IMAGE object?
+  @api @apache @largeimage
+  Scenario: Check for Large Image download
+      Given I am logged in as a user with the "administrator" role
+      Given I am on "/islandora/object/samples%3A30"
+      Then I should get a 200 HTTP response
+
   # Able to search for newly ingested LARGE IMAGE object using Islandora simple search?
+  @api @apache @largeimage
+  Scenario: Check for Large Images using simple search
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/large%20image?type=dismax"
+    Then I should see "islandora:sp_large_image_collection"
+    Then I should see "Easthampton Town Hall (Large Image)"
+    Then I should see "Nehemiah Strong House (Large Image)"
+    Then I should see "Amherst College, Lawrence Observatory (Large Image)"
+
   # Able to edit LARGE IMAGE object’s title using the XML form?
-  # Able to search for newly edited  LARGE IMAGE object’s title using Islandora simple search?
-  # Able to edit the Item Label of an LARGE IMAGE object's Properties?
-  # Able to search for newly edited Item Label of an LARGE IMAGE object's Properties using Islandora simple search?
+  @api @apache @javascript @largeimage
+  Scenario: Edit Large Image object title
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A30"
+    Then I should see "Easthampton Town Hall (Large Image)"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I should see "Title"
+    Then I fill in "edit-titleinfo-title" with "Easthampton Town Hall (Large Image) - EDITED"
+    When I press "update"
+    Then I should see "Easthampton Town Hall (Large Image) - EDITED"
+    # Able to search for newly edited  LARGE IMAGE object’s title using Islandora simple search?
+    Given I am on "/islandora/search/Easthampton%20Town%20Hall%20%28Large%20Image%29%20-%20EDITED?type=dismax"
+    Then I should see "samples:30"
+    # Undo Changes
+    Given I am on "/islandora/object/samples%3A30"
+    Then I should see "Easthampton Town Hall (Large Image) - EDITED"
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "MODS Record"
+    Given I click "edit" in the "MODS" row
+    Then I should see "Title"
+    Then I fill in "edit-titleinfo-title" with "Easthampton Town Hall (Large Image)"
+    When press "update"
+    Then I should see "Easthampton Town Hall (Large Image)"
+    When I fill in "edit-islandora-simple-search-query" with "Easthampton Town Hall (Large Image)"
+    When I press "search"
+    Then I should see "samples:30"
+
+  # Able to edit the Item Label of a LARGE IMAGE object's Properties?
+  @api @apache @largeimage
+  Scenario: Edit Large Image Item Label
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/object/samples%3A30"
+    Then I should see "Easthampton Town Hall (Large Image)"
+    Then I click "Manage"
+    Then I click "Properties"
+    Then I should see "A human-readable label"
+    Then I fill in "edit-object-label" with "Easthampton Town Hall (Large Image) LABEL-EDITED"
+    When I press "Update Properties"
+    Then I should see "Easthampton Town Hall (Large Image) LABEL-EDITED"
+    # Able to search for newly edited Item Label of a Large Image object's Properties using Islandora simple search?
+    Given I am on "/islandora/search/Easthampton%20Town%20Hall%20%28Large%20Image%29%20LABEL-EDITED?type=dismax"
+    Then I should see "samples:30"
+    # Undo changes to object label
+    Given I am on "/islandora/object/samples%3A30"
+    Then I should see "/islandora/search/Easthampton%20Town%20Hall%20%28Large%20Image%29%20LABEL-EDITED?type=dismax"
+    Then I click "Manage"
+    Then I click "Properties"
+    Then I should see "A human-readable label"
+    Then I fill in "edit-object-label" with "Easthampton Town Hall (Large Image)"
+    When I press "Update Properties"
+    Then I should see "Easthampton Town Hall (Large Image)"
+    # Search for original object label to confirm that it is back to its original state
+    Given I am on "/islandora/search/Easthampton%20Town%20Hall%20%28Large%20Image%29?type=dismax"
+    Then I should see "samples:30"
+
   # Able to edit MODS datastream for LARGE IMAGE object?
   # Able to search for newly edited MODS datastream for LARGE IMAGE object using Islandora simple search?
   # Able to delete TN derivative for LARGE IMAGE object?
@@ -189,7 +300,6 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
     # When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Videos/ZsafetyRazorTEST.xml" to "edit-file-upload"
     # Then I press "Upload"
     # When I wait for AJAX to finish
-
     # (Next again because we always skip MARCXML)
     Then I press "Next"
     Then I fill in "edit-titleinfo-title" with "Z American Safey Razor (Video) TEST OBJECT"
@@ -309,7 +419,7 @@ Feature: Test BriefIngest (through line 56, no video no newspaper issues)
 
   # Able to search for newly edited MODS datastream for VIDEO object using Islandora simple search?
 
-  # Able to replace MODS datastreams
+  # Able to replace MODS datastream for Video Object?
   @api @apache @javascript @video
   Scenario: Replace MODS datastream for Video
     Given I am logged in as a user with the "administrator" role
