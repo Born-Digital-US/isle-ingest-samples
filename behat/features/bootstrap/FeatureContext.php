@@ -181,7 +181,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $pid = $element->getText();
     }
     catch(Exception $e) {
-      throw new Exception("$e->getMessage());
+      throw new Exception($e->getMessage());
     }
 
     if(empty($pid)) {
