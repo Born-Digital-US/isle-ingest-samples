@@ -5,7 +5,7 @@ Feature: Test PDF CModel
 
 # Able to ingest the test pdf sample objects?
     #(DO NOT USE JAVASCRIPT)
-  @api @apache @pdf
+  @api @apache @pdf @javascript
   Scenario: Ingest PDF Sample Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
@@ -14,19 +14,29 @@ Feature: Test PDF CModel
     # Navigate through new object form and ingest new object
     Then I click "Manage"
     Then I click "Add an object to this Collection"
+    Then I should see "Select a Content Model to Ingest"
     When select "Islandora PDF Content Model" from "models"
+    And I wait for AJAX to finish
     Then I press "Next"
-    Then I press "Next"
+    And wait for the page to be loaded
+    Then I should see "MARCXML File"
+    # Then wait 3 seconds
+    # Then I press "Next"
+    Then I click on the selector "#edit-next"
+
+    Then I should see "Title of the PDF."
     Then I fill in "edit-titleinfo-title" with "Z (PDF) TEST"
-    Then I press "Next"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/PDF/Z (PDF) Test.pdf" to "edit-file-upload"
+    Then I click on the selector "#edit-next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/PDF/Z_PDF_TEST.pdf" to "edit-file-upload"
     Then I press "Upload"
-    Then I press "Ingest"
-    #Then I should see "Z (PDF) TEST"
+    Then I wait for AJAX to finish
+    Then I click on the selector "#edit-next"
+    And wait for the page to be loaded
+    Then I should see "In collections"
     ## Make sure the object ingested
-    #When I am on "/islandora/object/samples%3Acollection"
-    #Then I click "last"
-    #Then I should see the link "Z (PDF) TEST"
+    When I am on "/islandora/object/samples%3Acollection"
+    When I click "last"
+    Then I should see the link "Z (PDF) TEST"
     
 
 
@@ -34,7 +44,7 @@ Feature: Test PDF CModel
   @api @apache @javascript @pdf
   Scenario: Replace PDF Thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Catalogue of the plants"
+    Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -46,24 +56,21 @@ Feature: Test PDF CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Contents"
-    Then I should see "Catalogue of the plants"
+    Then I should see "Z (PDF) TEST"
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
-    # Re-upload original thumbnail
+    # Regenerate original thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Catalogue of the plants found in New Bedford and its vicinity; arranged according to the season of their floweriing."
+    Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-    Given I click "replace" in the "TN" row
-    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/pdfCModel/files/3/CataloguePlantsNewBedord1860.pdf" to "edit-file-upload"
-    And I press "Upload"
-    When wait 3 seconds
-    And I press "Add Contents"
-    Then I should see "Catalogue of the plants found in New Bedford and its vicinity; arranged according to the season of their floweriing."
+   Given I click "regenerate" in the "TN" row
+    Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
+    Then I press "Regenerate"
 
 
   # Able to delete TN derivative for PDF object? *** 
@@ -89,7 +96,7 @@ Feature: Test PDF CModel
     Given I click "Add a datastream"
     Then I fill in "edit-dsid" with "TN"
     Then I fill in "edit-label" with "Thumbnail"
-    When I attach the file "/var/www/html/isle-ingest-samples/Batches-by-CModel/pdfCModel/files/3/CatatloguePlantsNewBedford1860" to "edit-file-upload"
+    When I attach the file "assets/ducky-5.jpg" to "edit-file-upload"
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Datastream"
@@ -142,7 +149,7 @@ Feature: Test PDF CModel
 
 
   # Able to edit MODS datastream for PDF object? ("replace") ****
-  @api @apache @pdf
+  @api @apache @javascript @pdf
   Scenario: Replace MODS datastream for PDF Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
@@ -155,7 +162,7 @@ Feature: Test PDF CModel
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "assets/Z (PDF) TEST REPLACED.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/PDF/Z_PDF_TEST_REPLACED.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
     #Extra step required to forced reindexing
@@ -167,7 +174,7 @@ Feature: Test PDF CModel
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given that I navigate to the page for the object named "Z (PDF) TEST REPLACED"
+    Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see "Z (PDF) TEST REPLACED"
     # Able to search for newly edited MODS datastream for PDF object using Islandora simple search?
     Given I am on "/islandora/search/Z%20%28PDF%29%20TEST%20REPLACED?type=dismax"
@@ -183,7 +190,7 @@ Feature: Test PDF CModel
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "assets/PDF/Z (PDF) TEST.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/PDF/Z_PDF_TEST.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
     Given that I navigate to the page for the object named "Z (PDF) TEST"
@@ -211,7 +218,7 @@ Feature: Test PDF CModel
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
-    Then I should see "Title of the work"
+    Then I should see "Title of the PDF"
     Then I fill in "edit-titleinfo-title" with "Z (PDF) TEST EDITED"
     When I press "Update"
     Then I should see "Z (PDF) TEST EDITED"
@@ -225,7 +232,7 @@ Feature: Test PDF CModel
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
-    Then I should see "Title of the work"
+    Then I should see "Title of the PDF"
     Then I fill in "edit-titleinfo-title" with "Z (PDF) TEST"
     When I press "Update"
     Then I should see "Z (PDF) TEST"
@@ -246,13 +253,13 @@ Feature: Test PDF CModel
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "Z (PDF-LABEL-EDITED) TEST"
+    Then I fill in "edit-object-label" with "Z (PDF) TEST LABEL-EDITED"
     When I press "Update Properties"
     Then I should see "Z (PDF) TEST LABEL-EDITED"
     # Able to search for newly edited Item Label of an PDF object's Properties using Islandora simple search?
     Given I am on "/islandora/search/Z%20%28PDF%29%20TEST%20LABEL-EDITED?type=dismax"
-    Then I should see "Z (PDF) TEST LABEL-EDITED"
-    Given that I navigate to the page for the object named "Z (PDF) TEST LABEL-EDITED"
+    Then I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see "Z (PDF) TEST LABEL-EDITED"
     # Change item label back to original
     Then I click "Manage"
@@ -266,8 +273,9 @@ Feature: Test PDF CModel
     Then I should see "Z (PDF) TEST"
 
   #Delete newly ingested object
-  @api @apache @pdf
-  Scenario: Delete newly ingested object
+  @api @apache @javascript @pdf
+  Scenario: Delete newly ingested PDF object
+    Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
     Then I should see the link "Z (PDF) TEST"
