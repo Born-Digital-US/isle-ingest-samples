@@ -32,8 +32,10 @@ Feature: Test PDF CModel
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    Then I should see "In collections"
+    And wait 10 seconds
     ## Make sure the object ingested
+
+    Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/samples%3Acollection"
     When I click "last"
     Then I should see the link "Z (PDF) TEST"
@@ -133,7 +135,8 @@ Feature: Test PDF CModel
   @api @apache @pdf
   Scenario: Check for PDF OBJ download
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A1/datastream/OBJ"
+    Given that I navigate to the page for the object named "Z (PDF) TEST"
+    And I click "Download pdf" 
     Then I should get a 200 HTTP response
 
 
@@ -143,7 +146,7 @@ Feature: Test PDF CModel
   Scenario: Check for PDF Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/PDF?type=dismax"
-    Then I should see "islandora:pdf_collection"
+    Then I should see "islandora:sp_pdf_collection"
     Then I should see "Z (PDF) TEST"
 
 

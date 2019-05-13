@@ -503,7 +503,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   }
 
   /**
-   * @When /^wait (\d+\.*\d*) seconds?$/
+   * @When /^wait (\d+\.*\d*) seconds?$/ 
    */
   public function waitSeconds($seconds)
   {
@@ -517,6 +517,16 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     $this->getSession()->wait(10000, "document.readyState === 'complete'");
   }
+
+    /**
+   * @When /^wait for Ingest to complete$/
+   */
+  public function waitForIngestToComplete()
+  {
+    $this->getSession()->wait(1000*360);
+    # $this->getSession()->wait(30000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))");
+  }
+
 
   /**
    * Count number of page elements found by a css selector

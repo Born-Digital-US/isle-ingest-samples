@@ -3,39 +3,48 @@ Feature: Test Book CModel
   As a developer
   I need to test some sample data
 
-# Able to ingest the test pdf sample objects?
-    #(DO NOT USE JAVASCRIPT)
-  @api @apache @book
+# Able to ingest the test BOOK sample objects?
+  @api @apache @javascript @book
   Scenario: Ingest Book Sample Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
     And I am on "/islandora/object/samples%3Acollection"
     Then I should see "ICG Samples"
     # Navigate through new object form and ingest new object
+    
     Then I click "Manage"
     Then I click "Add an object to this Collection"
     When select "Islandora Internet Archive Book Content Model" from "models"
+    And I wait for AJAX to finish
     Then I press "Next"
-    Then I press "Next"
-    Then I fill in "edit-titleinfo-title" with "Z (PDF) TEST"
-    Then I press "Next"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/Z_Book_TEST.pdf" to "edit-file-upload"
+    And wait for the page to be loaded
+    # Then wait 3 seconds
+    # Then I press "Next"
+    Then I click on the selector "#edit-next"
+    Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST"
+    Then I click on the selector "#edit-next"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/Z_Book_TEST.pdf" to "edit-pdf-file-upload"
     Then I press "Upload"
-    Then I press "Ingest"
-    Then grab me a screenshot
-    Then I should see "Z (PDF) TEST"
+    Then I wait for AJAX to finish
+    Then I click on the selector "#edit-next"
+    # And I wait for AJAX to finish
+    And wait for the page to be loaded
+    # And wait 360 seconds
+    Then wait for Ingest to complete
+    
+    Then I should see "Z (BOOK) TEST"
     # Make sure the object ingested
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should see the link "Z (PDF) TEST"
+    Then I should see the link "Z (BOOK) TEST"
     
 
 
-  # Able to upload (replace) thumbnail for PDF object?
+  # Able to upload (replace) thumbnail for BOOK object?
   @api @apache @javascript @book
-  Scenario: Replace PDF Thumbnail
+  Scenario: Replace BOOK Thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -47,13 +56,13 @@ Feature: Test Book CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Contents"
-    Then I should see "Z (PDF) TEST"
+    Then I should see "Z (BOOK) TEST"
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -64,11 +73,11 @@ Feature: Test Book CModel
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for PDF object? *** 
+  # Able to delete TN derivative for BOOK object? *** 
   @api @apache @javascript @book
-  Scenario: Delete TN derivative for PDF Object
+  Scenario: Delete TN derivative for BOOK Object
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -80,7 +89,7 @@ Feature: Test Book CModel
     Then I press "Delete"
     #Add Original Thumbnail and Thumbnail datastream back
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
@@ -91,7 +100,7 @@ Feature: Test Book CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Datastream"
-    Then I should see "Z (PDF) TEST"
+    Then I should see "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
@@ -99,11 +108,11 @@ Feature: Test Book CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for PDF object? ***  See lower tests
+  # Able to regenerate all derivatives for BOOK object? ***  See lower tests
   @api @apache @javascript @book
-  Scenario: Regenerate all derivatives for PDF Object
+  Scenario: Regenerate all derivatives for BOOK Object
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Properties"
@@ -111,7 +120,7 @@ Feature: Test Book CModel
     Then I press "Regenerate all derivatives"
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
-    Given wait 20 seconds
+    Given wait 240 seconds
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
@@ -120,32 +129,32 @@ Feature: Test Book CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an PDF object? *** TODO Ask Noah how to do this link***
+  # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
   @api @apache @book
-  Scenario: Check for PDF OBJ download
+  Scenario: Check for BOOK OBJ download
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/object/samples%3A1/datastream/OBJ"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should get a 200 HTTP response
 
 
 
-  # Able to search for newly ingested PDF object using Islandora simple search?
+  # Able to search for newly ingested BOOK object using Islandora simple search?
   @api @apache @book
-  Scenario: Check for PDF Objects using simple search
+  Scenario: Check for BOOK Objects using simple search
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/search/PDF?type=dismax"
-    Then I should see "islandora:pdf_collection"
-    Then I should see "Z (PDF) TEST"
+    Given I am on "/islandora/search/BOOK?type=dismax"
+    Then I should see "islandora:bookCollection"
+    Then I should see "Z (BOOK) TEST"
 
 
 
-  # Able to edit MODS datastream for PDF object? ("replace") ****
+  # Able to edit MODS datastream for BOOK object? ("replace") ****
   @api @apache @javascript @book
-  Scenario: Replace MODS datastream for PDF Object
+  Scenario: Replace MODS datastream for BOOK Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST"
     # Navigate to and replace MODS datastream
     Then I click "Manage"
     Then I click "Datastreams"
@@ -153,133 +162,135 @@ Feature: Test Book CModel
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/PDF/Z_PDF_TEST_REPLACED.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/MODS_Z_Book_TEST_REPLACE.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
     #Extra step required to forced reindexing
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST REPLACED"
-    # Able to search for newly edited MODS datastream for PDF object using Islandora simple search?
-    Given I am on "/islandora/search/Z%20%28PDF%29%20TEST%20REPLACED?type=dismax"
-    Then I should see "Z (PDF) TEST REPLACED"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST REPLACED"
+    # Able to search for newly edited MODS datastream for BOOK object using Islandora simple search?
+    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20REPLACED?type=dismax"
+    Then I should see "Z (BOOK) TEST REPLACED"
   
     # Restore Original MODS Datastream
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (PDF) TEST REPLACED"
-    Then I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST REPLACED"
+    Then I should see "Z (BOOK) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/PDF/Z_PDF_TEST.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/Z_Book_TEST.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should not see "Z (PDF) TEST REPLACED"
-    And I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should not see "Z (BOOK) TEST REPLACED"
+    And I should see "Z (BOOK) TEST"
 
 
-  # Able to edit Object Title for PDF Object 
+  # Able to edit Object Title for BOOK Object 
   @api @apache @book
-  Scenario: Edit PDF object title 
+  Scenario: Edit BOOK object title 
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST"  
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST"  
     # Navigate to and change Object title
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
-    Then I should see "Title of the PDF"
-    Then I fill in "edit-titleinfo-title" with "Z (PDF) TEST EDITED"
+    Then I should see "Title"
+    Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST EDITED"
     When I press "Update"
-    Then I should see "Z (PDF) TEST EDITED"
+    Then I should see "Z (BOOK) TEST EDITED"
     # Test that object title did change and that search picks it up
-    Given I am on "/islandora/search/Z%20%28PDF%29%20TEST%20EDITED?type=dismax"
+    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20EDITED?type=dismax"
     Then I should see "samples:"
     # Change Object title back to original
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST EDITED"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST EDITED"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
-    Then I should see "Title of the PDF"
-    Then I fill in "edit-titleinfo-title" with "Z (PDF) TEST"
+    Then I should see "Title"
+    Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST"
     When I press "Update"
-    Then I should see "Z (PDF) TEST"
+    Then I should see "Z (BOOK) TEST"
     # Check that object title is original and that search is picking it up
-    Given I am on "/islandora/search/Z%20%28PDF%29%20TEST?type=dismax"
+    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
     Then I should see "samples:"
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an PDF object's Properties?
+  # Able to edit the Item Label of an BOOK object's Properties?
   @api @apache @book
-  Scenario: Edit PDF object Item Label
+  Scenario: Edit BOOK object Item Label
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST"
     # Navigate to and change item label form  
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "Z (PDF) TEST LABEL-EDITED"
+    Then I fill in "edit-object-label" with "Z (BOOK) TEST LABEL-EDITED"
     When I press "Update Properties"
-    Then I should see "Z (PDF) TEST LABEL-EDITED"
-    # Able to search for newly edited Item Label of an PDF object's Properties using Islandora simple search?
-    Given I am on "/islandora/search/Z%20%28PDF%29%20TEST%20LABEL-EDITED?type=dismax"
-    Then I should see "Z (PDF) TEST"
-    Given that I navigate to the page for the object named "Z (PDF) TEST"
-    Then I should see "Z (PDF) TEST LABEL-EDITED"
+    Then I should see "Z (BOOK) TEST LABEL-EDITED"
+    # Able to search for newly edited Item Label of an BOOK object's Properties using Islandora simple search?
+    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20LABEL-EDITED?type=dismax"
+    Then I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST LABEL-EDITED"
     # Change item label back to original
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "Z (PDF) TEST"
+    Then I fill in "edit-object-label" with "Z (BOOK) TEST"
     When I press "Update Properties"
-    Then I should see "Z (PDF) TEST"
+    Then I should see "Z (BOOK) TEST"
     # Check that item label is now original
-    Given I am on "/islandora/search/Z%20%28PDF%29%20TEST?type=dismax"
-    Then I should see "Z (PDF) TEST"
+    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
+    Then I should see "Z (BOOK) TEST"
 
   #Delete newly ingested object
   @api @apache @javascript @book
-  Scenario: Delete newly ingested PDF object
+  Scenario: Delete newly ingested BOOK object
     Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should see the link "Z (PDF) TEST"
+    Then I should see the link "Z (BOOK) TEST"
     # Delete new object
-    When I click "Z (PDF) TEST"
-    Then I should see "In collections"
+    When I click "Z (BOOK) TEST"
+    Then I should see the link "Pages"
     When I click "Manage"
     Then I click "Properties"
     Then I should see "Item Label"
-    Then I press "Permanently remove 'Z (PDF) TEST' from repository"
-    Then I should see "This action cannot be undone."
+    Then I press "Delete Book"
+    Then I should see "This will remove the book object and all related page objects. This action cannot be undone."
     Then I press "Delete"
+    And I wait for AJAX to finish
+    And wait 20 seconds
     # Check that new object is deleted
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should not see the link "Z (PDF) TEST"
+    Then I should not see the link "Z (BOOK) TEST"

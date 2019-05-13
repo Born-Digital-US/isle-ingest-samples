@@ -5,7 +5,7 @@ Feature: Test Audio CModel
 
 # Able to ingest the test AUDIO sample objects?
     #(DO NOT USE JAVASCRIPT)
-  @api @apache @audio
+  @api @apache @javascript @audio
   Scenario: Ingest Audio Sample Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
@@ -15,16 +15,21 @@ Feature: Test Audio CModel
     Then I click "Manage"
     Then I click "Add an object to this Collection"
     When select "Islandora Audio Content Model" from "models"
+    And I wait for AJAX to finish
     Then I press "Next"
-    Then I press "Next"
+    And wiat for the page to be loaded
+    Then I click on the selector "#edit-next"
     Then I fill in "edit-titleinfo-title" with "Z (Audio) TEST"
-    Then I press "Next"
+    Then I click on the selector "#edit-next"
     When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Audio/ZRed-winged BlackbirdTest.mp3" to "edit-audio-file-upload"
     Then I press "Upload"
     Given I check the box "Upload Thumbnail"
     When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Audio/ZRed-winged BlackbirdTest.png" to "edit-thumbnail-file-upload"
     Then I press "Upload"
-    Then I press "Ingest"
+    Then I wait for AJAX to finish
+    Then I click on the selector "#edit-next"
+    And wait for the page to be loaded
+    And wait 10 seconds
     # Make sure the object ingested
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
