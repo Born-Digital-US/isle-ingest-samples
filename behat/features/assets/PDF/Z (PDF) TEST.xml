@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"> 
+  
+<titleInfo>
+	<title>Z (PDF) TEST</title>
+</titleInfo>
+
+
+
+<name type="personal">
+	<namePart>Hervey, E. W. (Eliphalet Williams)</namePart>
+	<role>
+		<roleTerm authority="marcrelator" type="text">Creator</roleTerm>
+	</role>
+</name>
+
+
+
+
+<subject>
+	<topic>plants</topic>
+</subject>
+
+<subject>
+	<geographic>New Bedford, MA</geographic>
+</subject>
+
+
+ 
+
+ 
+
+ 
+
+  
+
+<originInfo>
+ 
+	<dateCreated encoding="w3cdtf" keyDate="yes">1857-01-01</dateCreated>
+ 
+	<dateIssued encoding="w3cdtf" keyDate="yes">1857-01-01</dateIssued>
+ 
+    
+	<publisher>Peirce, Joshua.</publisher>
+ 
+ 
+</originInfo>
+ 
+
+ 
+
+ 
+
+<typeOfResource>text</typeOfResource>
+ 
+  
+<genre>book</genre>
+ 
+  
+ 
+
+<language>
+	<languageTerm type="code" authority="iso639-2b">english</languageTerm>
+</language>
+ 
+
+ 
+
+<relatedItem type="host" displayLabel="Collection">
+	<titleInfo>
+      <title></title>
+    </titleInfo>
+</relatedItem>
+
+ 
+  
+<accessCondition type="use and reproduction">No Copyright _ United States</accessCondition>
+<note type="ownership">https://www.biodiversitylibrary.org/</note>
+<identifier type="local">pdf-item01</identifier>
+
+<recordInfo>
+	<languageOfCataloging>
+		<languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+</recordInfo>
+</mods>

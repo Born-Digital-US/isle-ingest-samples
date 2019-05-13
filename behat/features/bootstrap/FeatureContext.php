@@ -169,12 +169,23 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->visitPath('/islandora/search/"'. $name .'"?type=dismax');
 
     $session = $this->getSession();
-    $element = $session->getPage()->find('css', 'div.islandora-solr-content > div > div:nth-child(1) > div > dl.solr-fields.islandora-inline-metadata > dd.solr-value.pid');
-    # $this->fetched_object_pid = $element->getText();
-    $pid = $element->getText();
+
+    try {
+      $element = $session->getPage()->find('css', 'div.islandora-solr-content > div > div:nth-child(1) > div > dl.solr-fields.islandora-inline-metadata > dd.solr-value.pid');
+      # $this->fetched_object_pid = $element->getText();
+
+      if(empty($element)) {
+        throw new Exception("Could not find the requested element.");
+      }
+
+      $pid = $element->getText();
+    }
+    catch(Exception $e) {
+      throw new Exception("$e->getMessage());
+    }
 
     if(empty($pid)) {
-      throw new Exception("Could not make the behat test collection");
+      throw new Exception("Could not navigate to the requested object: ".$pid);
     }
     echo("Navigating to: /islandora/object/". $pid);
     $this->visitPath("/islandora/object/". $pid );
