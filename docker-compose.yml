@@ -1,7 +1,7 @@
 version: '3'
 
 #### docker-compose up -d;
-## Updated 2018-09-07 - Release 1.1 (@ 1.1)
+## Updated 2019-03-27 - Release 1.1.1 (@ 1.1.1)
 
 services:
   isle-portainer: ## Renamed to avoid conflicts on systems/servers with portainer already running.
@@ -23,8 +23,8 @@ services:
 
   mysql:
     # build:
-    #   context: ./images/mysql
-    image: islandoracollabgroup/isle-mysql:1.1
+    #   context: ../images/isle-mysql
+    image: islandoracollabgroup/isle-mysql:1.1.1
     container_name: isle-mysql-${CONTAINER_SHORT_ID}
     environment:
       - MYSQL_ROOT_PASSWORD
@@ -32,12 +32,12 @@ services:
       - isle-internal
     volumes:
       - isle-db-data:/var/lib/mysql
-      - ./logs/mysql:/var/log/mysql
+      - isle-mysql-log:/var/log/mysql
 
   fedora:
     # build:
-    #   context: ./images/isle-fedora
-    image: islandoracollabgroup/isle-fedora:1.1
+    #   context: ../images/isle-fedora
+    image: islandoracollabgroup/isle-fedora:1.1.1
     container_name: isle-fedora-${CONTAINER_SHORT_ID}
     environment:
       - JAVA_MAX_MEM=768M
@@ -63,8 +63,8 @@ services:
 
   solr:
     # build:
-    #   context: ./images/isle-solr
-    image: islandoracollabgroup/isle-solr:1.1
+    #   context: ../images/isle-solr
+    image: islandoracollabgroup/isle-solr:1.1.1
     container_name: isle-solr-${CONTAINER_SHORT_ID}
     environment:
       - JAVA_MAX_MEM=512M
@@ -83,8 +83,8 @@ services:
 
   image-services:
     # build:
-    #   context: ./images/isle-imageservices
-    image: islandoracollabgroup/isle-imageservices:1.1
+    #   context: ../images/isle-imageservices
+    image: islandoracollabgroup/isle-imageservices:1.1.1
     container_name: isle-images-${CONTAINER_SHORT_ID}
     environment:
       - JAVA_MAX_MEM=512M
@@ -108,8 +108,8 @@ services:
 
   apache:
     # build:
-    #   context: ./images/isle-apache
-    image: islandoracollabgroup/isle-apache:1.1
+    #   context: ../images/isle-apache
+    image: islandoracollabgroup/isle-apache:1.1.1
     container_name: isle-apache-${CONTAINER_SHORT_ID}
     environment:
       - PULL_ISLE_BUILD_TOOLS=true # Defaults to true.
@@ -117,24 +117,25 @@ services:
       - .env
     networks:
       isle-internal:
-        aliases:
-          - ${BASE_DOMAIN}
+        # aliases:
+        #   - ${BASE_DOMAIN}
     depends_on:
       - mysql
       - fedora
       - solr
       - traefik
     volumes:
-      - isle-apache-data:/var/www/html
-      - ./logs/apache/httpd:/var/log/apache2
-      - ./logs/apache/fits:/var/log/fits
+      # - isle-apache-data:/var/www/html
+      - ./data/isle-apache-data:/var/www/html:cached
+      # - ./logs/apache/httpd:/var/log/apache2
+      # - ./logs/apache/fits:/var/log/fits
     labels:
       - traefik.docker.network=${COMPOSE_PROJECT_NAME}_isle-internal
       - traefik.enable=true
       - "traefik.frontend.rule=Host:${BASE_DOMAIN}; PathPrefix: /, /adore-djatoka, /cantaloupe"
 
   traefik:
-    image: traefik:1.6
+    image: traefik:1.7.9
     container_name: isle-proxy-${CONTAINER_SHORT_ID}
     networks:
       isle-internal:
@@ -154,22 +155,43 @@ services:
 
   # ref: https://bitbucket.org/commonmedia/whitman.localdomain/src/master/docker-compose.yml
   chrome:
-    image: selenium/node-chrome:3.11.0-dysprosium
+    image: selenium/node-chrome:3.11.0-dysprosium # compass uses this one
+    # image: selenium/node-chrome:3.141.59-neon # latest
     volumes:
       - /dev/shm:/dev/shm
+      - ./data/isle-apache-data:/var/www/html:ro
     depends_on:
       - apache
       - hub
     environment:
-      - HUB_PORT_4444_TCP_ADDR=hub
-      - HUB_PORT_4444_TCP_PORT=4444
+      # - HUB_PORT_4444_TCP_ADDR=hub
+      # - HUB_PORT_4444_TCP_PORT=4444
+      - HUB_PORT=4444
+      - HUB_HOST=hub
     container_name: bd-ld-chrome
+    networks:
+      - isle-internal
+
+  firefox:
+    image: selenium/node-chrome:3.11.0-dysprosium # compliant with the compass version
+    # image: selenium/node-firefox:3.141.59-neon # latest
+    volumes:
+      - /dev/shm:/dev/shm
+      - ./data/isle-apache-data:/var/www/html:ro
+    depends_on:
+      - hub
+      - apache
+    environment:
+      - HUB_HOST=hub
+      - HUB_PORT=4444
+    container_name: bd-ld-firefox
     networks:
       - isle-internal
 
   # ref: https://bitbucket.org/commonmedia/whitman.localdomain/src/master/docker-compose.yml
   hub:
-    image: selenium/hub:3.11.0-dysprosium
+    image: selenium/hub:3.11.0-dysprosium # compass uses this one
+    # image: selenium/hub:3.141.59-neon # latest
     ports:
       - "4444:4444"
     container_name: bd-ld-hub
@@ -183,6 +205,7 @@ networks:
 
 volumes:
   isle-db-data:
+  isle-mysql-log:
   isle-solr-data:
   isle-apache-data:
   isle-portainer-data:
