@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"> 
+  
+<titleInfo>
+	<title>Z (Large Image) TEST</title>
+</titleInfo>
+
+
+
+
+<name type="corporate">
+	<namePart>Historic American Buildings Survey</namePart>
+	<role>
+		<roleTerm authority="marcrelator" type="text">Creator</roleTerm>
+	</role>
+</name>
+
+
+
+
+<subject>
+	<geographic>Amherst, MA</geographic>
+</subject>
+
+
+ 
+
+<subject>
+	<name type="personal">
+		<namePart>Chittendon, Chester P.</namePart>
+	</name>
+</subject>
+ 
+
+ 
+
+  
+
+<originInfo>
+	<dateCreated encoding="w3cdtf" keyDate="yes" qualifier="approximate"> 1933</dateCreated>
+ 
+	<dateIssued encoding="w3cdtf" keyDate="yes"></dateIssued>
+ 
+    
+	<publisher>Historic American Buildings Survey</publisher>
+ 
+ 
+</originInfo>
+ 
+
+<abstract>Photo number 2. Photographs are albumen prints mounted on cardboard.</abstract>
+ 
+
+ 
+
+<typeOfResource>still image</typeOfResource>
+ 
+  
+<genre>photograph</genre>
+ 
+  
+<physicalDescription>
+	 
+	 
+    <internetMediaType>image/jpeg</internetMediaType>
+    <digitalOrigin>reformatted digital</digitalOrigin>
+</physicalDescription>
+ 
+
+ 
+
+ 
+
+<relatedItem type="host" displayLabel="Collection">
+	<titleInfo>
+      <title></title>
+    </titleInfo>
+</relatedItem>
+
+ 
+  
+<accessCondition type="use and reproduction">No Copyright _ United States</accessCondition>
+<note type="ownership">Historic American Buildings Survey (Library of Congress)</note>
+<identifier type="local">Nehemiah Strong House</identifier>
+
+<recordInfo>
+	<languageOfCataloging>
+		<languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+</recordInfo>
+</mods>

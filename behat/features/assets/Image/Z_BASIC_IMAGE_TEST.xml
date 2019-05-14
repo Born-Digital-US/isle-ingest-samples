@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"> 
+  
+<titleInfo>
+	<title>Z (Basic Image) TEST</title>
+</titleInfo>
+
+
+
+
+
+
+
+<subject>
+	<topic>trees</topic>
+</subject>
+
+
+
+ 
+
+<subject>
+	<name type="personal">
+		<namePart>Chittendon, Chester P.</namePart>
+	</name>
+</subject>
+ 
+
+ 
+
+  
+
+<originInfo>
+	<dateCreated encoding="w3cdtf" keyDate="yes" qualifier="approximate"> 1860-1930</dateCreated>
+ 
+	<dateIssued encoding="w3cdtf" keyDate="yes"></dateIssued>
+ 
+    
+	<publisher>fake co.</publisher>
+ 
+ 
+</originInfo>
+ 
+
+<abstract>Photo number 2. Photographs are albumen prints mounted on cardboard.</abstract>
+ 
+
+ 
+
+<typeOfResource>still image</typeOfResource>
+ 
+  
+<genre>albumen prints</genre>
+ 
+  
+<physicalDescription>
+	 
+	 
+    <internetMediaType>image/jpeg</internetMediaType>
+    <digitalOrigin>reformatted digital</digitalOrigin>
+</physicalDescription>
+ 
+
+ 
+
+ 
+
+<relatedItem type="host" displayLabel="Collection">
+	<titleInfo>
+      <title>samples</title>
+    </titleInfo>
+</relatedItem>
+
+ 
+  
+<accessCondition type="use and reproduction">In Copyright _ Educational Use Permitted</accessCondition>
+<note type="ownership">fake co</note>
+<identifier type="local">sample2</identifier>
+
+<recordInfo>
+	<languageOfCataloging>
+		<languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+</recordInfo>
+</mods>
