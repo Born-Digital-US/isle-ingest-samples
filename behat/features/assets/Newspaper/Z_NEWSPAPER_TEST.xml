@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mods xmlns="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mods="http://www.loc.gov/mods/v3" xsi:schemaLocation="http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/v3/mods-3-4.xsd"> 
+  
+<titleInfo>
+	<title>Z (Newspaper) TEST</title>
+</titleInfo>
+
+
+
+<name type="personal">
+	<namePart>G. Airy</namePart>
+	<role>
+		<roleTerm authority="marcrelator" type="text">Creator</roleTerm>
+	</role>
+</name>
+
+<name type="corporate">
+	<namePart>Royal Society of London</namePart>
+	<role>
+		<roleTerm authority="marcrelator" type="text">Creator</roleTerm>
+	</role>
+</name>
+
+
+
+<subject>
+	<topic>tides</topic>
+</subject>
+
+<subject>
+	<geographic>malta</geographic>
+</subject>
+
+
+ 
+
+ 
+
+ 
+
+  
+
+<originInfo>
+ 
+	<dateCreated encoding="w3cdtf" keyDate="yes">2019-01-01</dateCreated>
+ 
+	<dateIssued encoding="w3cdtf" keyDate="yes">2019-01-01</dateIssued>
+ 
+    
+	<publisher>Royal Society of London</publisher>
+ 
+ 
+</originInfo>
+ 
+
+ 
+
+ 
+
+<typeOfResource>text</typeOfResource>
+ 
+  
+<genre>journal article</genre>
+ 
+  
+ 
+
+ 
+
+ 
+
+<relatedItem type="host" displayLabel="Collection">
+	<titleInfo>
+      <title></title>
+    </titleInfo>
+</relatedItem>
+
+ 
+  
+<accessCondition type="use and reproduction">No Copyright _ United States</accessCondition>
+<note type="ownership">http://hdl.loc.gov/loc.gmd/g3764s.pm003250</note>
+<identifier type="local">book1</identifier>
+
+<recordInfo>
+	<languageOfCataloging>
+		<languageTerm authority="iso639-2b" type="code">eng</languageTerm>
+    </languageOfCataloging>
+</recordInfo>
+</mods>

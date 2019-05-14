@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Islandora compound structure file used by the Compound Batch module. On batch ingest,
+    'islandora_compound_object' elements become compound objects, and 'child' elements become their
+    children. Files in directories named in child elements' 'content' attribute will be added as their
+    datastreams. If 'islandora_compound_object' elements do not contain a MODS.xml file, the value of
+    the 'title' attribute will be used as the parent's title/label.-->
+<islandora_compound_object title="Z_COMPOUND_OBJECT_TEST">
+  <child content="Z_COMPOUND_CHILD_1"/>
+  <child content="Z_COMPOUND_CHILD_2"/>
+</islandora_compound_object>

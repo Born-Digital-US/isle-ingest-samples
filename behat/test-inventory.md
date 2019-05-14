@@ -14,10 +14,10 @@
 * 1-5	Able to view the Solr admin panel for solr container?
 * 1-6	Able to view Tomcat admin panel for image-services container?
 * 1-7	Able to view Cantaloupe admin panel for image-services container?
-1-8	Able to view Adore-djatoka admin panel for image-services container?
-1-9	Able to view Tomcat admin panel for fedora container?
-1-10	Able to view Fedora services panels e.g. /objects, /describe etc
-1-11	Able to view Fedoragsearch panels e.g. /fedoragsearch/rest?operation=updateIndex
+* 1-8	Able to view Adore-djatoka admin panel for image-services container?
+* 1-9	Able to view Tomcat admin panel for fedora container?
+* 1-10	Able to view Fedora services panels e.g. /objects, /describe etc
+* 1-11	Able to view Fedoragsearch panels e.g. /fedoragsearch/rest?operation=updateIndex
 
 # DRUPAL INSTALLATION
 2-1	Able to view domain / website url as anonymous user?
@@ -74,7 +74,7 @@
 3-37	Able to search for newly edited MODS datastream for BOOK object using Islandora simple search?
 3-38	Able to delete TN derivative for BOOK object?
 3-39	Able to regenerate all derivatives for BOOK object?
-## Compound Object Content Model - 20%
+## Compound Object Content Model - 60%
 3-40	Able to ingest these test COMPOUND OBJECT sample objects?
 3-41	Able to view a COMPOUND OBJECT object?
 3-42	Able to download a COMPOUND OBJECT object?
@@ -87,6 +87,9 @@
 3-49	Able to search for newly edited MODS datastream for COMPOUND OBJECT object using Islandora simple search?
 3-50	Able to delete TN derivative for COMPOUND OBJECT object?
 3-51	Able to regenerate all derivatives for COMPOUND OBJECT object?
+* Intentionally not done
+    * Testing viewers - this is theme dependent. All we do is ingest and test relationships
+
 ## Large Image Content Model - 100%
 3-52	Able to ingest these test LARGE IMAGE sample objects?
 3-53	Able to view a LARGE IMAGE object?
@@ -100,7 +103,7 @@
 3-61	Able to search for newly edited MODS datastream for LARGE IMAGE object using Islandora simple search?
 3-62	Able to delete TN derivative for LARGE IMAGE object?
 3-63	Able to regenerate all derivatives for LARGE IMAGE object?
-## Newspaper Content Model - 0%
+## Newspaper Content Model - 100%
 3-64	Able to ingest these test NEWSPAPER sample objects?
 3-65	Able to view a NEWSPAPER object?
 3-66	Able to download a NEWSPAPER object?
@@ -139,7 +142,7 @@
 3-97	Able to search for newly edited MODS datastream for PDF object using Islandora simple search?
 3-98	Able to delete TN derivative for PDF object?
 3-99	Able to regenerate all derivatives for PDF object?
-## Video Content Model - 50%
+## Video Content Model - 100%
 3-100	Able to ingest these test VIDEO sample objects?
 3-101	Able to view a VIDEO object?
 3-102	Able to download a VIDEO object?

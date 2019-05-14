@@ -1,29 +1,40 @@
-Feature: Test Book CModel
-  In order to prove that the Book CModel works in ISLE
+Feature: Test Newspaper CModel
+  In order to prove that the Newspaper CModel works in ISLE
   As a developer
   I need to test some sample data
 
-# Able to ingest the test BOOK sample objects?
-  @api @apache @javascript @book
-  Scenario: Ingest Book Sample Object
+# Able to ingest the test Newspaper sample objects?
+  @api @apache @javascript @newspaper
+  Scenario: Ingest Newspaper Sample Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
     And I am on "/islandora/object/samples%3Acollection"
     Then I should see "ICG Samples"
     # Navigate through new object form and ingest new object
-    
+    # Ingest Newspaper Content Model
     Then I click "Manage"
     Then I click "Add an object to this Collection"
-    When select "Islandora Internet Archive Book Content Model" from "models"
+    When select "Islandora Newspaper Content Model" from "models"
     And I wait for AJAX to finish
+    Then I click on the selector "#edit-next--2"
+    And wait for the page to be loaded
+    Then I click on the selector "#edit-next"
+    Then I fill in "edit-titleinfo-title" with "Z (Newspaper Content) TEST"
+    Then I click on the selector "#edit-next"
+    And wait for the page to be loaded
+    And wait 10 seconds
+    # Ingest Newspaper Issue Content
+    Then I click "Manage"
+    Then I click "Add Issue"
     Then I press "Next"
     And wait for the page to be loaded
     # Then wait 3 seconds
     # Then I press "Next"
     Then I click on the selector "#edit-next"
-    Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST"
+    Then I fill in "edit-titleinfo-title" with "Z (Newspaper) TEST"
+    Then I fill in "edit-origininfo-dateissued" with "2019-01-01"
     Then I click on the selector "#edit-next"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/Z_Book_TEST.pdf" to "edit-pdf-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Newspaper/Z_NEWSPAPER_TEST.pdf" to "edit-pdf-file-upload"
     Then I press "Upload"
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
@@ -32,19 +43,23 @@ Feature: Test Book CModel
     # And wait 360 seconds
     Then wait for Ingest to complete
     
-    Then I should see "Z (BOOK) TEST"
+    Then I should see "Z (Newspaper) TEST"
     # Make sure the object ingested
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should see the link "Z (BOOK) TEST"
+    Then I should see the link "Z (Newspaper Content) TEST"
+    When I click "Z (Newspaper Content) TEST"
+    Then I click "Expand all months"
+    When I click "January 01, 2019"
+    Then I should see "Z (Newspaper) TEST"
     
 
 
-  # Able to upload (replace) thumbnail for BOOK object?
-  @api @apache @javascript @book
-  Scenario: Replace BOOK Thumbnail
+  # Able to upload (replace) thumbnail for Newspaper object?
+  @api @apache @javascript @newspaper
+  Scenario: Replace Newspaper Thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -56,13 +71,13 @@ Feature: Test Book CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Contents"
-    Then I should see "Z (BOOK) TEST"
+    Then I should see "Z (Newspaper) TEST"
     
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -73,11 +88,11 @@ Feature: Test Book CModel
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for BOOK object? *** 
-  @api @apache @javascript @book
-  Scenario: Delete TN derivative for BOOK Object
+  # Able to delete TN derivative for Newspaper object? *** 
+  @api @apache @javascript @newspaper
+  Scenario: Delete TN derivative for Newspaper Object
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
@@ -89,7 +104,7 @@ Feature: Test Book CModel
     Then I press "Delete"
     #Add Original Thumbnail and Thumbnail datastream back
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
@@ -100,7 +115,7 @@ Feature: Test Book CModel
     And I press "Upload"
     When wait 3 seconds
     And I press "Add Datastream"
-    Then I should see "Z (BOOK) TEST"
+    Then I should see "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
@@ -108,11 +123,11 @@ Feature: Test Book CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for BOOK object? ***  See lower tests
-  @api @apache @javascript @book
-  Scenario: Regenerate all derivatives for BOOK Object
+  # Able to regenerate all derivatives for Newspaper object? ***  See lower tests
+  @api @apache @javascript @newspaper
+  Scenario: Regenerate all derivatives for Newspaper Object
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Properties"
@@ -121,38 +136,39 @@ Feature: Test Book CModel
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
     Given wait 240 seconds
-    Then I should see the link "Derivatives successfully created."
+    Then I should see the link "Derivatives successfully created." 
+
 
 
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
-  @api @apache @book
-  Scenario: Check for BOOK OBJ download
+  # Able to download an Newspaper object? *** TODO Ask Noah how to do this link***
+  @api @apache @newspaper
+  Scenario: Check for Newspaper OBJ download
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should get a 200 HTTP response
 
 
 
-  # Able to search for newly ingested BOOK object using Islandora simple search?
-  @api @apache @book
-  Scenario: Check for BOOK Objects using simple search
+  # Able to search for newly ingested Newspaper object using Islandora simple search?
+  @api @apache @newspaper
+  Scenario: Check for Newspaper Objects using simple search
     Given I am logged in as a user with the "administrator" role
-    Given I am on "/islandora/search/BOOK?type=dismax"
-    Then I should see "islandora:bookCollection"
-    Then I should see "Z (BOOK) TEST"
+    Given I am on "/islandora/search/Newspaper?type=dismax"
+    Then I should see "islandora:newspaper_collection"
+    Then I should see "Z (Newspaper) TEST"
 
 
 
-  # Able to edit MODS datastream for BOOK object? ("replace") ****
-  @api @apache @javascript @book
-  Scenario: Replace MODS datastream for BOOK Object
+  # Able to edit MODS datastream for Newspaper object? ("replace") ****
+  @api @apache @javascript @newspaper
+  Scenario: Replace MODS datastream for Newspaper Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST"
     # Navigate to and replace MODS datastream
     Then I click "Manage"
     Then I click "Datastreams"
@@ -160,135 +176,136 @@ Feature: Test Book CModel
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/MODS_Z_Book_TEST_REPLACE.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Newspaper/Z_NEWSPAPER_TEST_REPLACE.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
     #Extra step required to forced reindexing
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST REPLACED"
-    # Able to search for newly edited MODS datastream for BOOK object using Islandora simple search?
-    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20REPLACED?type=dismax"
-    Then I should see "Z (BOOK) TEST REPLACED"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST REPLACED"
+    # Able to search for newly edited MODS datastream for Newspaper object using Islandora simple search?
+    Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST%20REPLACED?type=dismax"
+    Then I should see "Z (Newspaper) TEST REPLACED"
   
     # Restore Original MODS Datastream
     Given I am logged in as a user with the "administrator" role
-    Given that I navigate to the page for the object named "Z (BOOK) TEST REPLACED"
-    Then I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST REPLACED"
+    Then I should see "Z (Newspaper) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "replace" in the "MODS" row
     Then I should see "Replace Datastream"
     Then I should see "Label: MODS Record"
-    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Book/Z_Book_TEST/Z_Book_TEST.xml" to "edit-file-upload"
+    When I attach the file "/var/www/html/isle-ingest-samples/behat/features/assets/Newspaper/Z_NEWSPAPER_TEST.xml" to "edit-file-upload"
     Given I press "Upload"
     Then I press "Add Contents"
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
     Given the cache has been cleared
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should not see "Z (BOOK) TEST REPLACED"
-    And I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should not see "Z (Newspaper) TEST REPLACED"
+    And I should see "Z (Newspaper) TEST"
 
 
-  # Able to edit Object Title for BOOK Object 
-  @api @apache @book
-  Scenario: Edit BOOK object title 
+  # Able to edit Object Title for Newspaper Object 
+  @api @apache @newspaper
+  Scenario: Edit Newspaper object title 
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"  
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST"  
     # Navigate to and change Object title
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I should see "Title"
-    Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST EDITED"
+    Then I fill in "edit-titleinfo-title" with "Z (Newspaper) TEST EDITED"
     When I press "Update"
-    Then I should see "Z (BOOK) TEST EDITED"
+    Then I should see "Z (Newspaper) TEST EDITED"
     # Test that object title did change and that search picks it up
-    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20EDITED?type=dismax"
+    Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST%20EDITED?type=dismax"
     Then I should see "samples:"
     # Change Object title back to original
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST EDITED"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST EDITED"
     Then I click "Manage"
     Then I click "Datastreams"
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I should see "Title"
-    Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST"
+    Then I fill in "edit-titleinfo-title" with "Z (Newspaper) TEST"
     When I press "Update"
-    Then I should see "Z (BOOK) TEST"
+    Then I should see "Z (Newspaper) TEST"
     # Check that object title is original and that search is picking it up
-    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
+    Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST?type=dismax"
     Then I should see "samples:"
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an BOOK object's Properties?
-  @api @apache @book
-  Scenario: Edit BOOK object Item Label
+  # Able to edit the Item Label of an Newspaper object's Properties?
+  @api @apache @newspaper
+  Scenario: Edit Newspaper object Item Label
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST"
     # Navigate to and change item label form  
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "Z (BOOK) TEST LABEL-EDITED"
+    Then I fill in "edit-object-label" with "Z (Newspaper) TEST LABEL-EDITED"
     When I press "Update Properties"
-    Then I should see "Z (BOOK) TEST LABEL-EDITED"
-    # Able to search for newly edited Item Label of an BOOK object's Properties using Islandora simple search?
-    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20LABEL-EDITED?type=dismax"
-    Then I should see "Z (BOOK) TEST"
-    Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST LABEL-EDITED"
+    Then I should see "Z (Newspaper) TEST LABEL-EDITED"
+    # Able to search for newly edited Item Label of an Newspaper object's Properties using Islandora simple search?
+    Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST%20LABEL-EDITED?type=dismax"
+    Then I should see "Z (Newspaper) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper) TEST"
+    Then I should see "Z (Newspaper) TEST LABEL-EDITED"
     # Change item label back to original
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
-    Then I fill in "edit-object-label" with "Z (BOOK) TEST"
+    Then I fill in "edit-object-label" with "Z (Newspaper) TEST"
     When I press "Update Properties"
-    Then I should see "Z (BOOK) TEST"
+    Then I should see "Z (Newspaper) TEST"
     # Check that item label is now original
-    Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
-    Then I should see "Z (BOOK) TEST"
+    Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST?type=dismax"
+    Then I should see "Z (Newspaper) TEST"
 
   #Delete newly ingested object
-  @api @apache @javascript @book
-  Scenario: Delete newly ingested BOOK object
+  @api @apache @javascript @newspaper
+  Scenario: Delete newly ingested Newspaper object
     Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should see the link "Z (BOOK) TEST"
+    Then I should see the link "Z (Newspaper Content) TEST"
+    When I click "Z (Newspaper Content) TEST"
+    Then I click "Expand all months"
+    Then I should see the link "January 01, 2019"
     # Delete new object
-    When I click "Z (BOOK) TEST"
-    Then I should see the link "Pages"
     When I click "Manage"
     Then I click "Properties"
     Then I should see "Item Label"
-    Then I press "Delete Book"
-    Then I should see "This will remove the book object and all related page objects. This action cannot be undone."
+    Then I press "Delete Newspaper"
+    Then I should see "This will remove the"
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 20 seconds
+    And wait 30 seconds
     # Check that new object is deleted
     When I am on "/islandora/object/samples%3Acollection"
     Then I click "last"
-    Then I should not see the link "Z (BOOK) TEST"
+    Then I should not see the link "Z (Newspaper Content) TEST"
