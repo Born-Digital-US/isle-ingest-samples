@@ -60,9 +60,9 @@ Feature: Test Compound Object CModel
     And wait 25 seconds
     ## Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    When I click "last"
-    Then I should see the link "Z (Compound Child) 1"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%201%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Compound Child) 1"
     # Add second object
     And I am on "/islandora/object/samples%3Acollection"
     Then I should see "ICG Samples"
@@ -87,9 +87,9 @@ Feature: Test Compound Object CModel
     And wait 25 seconds
     ## Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    When I click "last"
-    Then I should see the link "Z (Compound Child) 2"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%202%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Compound Child) 2"
     And I am on "/islandora/object/samples%3Acollection"
     Then I should see "ICG Samples"
     # Navigate through compound object form and ingest compound object
@@ -110,10 +110,10 @@ Feature: Test Compound Object CModel
     And wait 25 seconds
     ## Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    When I click "last"
-    Then I should see the link "Z (Compound Object) TEST"
-    When I click "Z (Compound Object) TEST"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Object%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Compound Object) TEST"
+    Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     And I click "Manage"
     And I click "Compound"
     Then I should see "Add child objects"
@@ -133,10 +133,8 @@ Feature: Test Compound Object CModel
     Then I click on the selector "#edit-submit"
     And wait 20 seconds
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    When I click "last"
-    Then I should see the link "Z (Compound Object) TEST"
-    And I should not see the link "Z (Compound Child) 2"
+    Given that I navigate to the page for the object named "Z (Compound Object) TEST"
+    Then I should see "Z (Compound Child) 1"
     
 
 
@@ -300,10 +298,11 @@ Feature: Test Compound Object CModel
     Then I should see "MODS Record"
     Given I click "edit" in the "MODS" row
     Then I press "Update"
+    And wait 20 seconds
     Given the cache has been cleared
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Compound Object) TEST"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Object%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Compound Object) TEST"
 
 
   # Able to edit Object Title for Compound Object Object 
@@ -322,9 +321,8 @@ Feature: Test Compound Object CModel
     Then I fill in "edit-titleinfo-title" with "Z (Compound Object) TEST EDITED"
     Then I click on the selector "#edit-update"
     Then I should see "Z (Compound Child) 1"
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Compound Object) TEST EDITED"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Object%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
     # Test that object title did change and that search picks it up
     Given I am on "/islandora/search/Z%20%28Compound%20Object%29%20TEST%20EDITED?type=dismax"
     Then I should see "samples:"
@@ -346,7 +344,7 @@ Feature: Test Compound Object CModel
 
 
   # Able to edit the Item Label of an Compound Object object's Properties?
-  @api @apache @compound
+  @api @apache @javascript @compound
   Scenario: Edit Compound Object object Item Label
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
@@ -358,9 +356,10 @@ Feature: Test Compound Object CModel
     Then I should see "A human-readable label"
     Then I fill in "edit-object-label" with "Z (Compound Object) TEST LABEL-EDITED"
     When I press "Update Properties"
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Compound Object) TEST LABEL-EDITED"
+    And wait 20 seconds
+    When I am on "/islandora/search/%22Z%20%28Compound%20Object%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Compound Object) TEST LABEL-EDITED"
     # Able to search for newly edited Item Label of an Compound Object object's Properties using Islandora simple search?
     Given I am on "/islandora/search/Z%20%28Compound%20Object%29%20TEST%20LABEL-EDITED?type=dismax"
     Then I should see "Z (Compound Object) TEST"
@@ -380,11 +379,8 @@ Feature: Test Compound Object CModel
   @api @apache @javascript @compound
   Scenario: Delete newly ingested Compound Object object
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Compound Object) TEST"
+    Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     # Delete new object
-    When I click "Z (Compound Object) TEST"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
@@ -392,13 +388,10 @@ Feature: Test Compound Object CModel
     Then I press "Permanently remove 'Z (Compound Object) TEST' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
-    # Check that new object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Compound Object) TEST"
+    And I wait for AJAX to finish
+    And wait 20 seconds
     # Delete first child object
-    And I should see the link "Z (Compound Child) 1"
-    When I click "Z (Compound Child) 1"
+    Given that I navigate to the page for the object named "Z (Compound Child) 1"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
@@ -406,13 +399,10 @@ Feature: Test Compound Object CModel
     Then I press "Permanently remove 'Z (Compound Child) 1' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
-    # Check that child object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Compound Child) 1"
+    And I wait for AJAX to finish
+    And wait 20 seconds
     # Delete second child object
-    And I should see the link "Z (Compound Child) 2"
-    When I click "Z (Compound Child) 2"
+    Given that I navigate to the page for the object named "Z (Compound Child) 2"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
@@ -420,7 +410,13 @@ Feature: Test Compound Object CModel
     Then I press "Permanently remove 'Z (Compound Child) 2' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
+    And I wait for AJAX to finish
+    And wait 20 seconds
     # Check that second child object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Compound Child) 2"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Object%29%20TEST%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%201%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"
+    When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%202%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"
+
