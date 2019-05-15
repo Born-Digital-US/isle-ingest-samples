@@ -45,10 +45,10 @@ Feature: Test Newspaper CModel
     
     Then I should see "Z (Newspaper) TEST"
     # Make sure the object ingested
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Newspaper Content) TEST"
-    When I click "Z (Newspaper Content) TEST"
+    Given I am logged in as a user with the "administrator" role
+    Given I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
+    Then I should see "Z (Newspaper Content) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper Content) TEST"
     Then I click "Expand all months"
     When I click "January 01, 2019"
     Then I should see "Z (Newspaper) TEST"
@@ -290,10 +290,7 @@ Feature: Test Newspaper CModel
   @api @apache @javascript @newspaper
   Scenario: Delete newly ingested Newspaper object
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Newspaper Content) TEST"
-    When I click "Z (Newspaper Content) TEST"
+    Given that I navigate to the page for the object named "Z (Newspaper Content) TEST"
     Then I click "Expand all months"
     Then I should see the link "January 01, 2019"
     # Delete new object
@@ -304,8 +301,8 @@ Feature: Test Newspaper CModel
     Then I should see "This will remove the"
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 30 seconds
+    And wait 45 seconds
     # Check that new object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Newspaper Content) TEST"
+    And wait 15 seconds
+    When I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"
