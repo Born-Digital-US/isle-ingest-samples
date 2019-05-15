@@ -121,7 +121,7 @@ Feature: Test Book CModel
     Then I press "Regenerate all derivatives"
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
-    Given wait 240 seconds
+    Given wait 400 seconds
     Then I should see the link "Derivatives successfully created."
 
 

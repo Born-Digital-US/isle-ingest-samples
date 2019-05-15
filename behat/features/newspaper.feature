@@ -135,7 +135,7 @@ Feature: Test Newspaper CModel
     Then I press "Regenerate all derivatives"
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
-    Given wait 240 seconds
+    Given wait 400 seconds
     Then I should see the link "Derivatives successfully created." 
 
 
@@ -301,8 +301,8 @@ Feature: Test Newspaper CModel
     Then I should see "This will remove the"
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 45 seconds
+    And wait 120 seconds
     # Check that new object is deleted
-    And wait 15 seconds
+    And wait 60 seconds
     When I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
