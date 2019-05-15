@@ -3,7 +3,6 @@
 1. Fix "Then wait for Ingest to complete" So that it is not time-based
 2. Fix Setup so that ICG Samples is created in setup and then deleted when tests are completed?
 3. Enable simple search in setup then delete Behat script in audio.feature
-4. Regroup (fill in coverage if Noah isn't available)
 
 # ISLE/DOCKER IMAGES
 
@@ -118,7 +117,7 @@
 * 3-40	Able to ingest these test COMPOUND OBJECT sample objects?
     * Covered by compound.feature: "Ingest Compound Object Sample Object"
 * 3-41	Able to view a COMPOUND OBJECT object?
-    * TODO - figure out how to view Compound Object
+    * TODO - figure out how to view Compound Object Is this theme specific?
 * 3-42	Able to download a COMPOUND OBJECT object?
     * TODO - figure out how to download Compound Object
 * 3-43	Able to search for newly ingested COMPOUND OBJECT object using Islandora simple search?
@@ -139,7 +138,7 @@
     * Covered by compound.feature: "Delete TN derivative for Compound Object Object"
 * 3-51	Able to regenerate all derivatives for COMPOUND OBJECT object?
     * Does not appear to be possible as derivatives are tied to child objects
-    * TODO - Ask Noah if this is ok
+    * TODO - Is there any reason to test for this?
 * Intentionally not done
     * Testing viewers - this is theme dependent. All we do is ingest and test relationships
 
@@ -175,7 +174,7 @@
 * 3-65	Able to view a NEWSPAPER object?
     * Covered by newspaper.feature: "Check for Newspaper OBJ download"
 * 3-66	Able to download a NEWSPAPER object?
-    * TODO? not sure that the current "Check for Newspaper OBJ download" really does this.
+    * TODO? not sure that the current "Check for Newspaper OBJ download" really tests for this
 * 3-67	Able to search for newly ingested NEWSPAPER object using Islandora simple search?
     * Covered by newspaper.feature: "Check for Newspaper Objects using simple search"
 * 3-68	Able to edit NEWSPAPER object’s title using the XML form?
