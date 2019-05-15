@@ -35,9 +35,9 @@ Feature: Test BasicImage CModel
     ## Make sure the object ingested
 
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    When I click "last"
-    Then I should see the link "Z (Basic Image) TEST"
+    Given I am on "/islandora/search/%22Z%20%28Basic%20Image%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Basic Image) TEST"
     
 
 
@@ -277,11 +277,8 @@ Feature: Test BasicImage CModel
   @api @apache @javascript @basicimage
   Scenario: Delete newly ingested Basic Image object
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Basic Image) TEST"
+    Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     # Delete new object
-    When I click "Z (Basic Image) TEST"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
@@ -289,7 +286,8 @@ Feature: Test BasicImage CModel
     Then I press "Permanently remove 'Z (Basic Image) TEST' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
+    And I wait for AJAX to finish
+    And wait 5 seconds
     # Check that new object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Basic Image) TEST"
+    Given I am on "/islandora/search/%22Z%20%28Basic%20Image%29%20TEST%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"

@@ -3,8 +3,15 @@ Feature: Test Audio CModel
   As a developer
   I need to test some sample data
 
+  @api @apache @setup
+  Scenario: Enable Simple Search
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/admin/structure/block"
+    Then I should see the link "Add block"
+    Given I select "Sidebar first" from "edit-blocks-islandora-solr-simple-region"
+    Then I press "Save blocks"
+
 # Able to ingest the test AUDIO sample objects?
-    #(DO NOT USE JAVASCRIPT)
   @api @apache @javascript @audio
   Scenario: Ingest Audio Sample Object
     Given I am logged in as a user with the "administrator" role
@@ -32,9 +39,9 @@ Feature: Test Audio CModel
     And wait for the page to be loaded
     And wait 30 seconds
     # Make sure the object ingested
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Audio) TEST"
+    Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Audio) TEST"
     
 
 
@@ -278,14 +285,11 @@ Feature: Test Audio CModel
     Then I should see "Z (Audio) TEST"
 
   #Delete newly ingested object
-  @api @apache @audio
-  Scenario: Delete newly ingested object
+  @api @apache @javascript @audio
+  Scenario: Delete newly ingested Audio object
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Audio) TEST"
+    Given that I navigate to the page for the object named "Z (Audio) TEST"
     # Delete new object
-    When I click "Z (Audio) TEST"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
@@ -293,7 +297,8 @@ Feature: Test Audio CModel
     Then I press "Permanently remove 'Z (Audio) TEST' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
+    And I wait for AJAX to finish
+    And wait 5 seconds
     # Check that new object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Audio) TEST"
+    Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"
