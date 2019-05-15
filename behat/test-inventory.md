@@ -145,31 +145,55 @@
 
 ## Large Image Content Model - 100%
 * 3-52	Able to ingest these test LARGE IMAGE sample objects?
+    * Covered by largeimage.feature: "Ingest Large Image Sample Object"
 * 3-53	Able to view a LARGE IMAGE object?
+    * Covered by largeimage.feature: "Check for Large Image OBJ download"
 * 3-54	Able to download a LARGE IMAGE object?
+    * Covered by largeimage.feature: "Check for Large Image OBJ download"
 * 3-55	Able to search for newly ingested LARGE IMAGE object using Islandora simple search?
+    * Covered by largeimage.feature: "Check for Large Image Objects using simple search"
 * 3-56	Able to edit LARGE IMAGE object’s title using the XML form?
+    * Covered by largeimage.feature: "Edit Large Image object title"
 * 3-57	Able to search for newly edited  LARGE IMAGE object’s title using Islandora simple search?
+    * Covered by largeimage.feature: "Edit Large Image object title"
 * 3-58	Able to edit the Item Label of an LARGE IMAGE object's Properties?
+    * Covered by largeimage.feature: "Edit Large Image object Item Label"
 * 3-59	Able to search for newly edited Item Label of an LARGE IMAGE object's Properties using Islandora simple search?
+    * Covered by largeimage.feature: "Edit Large Image object Item Label"
 * 3-60	Able to edit MODS datastream for LARGE IMAGE object?
+    * Covered by largeimage.feature: "Replace MODS datastream for Large Image Object"
 * 3-61	Able to search for newly edited MODS datastream for LARGE IMAGE object using Islandora simple search?
+    * Covered by largeimage.feature: "Replace MODS datastream for Large Image Object"
 * 3-62	Able to delete TN derivative for LARGE IMAGE object?
+    * Covered by largeimage.feature: "Delete TN derivative for Large Image Object"
 * 3-63	Able to regenerate all derivatives for LARGE IMAGE object?
+    * Covered by largeimage.feature: "Regenerate all derivatives for Large Image Object"
 
 ## Newspaper Content Model - 100%
 * 3-64	Able to ingest these test NEWSPAPER sample objects?
+    * Covered by newspaper.feature: "Ingest Newspaper Sample Object"
 * 3-65	Able to view a NEWSPAPER object?
+    * Covered by newspaper.feature: "Check for Newspaper OBJ download"
 * 3-66	Able to download a NEWSPAPER object?
+    * TODO? not sure that the current "Check for Newspaper OBJ download" really does this.
 * 3-67	Able to search for newly ingested NEWSPAPER object using Islandora simple search?
+    * Covered by newspaper.feature: "Check for Newspaper Objects using simple search"
 * 3-68	Able to edit NEWSPAPER object’s title using the XML form?
+    * Covered by newspaper.feature: "Edit Newspaper object title"
 * 3-69	Able to search for newly edited NEWSPAPER object’s title using Islandora simple search?
+    * Covered by newspaper.feature: "Edit Newspaper object title"
 * 3-70	Able to edit the Item Label of an NEWSPAPER object's Properties?
+    * Covered by newspaper.feature: "Edit Newspaper object Item Label"
 * 3-71	Able to search for newly edited Item Label of an NEWSPAPER object's Properties using Islandora simple search?
+    * Covered by newspaper.feature: "Edit Newspaper object Item Label"
 * 3-72	Able to edit MODS datastream for NEWSPAPER object?
+    * Covered by newspaper.feature: "Replace MODS datastream for Newspaper Object"
 * 3-73	Able to search for newly edited MODS datastream for NEWSPAPER object using Islandora simple search?
+    * Covered by newspaper.feature: "Replace MODS datastream for Newspaper Object"
 * 3-74	Able to delete TN derivative for NEWSPAPER object?
+    * Covered by newspaper.feature: "Delete TN derivative for Newspaper Object"
 * 3-75	Able to regenerate all derivatives for NEWSPAPER object?
+    * Covered by newspaper.feature: "Regenerate all derivatives for Newspaper Object"
 
 ## Oral History Content Model (TODO?)
 * 3-76	Able to ingest these test ORAL HISTORY sample objects?
@@ -187,33 +211,59 @@
 
 ## PDF Content Model - 100%
 * 3-88	Able to ingest these test PDF sample objects?
+    * Covered by pdf.feature: "Ingest PDF Sample Object"
 * 3-89	Able to view a PDF object?
+    * TODO - Is this covered by pdf.feature: "Check for PDF OBJ download"?
 * 3-90	Able to download a PDF object?
+    * Covered by pdf.feature: "Check for PDF OBJ download"
 * 3-91	Able to search for newly ingested PDF object using Islandora simple search?
+    * Covered by pdf.feature: "Check for PDF Objects using simple search"
 * 3-92	Able to edit PDF object’s title using the XML form?
+    * Covered by pdf.feature: "Edit PDF object title"
 * 3-93	Able to search for newly edited PDF object’s title using Islandora simple search?
+    * Covered by pdf.feature: "Edit PDF object title"
 * 3-94	Able to edit the Item Label of an PDF object's Properties?
+    * Covered by pdf.feature: "Edit PDF object Item Label"
 * 3-95	Able to search for newly edited Item Label of an PDF object's Properties using Islandora simple search?
+    * Covered by pdf.feature: "Edit PDF object Item Label"
 * 3-96	Able to edit MODS datastream for PDF object?
+    * Covered by pdf.feature: "Replace MODS datastream for PDF Object"
 * 3-97	Able to search for newly edited MODS datastream for PDF object using Islandora simple search?
+    * Covered by pdf.feature: "Replace MODS datastream for PDF Object"
 * 3-98	Able to delete TN derivative for PDF object?
+    * Covered by pdf.feature: "Delete TN derivative for PDF Object"
 * 3-99	Able to regenerate all derivatives for PDF object?
+    * Covered by pdf.feature: "Regenerate all derivatives for PDF Object"
 
 ## Video Content Model - 100%
 * 3-100	Able to ingest these test VIDEO sample objects?
+    * Covered by video.feature: "Ingest Video Sample Object"
 * 3-101	Able to view a VIDEO object?
+    * Covered by video.feature: "Check for Video OBJ download"
 * 3-102	Able to download a VIDEO object?
+    * Covered by video.feature: "Check for Video OBJ download"
 * 3-103	Able to search for newly ingested VIDEO object using Islandora simple search?
+    * Covered by video.feature: "Check for Video Objects using simple search"
 * 3-104	Able to edit VIDEO object’s title using the XML form?
+    * Covered by video.feature: "Edit Video object title"
 * 3-105	Able to search for newly edited VIDEO object’s title using Islandora simple search?
+    * Covered by video.feature: "Edit Video object title"
 * 3-106	Able to edit the Item Label of an VIDEO object's Properties?
+    * Covered by video.feature: "Edit Video object Item Label"
 * 3-107	Able to search for newly edited Item Label of an VIDEO object's Properties using Islandora simple search?
+    * Covered by video.feature: "Edit Video object Item Label"
 * 3-108	Able to edit MODS datastream for VIDEO object?
+    * Covered by video.feature: "Replace MODS datastream for Video Object"
 * 3-109	Able to search for newly edited MODS datastream for VIDEO object using Islandora simple search?
+    * Covered by video.feature: "Replace MODS datastream for Video Object"
 * 3-110	Able to replace MODS datastreams
+    * Covered by video.feature: "Replace MODS datastream for Video Object"
 * 3-111	Able to search for newly replaced MODS datastreams using Islandora simple search?
+    * Covered by video.feature: "Replace MODS datastream for Video Object"
 * 3-112	Able to delete TN derivative for VIDEO object?
+    * Covered by video.feature: "Delete TN derivative for Video Object"
 * 3-113	Able to regenerate all derivatives for VIDEO object?
+    * Covered by video.feature: "Regenerate all derivatives for Video Object"
 
 ## WARC Content Model (TODO?)
 * 3-114	Able to ingest these test WEB ARCHIVE sample objects?
