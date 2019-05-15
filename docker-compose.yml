@@ -172,22 +172,6 @@ services:
     networks:
       - isle-internal
 
-  firefox:
-    image: selenium/node-chrome:3.11.0-dysprosium # compliant with the compass version
-    # image: selenium/node-firefox:3.141.59-neon # latest
-    volumes:
-      - /dev/shm:/dev/shm
-      - ./data/isle-apache-data:/var/www/html:ro
-    depends_on:
-      - hub
-      - apache
-    environment:
-      - HUB_HOST=hub
-      - HUB_PORT=4444
-    container_name: bd-ld-firefox
-    networks:
-      - isle-internal
-
   # ref: https://bitbucket.org/commonmedia/whitman.localdomain/src/master/docker-compose.yml
   hub:
     image: selenium/hub:3.11.0-dysprosium # compass uses this one
