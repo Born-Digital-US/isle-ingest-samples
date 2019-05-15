@@ -126,7 +126,7 @@ services:
       - traefik
     volumes:
       # - isle-apache-data:/var/www/html
-      - ./data/isle-apache-data:/var/www/html:cached
+      - ./data/isle-apache-data:/var/www/html
       # - ./logs/apache/httpd:/var/log/apache2
       # - ./logs/apache/fits:/var/log/fits
     labels:
