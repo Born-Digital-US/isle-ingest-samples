@@ -36,9 +36,9 @@ Feature: Test LargeImage CModel
     ## Make sure the object ingested
 
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    When I click "last"
-    Then I should see the link "Z (Large Image) TEST"
+    Given I am on "/islandora/search/%22Z%20%28Large%20Image%29%20TEST%22?type=dismax"
+    Then I should see "(1 - 1 of 1)"
+    Then I should see "Z (Large Image) TEST"
     
 
 
@@ -278,11 +278,8 @@ Feature: Test LargeImage CModel
   @api @apache @javascript @largeimage
   Scenario: Delete newly ingested Large Image object
     Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should see the link "Z (Large Image) TEST"
+    Given that I navigate to the page for the object named "Z (Large Image) TEST"
     # Delete new object
-    When I click "Z (Large Image) TEST"
     Then I should see "In collections"
     When I click "Manage"
     Then I click "Properties"
@@ -290,7 +287,8 @@ Feature: Test LargeImage CModel
     Then I press "Permanently remove 'Z (Large Image) TEST' from repository"
     Then I should see "This action cannot be undone."
     Then I press "Delete"
+    And I wait for AJAX to finish
+    And wait 5 seconds
     # Check that new object is deleted
-    When I am on "/islandora/object/samples%3Acollection"
-    Then I click "last"
-    Then I should not see the link "Z (Large Image) TEST"
+    Given I am on "/islandora/search/%22Z%20%28Large%20Image%29%20TEST%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"
