@@ -523,8 +523,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    */
   public function waitForIngestToComplete()
   {
-    $this->getSession()->wait(1000*360*1.5);
-    # $this->getSession()->wait(30000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))");
+    # $this->getSession()->wait(1000*360*1.5);
+    echo("Waiting until 'Manage' is visible again, one minute at a time.");
+    $this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))");
   }
 
 
@@ -546,9 +547,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
    * @Then /^I create the behat test collection$/
    */
   public function ICreateBehatTestCollection() {
-//    $drupal_user = user_load($this->getUserManager()->getCurrentUser()->uid);
-//    $connection = islandora_get_tuque_connection($drupal_user);
-//    $repository = $connection->repository;
+    // echo("\nDEBUG: '".$this->user->roles[0]."'\n");
+    $drupal_user = user_load($this->getUserManager()->getCurrentUser()->uid);
+    // $drupal_user = $scope->getEntity();
+    $connection = islandora_get_tuque_connection($drupal_user);
+    $repository = $connection->repository;
     module_load_include('inc', 'islandora', 'includes/utilities');
     $relationships = array('relationship' => 'isMemberOfCollection', 'pid' => 'islandora:root');
     $object = islandora_prepare_new_object($this->behat_test_collection_pid, "Behat Test Collection", array(), array('islandora:collectionCModel'), array($relationships));
@@ -560,6 +563,19 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       throw new Exception("Could not make the behat test collection");
     }
   }
+
+  /** @BeforeScenario */
+  public function before($event) {
+    //echo("Auto-creating behattest:collection");
+    //$this->ICreateBehatTestCollection();
+  }
+
+  /** @AfterScenario */
+  public function after($event) {
+    //echo("Auto-deleting behattest:collection");
+    //$this->IDeleteBehatTestCollection();
+  }
+
 
   /**
    * Delete the behat test collection object.

@@ -7,12 +7,24 @@ Feature: Test Book CModel
   @api @apache @javascript @book
   Scenario: Ingest Book Sample Object
     Given I am logged in as a user with the "administrator" role
+
+    Then I create the behat test collection
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
-    Then I should see "ICG Samples"
+    And I am on "/islandora/object/behattest:collection"
+    Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
-    
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorabookcmodel-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
+
     Then I click "Add an object to this Collection"
     When select "Islandora Internet Archive Book Content Model" from "models"
     And I wait for AJAX to finish
@@ -31,14 +43,15 @@ Feature: Test Book CModel
     And wait for the page to be loaded
     # And wait 360 seconds
     Then wait for Ingest to complete
-    
-    Then I should see "Z (BOOK) TEST"
+
+    Then I should see "has been ingested"
     # Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/%22Z%20%28BOOK%29%20TEST%22?type=dismax"
     Then I should see "(1 - 16 of 16)"
     Then I should see "Z (BOOK) TEST"
-    
+
+    # Then I delete the behat test collection
 
 
   # Able to upload (replace) thumbnail for BOOK object?
@@ -58,7 +71,7 @@ Feature: Test Book CModel
     When wait 3 seconds
     And I press "Add Contents"
     Then I should see "Z (BOOK) TEST"
-    
+
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
@@ -69,12 +82,12 @@ Feature: Test Book CModel
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-   Given I click "regenerate" in the "TN" row
+    Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for BOOK object? *** 
+  # Able to delete TN derivative for BOOK object? ***
   @api @apache @javascript @book
   Scenario: Delete TN derivative for BOOK Object
     Given I am logged in as a user with the "administrator" role
@@ -86,7 +99,7 @@ Feature: Test Book CModel
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "delete" in the "TN" row
-    Then I check the box "Delete Derivatives" 
+    Then I check the box "Delete Derivatives"
     Then I press "Delete"
     #Add Original Thumbnail and Thumbnail datastream back
     Given I am logged in as a user with the "administrator" role
@@ -108,7 +121,7 @@ Feature: Test Book CModel
     Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
-  
+
   # Able to regenerate all derivatives for BOOK object? ***  See lower tests
   @api @apache @javascript @book
   Scenario: Regenerate all derivatives for BOOK Object
@@ -178,7 +191,7 @@ Feature: Test Book CModel
     # Able to search for newly edited MODS datastream for BOOK object using Islandora simple search?
     Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST%20REPLACED?type=dismax"
     Then I should see "Z (BOOK) TEST REPLACED"
-  
+
     # Restore Original MODS Datastream
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST REPLACED"
@@ -205,13 +218,13 @@ Feature: Test Book CModel
     And I should see "Z (BOOK) TEST"
 
 
-  # Able to edit Object Title for BOOK Object 
+  # Able to edit Object Title for BOOK Object
   @api @apache @javascript @book
-  Scenario: Edit BOOK object title 
+  Scenario: Edit BOOK object title
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"  
+    Then I should see "Z (BOOK) TEST"
     # Navigate to and change Object title
     Then I click "Manage"
     Then I click "Datastreams"
@@ -248,7 +261,7 @@ Feature: Test Book CModel
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see "Z (BOOK) TEST"
-    # Navigate to and change item label form  
+    # Navigate to and change item label form
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
