@@ -7,23 +7,39 @@
 # ISLE/DOCKER IMAGES
 
 * 1-1	Able to create new ISLE instance?
+    * TODO? Covered by isle-services.feature?
 * 1-2	Able to view Traefik admin port?
+    * Covered by isle-services.feature "traefik online"
 * 1-3	Able to view Portainer Admin panel?
+    * Covered by isle-services.feature "portainer online"
 * 1-4	Able to view Tomcat admin panel for solr container?
+    * Covered by isle-services.feature "solr online"
 * 1-5	Able to view the Solr admin panel for solr container?
+    * Covered by isle-services.feature "solr online"
 * 1-6	Able to view Tomcat admin panel for image-services container?
+    * Covered by isle-services.feature "imageservices online
 * 1-7	Able to view Cantaloupe admin panel for image-services container?
+    * Covered by isle-services.feature "imageservices online"
 * 1-8	Able to view Adore-djatoka admin panel for image-services container?
+    * Covered by isle-services.feature "imageservices online"
 * 1-9	Able to view Tomcat admin panel for fedora container?
+    * Covered by isle-services.feature "fedora online"
 * 1-10	Able to view Fedora services panels e.g. /objects, /describe etc
+    * Covered by isle-services.feature "fedora online"
 * 1-11	Able to view Fedoragsearch panels e.g. /fedoragsearch/rest?operation=updateIndex
+    * Covered by isle-services.feature "fedora online"
 
 # DRUPAL INSTALLATION
 * 2-1	Able to view domain / website url as anonymous user?
+    * Covered by isle-drupal.feature "Viewing homepage"
 * 2-2	Able to login to Drupal site as an admin user?
+    * Covered by isle-drupal.feature "Viewing login page as admin" 
 * 2-3	Able to view persistent data folders for xml/xslt/sites and for fedora data store?
+    * TODO? Covered by isle-drupal.feature
 * 2-4	If Drupal multisite, able to login to multisite (not parent) site?
+    * TODO? Covered by isle-drupal.feature
 * 2-5	Drupal Status Report not showing errors? https://<domain>/node#overlay=admin/reports/status
+    * TODO? Covered by isle-drupal.feature
 
 # SAMPLE OBJECT INGESTION
 ## Collections
@@ -196,17 +212,29 @@
 
 ## Oral History Content Model (TODO?)
 * 3-76	Able to ingest these test ORAL HISTORY sample objects?
+    * Covered by oralhistories.feature: "Ingest ORAL HISTORIES Sample Object"
 * 3-77	Able to view a ORAL HISTORY object?
+    * Covered by oralhistories.feature: "Check for ORAL HISTORIES OBJ download"
 * 3-78	Able to download a ORAL HISTORY object?
+    * Covered by oralhistories.feature: "Check for ORAL HISTORIES OBJ download"
 * 3-79	Able to search for newly ingested ORAL HISTORY object using Islandora simple search?
+    * Covered by oralhistories.feature: "Check for ORAL HISTORIES Objects using simple search"
 * 3-80	Able to edit ORAL HISTORY object’s title using the XML form?
+    * Covered by oralhistories.feature: "Edit ORAL HISTORIES object title"
 * 3-81	Able to search for newly edited ORAL HISTORY object’s title using Islandora simple search?
+    * Covered by oralhistories.feature: "Edit ORAL HISTORIES object title"
 * 3-82	Able to edit the Item Label of an ORAL HISTORY object's Properties?
+    * Covered by oralhistories.feature: "Edit ORAL HISTORIES object Item Label"
 * 3-83	Able to search for newly edited Item Label of an ORAL HISTORY object's Properties using Islandora simple search?
+    * Covered by oralhistories.feature: "Edit ORAL HISTORIES object Item Label"
 * 3-84	Able to edit MODS datastream for ORAL HISTORY object?
+    * Covered by oralhistories.feature: "Replace MODS datastream for ORAL HISTORIES Object"
 * 3-85	Able to search for newly edited MODS datastream for ORAL HISTORY object using Islandora simple search?
+    * Covered by oralhistories.feature: "Replace MODS datastream for ORAL HISTORIES Object"
 * 3-86	Able to delete TN derivative for ORAL HISTORY object?
+    * Covered by oralhistories.feature: "Delete TN derivative for ORAL HISTORIES Object"
 * 3-87	Able to regenerate all derivatives for ORAL HISTORY object?
+    * Covered by oralhistories.feature: "Regenerate all derivatives for ORAL HISTORIES Object"
 
 ## PDF Content Model - 100%
 * 3-88	Able to ingest these test PDF sample objects?
@@ -266,17 +294,29 @@
 
 ## WARC Content Model (TODO?)
 * 3-114	Able to ingest these test WEB ARCHIVE sample objects?
+    * Covered by warc.feature: "Ingest WARC Sample Object"
 * 3-115	Able to view a WEB ARCHIVE object?
+    * Covered by warc.feature: "Check for WARC OBJ download"
 * 3-116	Able to download a WEB ARCHIVE object?
+    * Covered by warc.feature: "Check for WARC OBJ download"
 * 3-117	Able to search for newly ingested WEB ARCHIVE object using Islandora simple search?
+    * Covered by warc.feature: "Check for WARC Objects using simple search"
 * 3-118	Able to edit WEB ARCHIVE object’s title using the XML form?
+    * Covered by warc.feature: "Edit WARC object title"
 * 3-119	Able to search for newly edited WEB ARCHIVE object’s title using Islandora simple search?
+    * Covered by warc.feature: "Edit WARC object title"
 * 3-120	Able to edit the Item Label of an WEB ARCHIVE object's Properties?
+    * Covered by warc.feature: "Edit WARC object Item Label"
 * 3-121	Able to search for newly edited Item Label of an WEB ARCHIVE object's Properties using Islandora simple search?
+    * Covered by warc.feature: "Edit WARC object Item Label"
 * 3-122	Able to edit MODS datastream for WEB ARCHIVE object?
+    * Covered by warc.feature: "Replace MODS datastream for WARC Object"
 * 3-123	Able to search for newly edited MODS datastream for WEB ARCHIVE object using Islandora simple search?
+    * Covered by warc.feature: "Replace MODS datastream for WARC Object"
 * 3-124	Able to delete TN derivative for WEB ARCHIVE object?
+    * Covered by warc.feature: "Delete TN derivative for WARC Object"
 * 3-125	Able to regenerate all derivatives for WEB ARCHIVE object?
+    * Covered by warc.feature: "Regenerate all derivatives for WARC Object"
 
 # MAINTENANCE TASKS
 * 4-1	Able to view the expected number of data objects?
