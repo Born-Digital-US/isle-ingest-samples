@@ -8,6 +8,13 @@ Feature: Test Book CModel
   Scenario: Ingest Book Sample Object
     Given I am logged in as a user with the "administrator" role
 
+    And I am on "/islandora/object/behattest:collection"
+    Then I click "Manage"
+    Then I click "Properties"
+    Then I click on the selector "#edit-delete"
+    Then I click on the selector "#edit-submit"
+    And I wait for AJAX to finish
+
     Then I create the behat test collection
     # Navigate to parent collection
     And I am on "/islandora/object/behattest:collection"
@@ -41,10 +48,21 @@ Feature: Test Book CModel
     Then I click on the selector "#edit-next"
     # And I wait for AJAX to finish
     And wait for the page to be loaded
-    # And wait 360 seconds
+    Then wait 20 seconds
+    # Then I wait for AJAX to finish
+    # "Creating Pages..."
+    #And wait for the page to be loaded
+    Then grab me a screenshot
     Then wait for Ingest to complete
+    Then grab me a screenshot
+    Then wait for Ingest to complete
+    Then grab me a screenshot
+    Then wait for Ingest to complete
+    Then grab me a screenshot
 
+    Then I wait for AJAX to finish
     Then I should see "has been ingested"
+
     # Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/%22Z%20%28BOOK%29%20TEST%22?type=dismax"
