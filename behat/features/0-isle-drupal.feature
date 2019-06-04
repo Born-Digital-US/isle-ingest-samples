@@ -9,7 +9,7 @@ Feature: Drupal Basics
   # If Drupal multisite, able to login to multisite (not parent) site?
   # Drupal Status Report not showing errors? https://<domain>/node#overlay=admin/reports/status
 
-  @apache @javascript
+  @apache @javascript @api
   Scenario: Check for orphaned objects
     Given I am logged in as a user with the "administrator" role
     And I am on "/admin/reports/orphaned_objects/list"
