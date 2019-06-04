@@ -27,6 +27,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   private $user;
   private $behat_test_collection_pid;
   private $fetched_object_pid;
+  private $temp_admin_user;
+  private $temp_behat_test_collection_delete = false;
 
   /**
    * Initializes context.
@@ -54,6 +56,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $this->test_environments[$test['Test ID']] = $test;
     }
     $this->behat_test_collection_pid = 'behattest:collection';
+
   }
 
   // /**
@@ -561,29 +564,81 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $drupal_user = user_load($this->getUserManager()->getCurrentUser()->uid);
     // $drupal_user = $scope->getEntity();
     $connection = islandora_get_tuque_connection($drupal_user);
+
     $repository = $connection->repository;
-    module_load_include('inc', 'islandora', 'includes/utilities');
-    $relationships = array('relationship' => 'isMemberOfCollection', 'pid' => 'islandora:root');
-    $object = islandora_prepare_new_object($this->behat_test_collection_pid, "Behat Test Collection", array(), array('islandora:collectionCModel'), array($relationships));
-    islandora_add_object($object);
+    if (islandora_object_load($this->behat_test_collection_pid)) {
+      echo("You already have object: ".$this->behat_test_collection_pid);
+    } else {
+      module_load_include('inc', 'islandora', 'includes/utilities');
 
+      $relationships = array('relationship' => 'isMemberOfCollection', 'pid' => 'islandora:root');
+      $object = islandora_prepare_new_object($this->behat_test_collection_pid, "Behat Test Collection", array(), array('islandora:collectionCModel'), array($relationships));
 
-    $test = islandora_object_load($this->behat_test_collection_pid);
-    if(empty($test)) {
-      throw new Exception("Could not make the behat test collection");
+      islandora_add_object($object);
+
+      $test = islandora_object_load($this->behat_test_collection_pid);
+      if(empty($test)) {
+        throw new Exception("Could not make the behat test collection");
+      } else {
+        $this->temp_behat_test_collection_delete = true;
+      }
     }
+  }
+
+  /**
+   * Allow quick login as admin
+   *  For some reason we can't call: `$this->assertAuthenticatedByRole('administrator');`
+   */
+  private function AdminLogin() {
+    $role='administrator';
+    if (!$this->loggedInWithRole($role)) {
+      // Create user (and project)
+      $user = (object) array(
+      'name' => $this->getRandom()->name(8)."TEST",
+      'pass' => $this->getRandom()->name(16),
+      'role' => $role,
+      );
+      $user->mail = "{$user->name}@example.com";
+
+      $this->userCreate($user);
+
+      $roles = explode(',', $role);
+      $roles = array_map('trim', $roles);
+      foreach ($roles as $role) {
+          if (!in_array(strtolower($role), array('authenticated', 'authenticated user'))) {
+              // Only add roles other than 'authenticated user'.
+              $this->getDriver()->userAddRole($user, $role);
+          }
+      }
+
+      // Login.
+      $this->login($user);
+      echo("Logged in as: ".$this->getUserManager()->getCurrentUser()->name."\n");
+    } else {
+      echo("Already logged in as: ".$this->getUserManager()->getCurrentUser()->name."\n");
+    }
+    return user_load($this->getUserManager()->getCurrentUser()->uid);
   }
 
   /** @BeforeScenario */
   public function before($event) {
-    //echo("Auto-creating behattest:collection");
-    //$this->ICreateBehatTestCollection();
+    echo("Logging in as administrator user... \n");
+    $drupal_user = $this->AdminLogin();
+
+    echo("Auto-creating behattest:collection...\n");
+    $this->ICreateBehatTestCollection();
   }
 
   /** @AfterScenario */
   public function after($event) {
-    //echo("Auto-deleting behattest:collection");
-    //$this->IDeleteBehatTestCollection();
+    if ($this->temp_behat_test_collection_delete == true) {
+      echo("Ensuring login as administrator user...\n");
+      $this->AdminLogin();
+      echo("Auto-deleting behattest:collection...\n");
+      $this->IDeleteBehatTestCollection();
+    } else {
+      echo("No need to delete the test collection.\n");
+    }
   }
 
 
@@ -600,9 +655,15 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     if(empty($object)) {
       throw new Exception("Unable to find the behat test collection in order to delete it.");
     }
-    foreach($object as $datastream) {
-      $object->purgeDatastream($datastream->id);
-    }
+    // try {
+    //   foreach($object as $datastream) {
+    //     $object->purgeDatastream($datastream->id);
+    //   }
+    // }
+    // catch(Exception $e) {
+    //   echo("WARNING: Could not purge test collection datastream: " . $datastream->id);
+    // }
+
     try {
       $repository->purgeObject($this->behat_test_collection_pid);
     }

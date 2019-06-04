@@ -3,19 +3,21 @@ Feature: Test Book CModel
   As a developer
   I need to test some sample data
 
-# Able to ingest the test BOOK sample objects?
   @api @apache @javascript @book
-  Scenario: Ingest Book Sample Object
-    Given I am logged in as a user with the "administrator" role
-
-    And I am on "/islandora/object/behattest:collection"
+  Scenario: Sample collection dummy
+    Given I am on "/islandora/object/behattest:collection"
     Then I click "Manage"
     Then I click "Properties"
-    Then I click on the selector "#edit-delete"
-    Then I click on the selector "#edit-submit"
-    And I wait for AJAX to finish
+    # Then I click on the selector "#edit-delete"
+    # Then I click on the selector "#edit-submit"
+    # And I wait for AJAX to finish
 
-    Then I create the behat test collection
+  # Able to ingest the test BOOK sample objects?
+  @api @apache @javascript @book
+  Scenario: Ingest Book Sample Object
+    # Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
     And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
