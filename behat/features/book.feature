@@ -3,6 +3,10 @@ Feature: Test Book CModel
   As a developer
   I need to test some sample data
 
+  @api @apache @javascript @book @sample-setup @sample-teardown
+  Scenario: Dummy Sample
+    Given I am logged in as a user with the "administrator" role
+
   # Able to ingest the test BOOK sample objects?
   @api @apache @javascript @book @sample-setup
   Scenario: Ingest Book Sample Object
@@ -311,7 +315,7 @@ Feature: Test Book CModel
     #Delete newly ingested object
 
 
-  @api @apache @javascript @book
+  @api @apache @javascript @book @sample-teardown
   Scenario: Delete Behat Test Collection
     Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/behattest:collection"
@@ -321,7 +325,7 @@ Feature: Test Book CModel
     Then I click on the selector "#edit-submit"
     And I wait for AJAX to finish
 
-  @api @apache @javascript @book @sample-teardown
+  @api @apache @javascript @book
   Scenario: Delete Behat Test Orphaned Objects
     Given I am logged in as a user with the "administrator" role
     When I am on "/admin/reports/orphaned_objects/list"

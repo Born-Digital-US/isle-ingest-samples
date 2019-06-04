@@ -636,6 +636,8 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       $this->AdminLogin();
       echo("Auto-deleting behattest:collection...\n");
       $this->IDeleteBehatTestCollection();
+      echo("Cleaning up orphan objects...\n");
+      $this->ICleanUpOrphanedObjects();
     } else {
       echo("No need to delete the test collection.\n");
     }
@@ -670,7 +672,37 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     catch(Exception $e) {
       throw new Exception("Could not purge the behat test collection. Message: " . $e->getMessage());
     }
+  }
 
+  /**
+   * Delete orphaned islandora objects.
+   *
+   * @Then /^I clean up orphaned objects$/
+   */
+  public function ICleanUpOrphanedObjects() {
+    # Given I am logged in as a user with the "administrator" role
+    $drupal_user = user_load($this->getUserManager()->getCurrentUser()->uid);
+
+    # When I am on "/admin/reports/orphaned_objects/list"
+    $this->visitPath('/admin/reports/orphaned_objects/list');
+
+    # Only try to delete if there are orphans
+    if ($this->getSession()->getPage()->find("css", "#edit-submit-all")) {
+      # And I click on the selector "#edit-submit-all"
+      #$button = $this->getSession()->getPage()->find('css', "#edit-submit-all");
+      #$button->click();
+      $this->iClickOnTheSelector("#edit-submit-all");
+      $this->getSession()->wait(1000*.2);
+      # And I click on the selector "#edit-confirm-submit"
+      $this->iClickOnTheSelector("#edit-confirm-submit");
+      $this->getSession()->wait(1000*.2);
+
+      # Then wait 30 seconds
+      $this->getSession()->wait(1000*30);
+      echo("Orphans deleted.\n");
+    } else {
+      echo("No orphans to delete.\n");
+    }
   }
 
   /**

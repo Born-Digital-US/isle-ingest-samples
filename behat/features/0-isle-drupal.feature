@@ -10,6 +10,15 @@ Feature: Drupal Basics
   # Drupal Status Report not showing errors? https://<domain>/node#overlay=admin/reports/status
 
   @apache @javascript
+  Scenario: Check for orphaned objects
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/admin/reports/orphaned_objects/list"
+    Then I should see "No orphaned objects were found."
+    # IF THIS TEST IS FAILING, DELETE YOUR ORPHANED OBJECTS BEFORE CONTINUING
+    # THIS IS NECESSARY BECAUSE IN OUR TEARDOWN WE DELETE ALL ORPHANS AND WE
+    # DON'T WANT TO DELETE SOMETHING YOU CARE ABOUT...
+
+  @apache @javascript
   Scenario: Viewing homepage
     Given I am an anonymous user
     And I am on "/"
