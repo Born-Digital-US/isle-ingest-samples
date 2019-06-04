@@ -37,8 +37,7 @@ Feature: Test Book CModel
     And I wait for AJAX to finish
     Then I press "Next"
     And wait for the page to be loaded
-    # Then wait 3 seconds
-    # Then I press "Next"
+
     Then I click on the selector "#edit-next"
     Then I fill in "edit-titleinfo-title" with "Z (BOOK) TEST"
     Then I click on the selector "#edit-next"
@@ -46,17 +45,13 @@ Feature: Test Book CModel
     Then I press "Upload"
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
-    # And I wait for AJAX to finish
+
     And wait for the page to be loaded
     Then wait 20 seconds
-    # Then I wait for AJAX to finish
-    # "Creating Pages..."
-    #And wait for the page to be loaded
-    Then grab me a screenshot
+
+    # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
-    Then grab me a screenshot
     Then wait for Ingest to complete
-    Then grab me a screenshot
     Then wait for Ingest to complete
     Then grab me a screenshot
 
@@ -68,8 +63,6 @@ Feature: Test Book CModel
     Given I am on "/islandora/search/%22Z%20%28BOOK%29%20TEST%22?type=dismax"
     Then I should see "(1 - 16 of 16)"
     Then I should see "Z (BOOK) TEST"
-
-    # Then I delete the behat test collection
 
 
   # Able to upload (replace) thumbnail for BOOK object?
