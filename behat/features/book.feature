@@ -8,9 +8,9 @@ Feature: Test Book CModel
     Given I am logged in as a user with the "administrator" role
 
   # Able to ingest the test BOOK sample objects?
-  @api @apache @javascript @book @sample-setup
+  @api @apache @javascript @book @sample-setup @sample-teardown
   Scenario: Ingest Book Sample Object
-    # Given I am logged in as a user with the "administrator" role
+    Given I am logged in as a user with the "administrator" role
     # Then I create the behat test collection
 
     # Navigate to parent collection
@@ -48,26 +48,26 @@ Feature: Test Book CModel
 
     # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
-    Then grab me a screenshot
+    #Then grab me a screenshot
     Then wait for Ingest to complete
-    Then grab me a screenshot
+    #Then grab me a screenshot
     Then wait for Ingest to complete
-    Then grab me a screenshot
+    #Then grab me a screenshot
 
     Then I wait for AJAX to finish
     Then I should see "has been ingested"
 
     # Make sure the object ingested
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/%22Z%20%28BOOK%29%20TEST%22?type=dismax"
     Then I should see "(1 - 16 of 16)"
     Then I should see "Z (BOOK) TEST"
 
 
   # Able to upload (replace) thumbnail for BOOK object?
-      #@api @apache @javascript @book
-      #Scenario: Replace BOOK Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @javascript @book
+    #Scenario: Replace BOOK Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -85,7 +85,7 @@ Feature: Test Book CModel
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -97,10 +97,10 @@ Feature: Test Book CModel
     Then I press "Regenerate"
 
 
-      ## Able to delete TN derivative for BOOK object? ***
-      #@api @apache @javascript @book
-      #Scenario: Delete TN derivative for BOOK Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for BOOK object? ***
+    #@api @apache @javascript @book
+    #Scenario: Delete TN derivative for BOOK Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -132,10 +132,10 @@ Feature: Test Book CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
-      ## Able to regenerate all derivatives for BOOK object? ***  See lower tests
-      #@api @apache @javascript @book
-      #Scenario: Regenerate all derivatives for BOOK Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for BOOK object? ***  See lower tests
+    #@api @apache @javascript @book
+    #Scenario: Regenerate all derivatives for BOOK Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -148,19 +148,19 @@ Feature: Test Book CModel
     Given wait 20 seconds
     # MAX 20 minutes for this (2x)
     Then wait for Ingest to complete
-    Then grab me a screenshot
+    #Then grab me a screenshot
     Then wait for Ingest to complete
-    Then grab me a screenshot
+    #Then grab me a screenshot
     Then I should see the link "Derivatives successfully created."
 
 
     ## figure out how to check for original thumbnail image
 
 
-      # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
-      #@api @apache @javascript @book
-      #Scenario: Check for BOOK OBJ download
-    Given I am logged in as a user with the "administrator" role
+    # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
+    #@api @apache @javascript @book
+    #Scenario: Check for BOOK OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I click "Manage"
     Then I click "Book"
@@ -173,20 +173,20 @@ Feature: Test Book CModel
     #Then I should get a 200 HTTP response
 
 
-      ## Able to search for newly ingested BOOK object using Islandora simple search?
-      #@api @apache @javascript @book
-      #Scenario: Check for BOOK Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested BOOK object using Islandora simple search?
+    #@api @apache @javascript @book
+    #Scenario: Check for BOOK Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/BOOK?type=dismax"
     Then I should see "islandora:bookCollection"
     Then I should see "Z (BOOK) TEST"
 
 
 
-      ## Able to edit MODS datastream for BOOK object? ("replace") ****
-      #@api @apache @javascript @book
-      #Scenario: Replace MODS datastream for BOOK Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for BOOK object? ("replace") ****
+    #@api @apache @javascript @book
+    #Scenario: Replace MODS datastream for BOOK Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see "Z (BOOK) TEST"
@@ -216,7 +216,7 @@ Feature: Test Book CModel
     Then I should see "Z (BOOK) TEST REPLACED"
 
     # Restore Original MODS Datastream
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST REPLACED"
     Then I should see "Z (BOOK) TEST"
     Then I click "Manage"
@@ -241,10 +241,10 @@ Feature: Test Book CModel
     And I should see "Z (BOOK) TEST"
 
 
-      ## Able to edit Object Title for BOOK Object
-      #@api @apache @javascript @book
-      #Scenario: Edit BOOK object title
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for BOOK Object
+    #@api @apache @javascript @book
+    #Scenario: Edit BOOK object title
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see "Z (BOOK) TEST"
@@ -277,10 +277,10 @@ Feature: Test Book CModel
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-      ## Able to edit the Item Label of an BOOK object's Properties?
-      #@api @apache @book
-      #Scenario: Edit BOOK object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an BOOK object's Properties?
+    #@api @apache @book
+    #Scenario: Edit BOOK object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see "Z (BOOK) TEST"
@@ -307,10 +307,10 @@ Feature: Test Book CModel
     Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
     Then I should see "Z (BOOK) TEST"
 
-      ##Delete newly ingested object
-      #@api @apache @javascript @book
-      #Scenario: Delete newly ingested BOOK object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @book
+    #Scenario: Delete newly ingested BOOK object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     # Delete new object
     Then I should see the link "Pages"
