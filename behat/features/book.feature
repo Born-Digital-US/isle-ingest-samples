@@ -98,9 +98,9 @@ Feature: Test Book CModel
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for BOOK object? ***
-  @api @apache @javascript @book
-  Scenario: Delete TN derivative for BOOK Object
+      ## Able to delete TN derivative for BOOK object? ***
+      #@api @apache @javascript @book
+      #Scenario: Delete TN derivative for BOOK Object
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
@@ -133,9 +133,9 @@ Feature: Test Book CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
-  # Able to regenerate all derivatives for BOOK object? ***  See lower tests
-  @api @apache @javascript @book
-  Scenario: Regenerate all derivatives for BOOK Object
+      ## Able to regenerate all derivatives for BOOK object? ***  See lower tests
+      #@api @apache @javascript @book
+      #Scenario: Regenerate all derivatives for BOOK Object
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
@@ -152,18 +152,19 @@ Feature: Test Book CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
-  @api @apache @book
-  Scenario: Check for BOOK OBJ download
+      ## Able to download an BOOK object? *** TODO Ask Noah how to do this link***
+      #@api @apache @book
+      #Scenario: Check for BOOK OBJ download
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
+    Then I should see "Z (BOOK) TEST"
     Then I should get a 200 HTTP response
 
 
 
-  # Able to search for newly ingested BOOK object using Islandora simple search?
-  @api @apache @book
-  Scenario: Check for BOOK Objects using simple search
+      ## Able to search for newly ingested BOOK object using Islandora simple search?
+      #@api @apache @book
+      #Scenario: Check for BOOK Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/BOOK?type=dismax"
     Then I should see "islandora:bookCollection"
@@ -171,9 +172,9 @@ Feature: Test Book CModel
 
 
 
-  # Able to edit MODS datastream for BOOK object? ("replace") ****
-  @api @apache @javascript @book
-  Scenario: Replace MODS datastream for BOOK Object
+      ## Able to edit MODS datastream for BOOK object? ("replace") ****
+      #@api @apache @javascript @book
+      #Scenario: Replace MODS datastream for BOOK Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
@@ -229,9 +230,9 @@ Feature: Test Book CModel
     And I should see "Z (BOOK) TEST"
 
 
-  # Able to edit Object Title for BOOK Object
-  @api @apache @javascript @book
-  Scenario: Edit BOOK object title
+      ## Able to edit Object Title for BOOK Object
+      #@api @apache @javascript @book
+      #Scenario: Edit BOOK object title
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
@@ -265,9 +266,9 @@ Feature: Test Book CModel
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an BOOK object's Properties?
-  @api @apache @book
-  Scenario: Edit BOOK object Item Label
+      ## Able to edit the Item Label of an BOOK object's Properties?
+      #@api @apache @book
+      #Scenario: Edit BOOK object Item Label
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
@@ -295,9 +296,9 @@ Feature: Test Book CModel
     Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
     Then I should see "Z (BOOK) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @book
-  Scenario: Delete newly ingested BOOK object
+      ##Delete newly ingested object
+      #@api @apache @javascript @book
+      #Scenario: Delete newly ingested BOOK object
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     # Delete new object
@@ -314,3 +315,23 @@ Feature: Test Book CModel
     Then wait 20 seconds
     When I am on "/islandora/search/%22Z%20%28BOOK%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
+    #Delete newly ingested object
+
+
+  @api @apache @javascript @book
+  Scenario: Delete Behat Test Collection
+    Given I am logged in as a user with the "administrator" role
+    When I am on "/islandora/object/behattest:collection"
+    When I click "Manage"
+    Then I click "Properties"
+    Then I click on the selector "#edit-delete"
+    Then I click on the selector "#edit-submit"
+    And I wait for AJAX to finish
+
+  @api @apache @javascript @book
+  Scenario: Delete Behat Test Orphaned Objects
+    Given I am logged in as a user with the "administrator" role
+    When I am on "/admin/reports/orphaned_objects/list"
+    And I click on the selector "#edit-submit-all"
+    And I click on the selector "#edit-confirm-submit"
+    Then wait 30 seconds

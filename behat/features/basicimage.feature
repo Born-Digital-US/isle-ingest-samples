@@ -9,7 +9,7 @@ Feature: Test BasicImage CModel
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
     And I am on "/islandora/object/samples%3Acollection"
-    Then I should see "ICG Samples"
+    Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
     Then I click "Manage"
     Then I click "Add an object to this Collection"

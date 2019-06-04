@@ -25,6 +25,12 @@ Feature: Drupal Basics
     Then I should see a "body" element
     Then I should see "User account"
 
+@apache @javascript
+  Scenario: Viewing login page as admin
+    Given I am logged in as a user with the "administrator" role
+    And I am on "/user"
+    Then I should see "Member for"
+
   @apache @api
   Scenario: Viewing login page as new user
     # Given I log in as isle

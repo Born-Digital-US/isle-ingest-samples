@@ -38,7 +38,7 @@ Feature: Test Compound Object CModel
     Given I am logged in as a user with the "administrator" role
     # Navigate to parent collection
     And I am on "/islandora/object/samples%3Acollection"
-    Then I should see "ICG Samples"
+    Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest first object
     Then I click "Manage"
     Then I click "Add an object to this Collection"
@@ -65,7 +65,7 @@ Feature: Test Compound Object CModel
     Then I should see "Z (Compound Child) 1"
     # Add second object
     And I am on "/islandora/object/samples%3Acollection"
-    Then I should see "ICG Samples"
+    Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
     Then I click "Manage"
     Then I click "Add an object to this Collection"
@@ -91,7 +91,7 @@ Feature: Test Compound Object CModel
     Then I should see "(1 - 1 of 1)"
     Then I should see "Z (Compound Child) 2"
     And I am on "/islandora/object/samples%3Acollection"
-    Then I should see "ICG Samples"
+    Then I should see "Behat Test Collection"
     # Navigate through compound object form and ingest compound object
     Then I click "Manage"
     Then I click "Add an object to this Collection"
