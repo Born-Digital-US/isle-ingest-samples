@@ -3,23 +3,34 @@ Feature: Test Audio CModel
   As a developer
   I need to test some sample data
 
-  @api @apache @setup
-  Scenario: Enable Simple Search
-    Given I am logged in as a user with the "administrator" role
-    And I am on "/admin/structure/block"
-    Then I should see the link "Add block"
-    Given I select "Sidebar first" from "edit-blocks-islandora-solr-simple-region"
-    Then I press "Save blocks"
+    #@api @apache @setup
+    #Scenario: Enable Simple Search
+    #  Given I am logged in as a user with the "administrator" role
+    #  And I am on "/admin/structure/block"
+    #  Then I should see the link "Add block"
+    #  Given I select "Sidebar first" from "edit-blocks-islandora-solr-simple-region"
+    #  Then I press "Save blocks"
 
 # Able to ingest the test AUDIO sample objects?
   @api @apache @javascript @audio
   Scenario: Ingest Audio Sample Object
     Given I am logged in as a user with the "administrator" role
+    Then I create the behat test collection
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-audiocmodel-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+   
     Then I click "Add an object to this Collection"
     When select "Islandora Audio Content Model" from "models"
     And I wait for AJAX to finish
@@ -37,7 +48,7 @@ Feature: Test Audio CModel
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    And wait 30 seconds
+    And wait 60 seconds
     # Make sure the object ingested
     Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
     Then I should see "(1 - 1 of 1)"
@@ -45,9 +56,9 @@ Feature: Test Audio CModel
     
 
 
-  # Able to upload (replace) thumbnail for Audio object?
-  @api @apache @javascript @audio
-  Scenario: Replace Audio Thumbnail
+    # Able to upload (replace) thumbnail for Audio object?
+      #@api @apache @javascript @audio
+      #Scenario: Replace Audio Thumbnail
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
@@ -81,9 +92,9 @@ Feature: Test Audio CModel
     Then I should see "Z (Audio) TEST"
 
 
-  # Able to delete TN derivative for AUDIO object? *** 
-  @api @apache @javascript @audio
-  Scenario: Delete TN derivative for Audio Object
+    # Able to delete TN derivative for AUDIO object? *** 
+      #@api @apache @javascript @audio
+      #Scenario: Delete TN derivative for Audio Object
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
@@ -118,9 +129,9 @@ Feature: Test Audio CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
-  @api @apache @javascript @audio
-  Scenario: Regenerate all derivatives for Audio Object
+    # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
+      #@api @apache @javascript @audio
+      #Scenario: Regenerate all derivatives for Audio Object
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
@@ -141,18 +152,23 @@ Feature: Test Audio CModel
     # Able to view / hear an AUDIO object?
     ## TESTS: Noah is skeptical that we can test for audio output
 
-  # Able to download an AUDIO object? *** TODO ASK NOAH HOW TO DO THIS LINK!? ***
-  @api @apache @audio
-  Scenario: Check for Audio OBJ download
+      ## Able to download an AUDIO object? *** TODO ASK NOAH HOW TO DO THIS LINK!? ***
+      #@api @apache @audio
+      #Scenario: Check for Audio OBJ download
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
-    Then I should get a 200 HTTP response
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Then I click "OBJ"
+    Then grab me a screenshot
 
 
 
-  # Able to search for newly ingested AUDIO object using Islandora simple search?
-  @api @apache @audio
-  Scenario: Check for Audio Objects using simple search
+
+    # Able to search for newly ingested AUDIO object using Islandora simple search?
+      #@api @apache @audio
+      #Scenario: Check for Audio Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Audio?type=dismax"
     Then I should see "islandora:audio_collection"
@@ -160,9 +176,9 @@ Feature: Test Audio CModel
 
 
 
-  # Able to edit MODS datastream for AUDIO object? ("replace") ****
-  @api @apache @audio
-  Scenario: Replace MODS datastream for Audio Object
+    # Able to edit MODS datastream for AUDIO object? ("replace") ****
+      #@api @apache @audio
+      #Scenario: Replace MODS datastream for Audio Object
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
@@ -218,9 +234,9 @@ Feature: Test Audio CModel
     And I should see "Z (Audio) TEST"
 
 
-  # Able to edit Object Title for audio Object 
-  @api @apache @audio
-  Scenario: Edit Audio object title 
+    # Able to edit Object Title for audio Object 
+      #@api @apache @audio
+      #Scenario: Edit Audio object title 
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
@@ -254,9 +270,9 @@ Feature: Test Audio CModel
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an AUDIO object's Properties?
-  @api @apache @audio
-  Scenario: Edit Audio object Item Label
+    # Able to edit the Item Label of an AUDIO object's Properties?
+      #@api @apache @audio
+      #Scenario: Edit Audio object Item Label
     Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
@@ -284,9 +300,9 @@ Feature: Test Audio CModel
     Given I am on "/islandora/search/Z%20%28Audio%29%20TEST?type=dismax"
     Then I should see "Z (Audio) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @audio
-  Scenario: Delete newly ingested Audio object
+      ##Delete newly ingested object
+      #@api @apache @javascript @audio
+      #Scenario: Delete newly ingested Audio object
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     # Delete new object
@@ -302,3 +318,21 @@ Feature: Test Audio CModel
     # Check that new object is deleted
     Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
+
+  @api @apache @javascript @audio
+  Scenario: Delete Behat Test Collection Audio
+    Given I am logged in as a user with the "administrator" role
+    When I am on "/islandora/object/behattest:collection"
+    When I click "Manage"
+    Then I click "Properties"
+    Then I click on the selector "#edit-delete"
+    Then I click on the selector "#edit-submit"
+    And I wait for AJAX to finish
+
+      # @api @apache @javascript @audio
+      # Scenario: Delete Behat Test Orphaned Objects Audio
+      #   Given I am logged in as a user with the "administrator" role
+      #   When I am on "/admin/reports/orphaned_objects/list"
+      #   And I click on the selector "#edit-submit-all"
+      #   And I click on the selector "#edit-confirm-submit"
+      #   Then wait 30 seconds 

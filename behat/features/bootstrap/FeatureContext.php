@@ -528,16 +528,16 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   {
     # $this->getSession()->wait(1000*360*1.5);
     echo("Waiting until 'Manage' is visible again, max 10 minutes, in 1 minute increments: [");
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a').length > 0) && (jQuery('#content > div > div.tabs > ul > li:nth-child(2) > a')[0].innerText === 'Manage'))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');    
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
     echo("]");
   }
 
