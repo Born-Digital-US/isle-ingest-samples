@@ -3,17 +3,8 @@ Feature: Test Book CModel
   As a developer
   I need to test some sample data
 
-  @api @apache @javascript @book
-  Scenario: Sample collection dummy
-    Given I am on "/islandora/object/behattest:collection"
-    Then I click "Manage"
-    Then I click "Properties"
-    # Then I click on the selector "#edit-delete"
-    # Then I click on the selector "#edit-submit"
-    # And I wait for AJAX to finish
-
   # Able to ingest the test BOOK sample objects?
-  @api @apache @javascript @book
+  @api @apache @javascript @book @sample-setup
   Scenario: Ingest Book Sample Object
     # Given I am logged in as a user with the "administrator" role
     # Then I create the behat test collection
@@ -330,7 +321,7 @@ Feature: Test Book CModel
     Then I click on the selector "#edit-submit"
     And I wait for AJAX to finish
 
-  @api @apache @javascript @book
+  @api @apache @javascript @book @sample-teardown
   Scenario: Delete Behat Test Orphaned Objects
     Given I am logged in as a user with the "administrator" role
     When I am on "/admin/reports/orphaned_objects/list"

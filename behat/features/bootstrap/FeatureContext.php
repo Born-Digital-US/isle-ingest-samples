@@ -620,7 +620,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     return user_load($this->getUserManager()->getCurrentUser()->uid);
   }
 
-  /** @BeforeScenario */
+  /** @BeforeScenario @apache&&@sample-setup */
   public function before($event) {
     echo("Logging in as administrator user... \n");
     $drupal_user = $this->AdminLogin();
@@ -629,7 +629,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->ICreateBehatTestCollection();
   }
 
-  /** @AfterScenario */
+  /** @AfterScenario @apache&&@sample-teardown */
   public function after($event) {
     if ($this->temp_behat_test_collection_delete == true) {
       echo("Ensuring login as administrator user...\n");
