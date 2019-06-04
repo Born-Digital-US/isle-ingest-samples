@@ -44,7 +44,9 @@ Feature: Test Book CModel
 
     # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
+    Then grab me a screenshot
     Then wait for Ingest to complete
+    Then grab me a screenshot
     Then wait for Ingest to complete
     Then grab me a screenshot
 
@@ -59,8 +61,8 @@ Feature: Test Book CModel
 
 
   # Able to upload (replace) thumbnail for BOOK object?
-  @api @apache @javascript @book
-  Scenario: Replace BOOK Thumbnail
+      #@api @apache @javascript @book
+      #Scenario: Replace BOOK Thumbnail
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
     Then I should see the link "Manage"
@@ -138,25 +140,37 @@ Feature: Test Book CModel
     Then I press "Regenerate all derivatives"
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
-    Given wait 400 seconds
+    
+    Given wait 20 seconds
+    # MAX 20 minutes for this (2x)
+    Then wait for Ingest to complete
+    Then grab me a screenshot
+    Then wait for Ingest to complete
+    Then grab me a screenshot
     Then I should see the link "Derivatives successfully created."
 
 
     ## figure out how to check for original thumbnail image
 
 
-      ## Able to download an BOOK object? *** TODO Ask Noah how to do this link***
-      #@api @apache @book
+      # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
+      #@api @apache @javascript @book
       #Scenario: Check for BOOK OBJ download
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
-    Then I should see "Z (BOOK) TEST"
-    Then I should get a 200 HTTP response
-
+    Then I click "Manage"
+    Then I click "Book"
+    Then I click on the selector "#edit-submit"
+    Then wait for Ingest to complete
+    Then grab me a screenshot
+    Then I click "Datastreams"
+    Then I should see "PDF"
+    Given I click "download" in the "PDF" row
+    #Then I should get a 200 HTTP response
 
 
       ## Able to search for newly ingested BOOK object using Islandora simple search?
-      #@api @apache @book
+      #@api @apache @javascript @book
       #Scenario: Check for BOOK Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/BOOK?type=dismax"
@@ -312,7 +326,7 @@ Feature: Test Book CModel
 
 
   @api @apache @javascript @book
-  Scenario: Delete Behat Test Collection
+  Scenario: Delete Behat Test Collection Book
     Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/behattest:collection"
     When I click "Manage"
