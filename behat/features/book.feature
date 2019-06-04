@@ -3,9 +3,9 @@ Feature: Test Book CModel
   As a developer
   I need to test some sample data
 
-  @api @apache @javascript @book @sample-setup @sample-teardown
-  Scenario: Dummy Sample
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @javascript @book @sample-setup @sample-teardown
+    #Scenario: Dummy Sample
+    #  Given I am logged in as a user with the "administrator" role
 
   # Able to ingest the test BOOK sample objects?
   @api @apache @javascript @book @sample-setup @sample-teardown
@@ -328,12 +328,12 @@ Feature: Test Book CModel
     Then I should see "(0 - 0 of 0)"
     #Delete newly ingested object
 
-  @api @apache @javascript @book @sample-teardown
-  Scenario: Delete Behat Test Collection
-    Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/behattest:collection"
-    When I click "Manage"
-    Then I click "Properties"
-    Then I click on the selector "#edit-delete"
-    Then I click on the selector "#edit-submit"
-    And I wait for AJAX to finish
+    #@api @apache @javascript @book @sample-teardown
+    #Scenario: Delete Behat Test Collection
+    #Given I am logged in as a user with the "administrator" role
+    #When I am on "/islandora/object/behattest:collection"
+    #When I click "Manage"
+    #Then I click "Properties"
+    #Then I click on the selector "#edit-delete"
+    #Then I click on the selector "#edit-submit"
+    #And I wait for AJAX to finish
