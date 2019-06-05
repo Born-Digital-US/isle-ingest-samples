@@ -530,7 +530,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     echo("Waiting until 'Manage' is visible again, max 10 minutes, in 1 minute increments: [");
     echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
     echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
-    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');    
+    echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
     echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
     echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
     echo($this->getSession()->wait(60000, "((jQuery('.tabs > li:nth-child(2) > a').length > 0) && (jQuery('.tabs > li:nth-child(2) > a')[0].innerText.toLowerCase().startsWith('manage')))") ? '.' : '/');
@@ -631,7 +631,9 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 
   /** @AfterScenario @apache&&@sample-teardown */
   public function after($event) {
-    if ($this->temp_behat_test_collection_delete == true) {
+    // REALLY we should be testing to see if we made the test collection before deleting it 
+    // if ($this->temp_behat_test_collection_delete == true) {
+    if (true) {
       echo("Ensuring login as administrator user...\n");
       $this->AdminLogin();
       echo("Auto-deleting behattest:collection...\n");

@@ -30,7 +30,7 @@ Feature: Test Audio CModel
     Then I click on the selector "#edit-table-rows-islandorasp-audiocmodel-selected"
     Then I click on the selector "#edit-submit"
     Then I click "Overview"
-   
+
     Then I click "Add an object to this Collection"
     When select "Islandora Audio Content Model" from "models"
     And I wait for AJAX to finish
@@ -47,13 +47,13 @@ Feature: Test Audio CModel
     Then I press "Upload"
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
-    And wait for the page to be loaded
-    And wait 60 seconds
+    # And wait for the page to be loaded
+    Then wait for Ingest to complete
     # Make sure the object ingested
     Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
     Then I should see "(1 - 1 of 1)"
     Then I should see "Z (Audio) TEST"
-    
+
 
 
     # Able to upload (replace) thumbnail for Audio object?
@@ -73,7 +73,7 @@ Feature: Test Audio CModel
     When wait 3 seconds
     And I press "Add Contents"
     Then I should see "Z (Audio) TEST"
-    
+
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Re-upload original thumbnail
@@ -92,7 +92,7 @@ Feature: Test Audio CModel
     Then I should see "Z (Audio) TEST"
 
 
-    # Able to delete TN derivative for AUDIO object? *** 
+    # Able to delete TN derivative for AUDIO object? ***
     #@api @apache @javascript @audio
     #Scenario: Delete TN derivative for Audio Object
     #Given I am logged in as a user with the "administrator" role
@@ -104,7 +104,7 @@ Feature: Test Audio CModel
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "delete" in the "TN" row
-    Then I check the box "Delete Derivatives" 
+    Then I check the box "Delete Derivatives"
     Then I press "Delete"
     # TODO add the "delete TN" actions, do a search and assert no TN visible
 
@@ -128,7 +128,7 @@ Feature: Test Audio CModel
     Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
-  
+
     # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
     #@api @apache @javascript @audio
     #Scenario: Regenerate all derivatives for Audio Object
@@ -143,7 +143,7 @@ Feature: Test Audio CModel
     Given I press "Regenerate"
     Given wait 20 seconds
     Then I should see the link "Derivatives successfully created."
-    Given I click "Derivatives successfully created." 
+    Given I click "Derivatives successfully created."
     Then I should see "Created"
 
 
@@ -205,7 +205,7 @@ Feature: Test Audio CModel
     # Able to search for newly edited MODS datastream for AUDIO object using Islandora simple search?
     Given I am on "/islandora/search/Z%20%28Audio%29%20TEST%20REPLACED?type=dismax"
     Then I should see "Z (Audio) TEST REPLACED"
-  
+
     # Restore Original MODS Datastream
     #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST REPLACED"
@@ -232,13 +232,13 @@ Feature: Test Audio CModel
     And I should see "Z (Audio) TEST"
 
 
-    # Able to edit Object Title for audio Object 
+    # Able to edit Object Title for audio Object
     #@api @apache @audio
-    #Scenario: Edit Audio object title 
+    #Scenario: Edit Audio object title
     #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
-    Then I should see "Z (Audio) TEST"  
+    Then I should see "Z (Audio) TEST"
     # Navigate to and change Object title
     Then I click "Manage"
     Then I click "Datastreams"
@@ -275,7 +275,7 @@ Feature: Test Audio CModel
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see "Z (Audio) TEST"
-    # Navigate to and change item label form  
+    # Navigate to and change item label form
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
@@ -333,4 +333,4 @@ Feature: Test Audio CModel
       #   When I am on "/admin/reports/orphaned_objects/list"
       #   And I click on the selector "#edit-submit-all"
       #   And I click on the selector "#edit-confirm-submit"
-      #   Then wait 30 seconds 
+      #   Then wait 30 seconds
