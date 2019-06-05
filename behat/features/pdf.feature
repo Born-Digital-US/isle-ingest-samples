@@ -4,15 +4,27 @@ Feature: Test PDF CModel
   I need to test some sample data
 
 # Able to ingest the test pdf sample objects?
-    #(DO NOT USE JAVASCRIPT)
-  @api @apache @pdf @javascript
+  @api @apache @pdf @javascript @sample-setup @sample-teardown
   Scenario: Ingest PDF Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-pdf-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
+
     Then I click "Add an object to this Collection"
     Then I should see "Select a Content Model to Ingest"
     When select "Islandora PDF Content Model" from "models"
@@ -33,6 +45,13 @@ Feature: Test PDF CModel
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
     And wait 10 seconds
+    # MAX 30 minutes for this (3x)
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     ## Make sure the object ingested
 
     Given I am logged in as a user with the "administrator" role
@@ -42,10 +61,10 @@ Feature: Test PDF CModel
     
 
 
-  # Able to upload (replace) thumbnail for PDF object?
-  @api @apache @javascript @pdf
-  Scenario: Replace PDF Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for PDF object?
+    #@api @apache @javascript @pdf
+    #Scenario: Replace PDF Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -63,22 +82,22 @@ Feature: Test PDF CModel
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-   Given I click "regenerate" in the "TN" row
+    Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for PDF object? *** 
-  @api @apache @javascript @pdf
-  Scenario: Delete TN derivative for PDF Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for PDF object? *** 
+    #@api @apache @javascript @pdf
+    #Scenario: Delete TN derivative for PDF Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -90,7 +109,7 @@ Feature: Test PDF CModel
     Then I check the box "Delete Derivatives" 
     Then I press "Delete"
     #Add Original Thumbnail and Thumbnail datastream back
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -110,10 +129,10 @@ Feature: Test PDF CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for PDF object? ***  See lower tests
-  @api @apache @javascript @pdf
-  Scenario: Regenerate all derivatives for PDF Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for PDF object? ***  See lower tests
+    #@api @apache @javascript @pdf
+    #Scenario: Regenerate all derivatives for PDF Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -123,6 +142,10 @@ Feature: Test PDF CModel
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
     Given wait 20 seconds
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
@@ -131,30 +154,33 @@ Feature: Test PDF CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an PDF object? *** TODO Ask Noah how to do this link***
-  @api @apache @pdf
-  Scenario: Check for PDF OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download an PDF object? 
+    #@api @apache @pdf @javascript
+    #Scenario: Check for PDF OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
-    And I click "Download pdf" 
-    Then I should get a 200 HTTP response
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "download" in the "OBJ" row
+    Then wait 30 seconds
 
 
 
-  # Able to search for newly ingested PDF object using Islandora simple search?
-  @api @apache @pdf
-  Scenario: Check for PDF Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested PDF object using Islandora simple search?
+    #@api @apache @pdf
+    #Scenario: Check for PDF Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/PDF?type=dismax"
     Then I should see "islandora:sp_pdf_collection"
     Then I should see "Z (PDF) TEST"
 
 
 
-  # Able to edit MODS datastream for PDF object? ("replace") ****
-  @api @apache @javascript @pdf
-  Scenario: Replace MODS datastream for PDF Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for PDF object? ("replace") ****
+    #@api @apache @javascript @pdf
+    #Scenario: Replace MODS datastream for PDF Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see "Z (PDF) TEST"
@@ -209,10 +235,10 @@ Feature: Test PDF CModel
     And I should see "Z (PDF) TEST"
 
 
-  # Able to edit Object Title for PDF Object 
-  @api @apache @pdf
-  Scenario: Edit PDF object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for PDF Object 
+    #@api @apache @pdf
+    #Scenario: Edit PDF object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see "Z (PDF) TEST"  
@@ -242,13 +268,13 @@ Feature: Test PDF CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28PDF%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    #similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an PDF object's Properties?
-  @api @apache @pdf
-  Scenario: Edit PDF object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an PDF object's Properties?
+    #@api @apache @pdf
+    #Scenario: Edit PDF object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     Then I should see "Z (PDF) TEST"
@@ -275,10 +301,10 @@ Feature: Test PDF CModel
     Given I am on "/islandora/search/Z%20%28PDF%29%20TEST?type=dismax"
     Then I should see "Z (PDF) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @pdf
-  Scenario: Delete newly ingested PDF object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @pdf
+    #Scenario: Delete newly ingested PDF object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (PDF) TEST"
     # Delete new object
     Then I should see "In collections"
@@ -289,7 +315,9 @@ Feature: Test PDF CModel
     Then I should see "This action cannot be undone."
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 15 seconds
+    And wait 20 seconds
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     # Check that new object is deleted
     Given I am on "/islandora/search/%22Z%20%28PDF%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"

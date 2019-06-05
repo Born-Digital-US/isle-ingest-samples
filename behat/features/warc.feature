@@ -3,23 +3,27 @@ Feature: Test WARC CModel
   As a developer
   I need to test some sample data
 
-  @api @apache @setup
-  Scenario: Enable Simple Search
-    Given I am logged in as a user with the "administrator" role
-    And I am on "/admin/structure/block"
-    Then I should see the link "Add block"
-    Given I select "Sidebar first" from "edit-blocks-islandora-solr-simple-region"
-    Then I press "Save blocks"
-
 # Able to ingest the test WARC sample objects?
-  @api @apache @javascript @warc
+  @api @apache @javascript @warc @sample-setup @sample-teardown
   Scenario: Ingest WARC Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-web-archive-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
     Then I click "Add an object to this Collection"
     When select "Islandora Web ARChive Content Model" from "models"
     And I wait for AJAX to finish
@@ -37,7 +41,15 @@ Feature: Test WARC CModel
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    And wait 30 seconds
+    And wait 20 seconds
+    # MAX 30 minutes for this (3x)
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+
     # Make sure the object ingested
     Given I am on "/islandora/search/%22Z%20%28WARC%29%20TEST%22?type=dismax"
     Then I should see "(1 - 1 of 1)"
@@ -45,10 +57,10 @@ Feature: Test WARC CModel
     
 
 
-  # Able to upload (replace) thumbnail for WARC object?
-  @api @apache @javascript @warc
-  Scenario: Replace WARC Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for WARC object?
+    #@api @apache @javascript @warc
+    #Scenario: Replace WARC Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -66,7 +78,7 @@ Feature: Test WARC CModel
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Re-upload original thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -81,10 +93,10 @@ Feature: Test WARC CModel
     Then I should see "Z (WARC) TEST"
 
 
-  # Able to delete TN derivative for WARC object? *** 
-  @api @apache @javascript @warc
-  Scenario: Delete TN derivative for WARC Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for WARC object? *** 
+    #@api @apache @javascript @warc
+    #Scenario: Delete TN derivative for WARC Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -118,10 +130,10 @@ Feature: Test WARC CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for WARC object? ***  See lower tests
-  @api @apache @javascript @warc
-  Scenario: Regenerate all derivatives for WARC Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for WARC object? ***  See lower tests
+    #@api @apache @javascript @warc
+    #Scenario: Regenerate all derivatives for WARC Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -131,6 +143,9 @@ Feature: Test WARC CModel
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
     Given wait 20 seconds
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
@@ -139,28 +154,31 @@ Feature: Test WARC CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download a WARC object? *** TODO ASK NOAH HOW TO DO THIS LINK!? ***
-  @api @apache @warc
-  Scenario: Check for WARC OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download a WARC object?
+    #@api @apache @warc @javascript
+    #Scenario: Check for WARC OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
-    Then I should get a 200 HTTP response
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "download" in the "OBJ" row
+    Then wait 30 seconds
 
 
-
-  # Able to search for newly ingested WARC object using Islandora simple search?
-  @api @apache @warc
-  Scenario: Check for WARC Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested WARC object using Islandora simple search?
+    #@api @apache @warc
+    #Scenario: Check for WARC Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/WARC?type=dismax"
     Then I should see "Z (WARC) TEST"
 
 
 
-  # Able to edit MODS datastream for WARC object? ("replace") ****
-  @api @apache @warc
-  Scenario: Replace MODS datastream for WARC Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for WARC object? ("replace") ****
+    #@api @apache @warc
+    #Scenario: Replace MODS datastream for WARC Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see "Z (WARC) TEST"
@@ -215,10 +233,10 @@ Feature: Test WARC CModel
     And I should see "Z (WARC) TEST"
 
 
-  # Able to edit Object Title for WARC Object 
-  @api @apache @warc
-  Scenario: Edit WARC object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for WARC Object 
+    #@api @apache @warc
+    #Scenario: Edit WARC object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see "Z (WARC) TEST"  
@@ -246,13 +264,13 @@ Feature: Test WARC CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28WARC%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an WARC object's Properties?
-  @api @apache @warc
-  Scenario: Edit WARC object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an WARC object's Properties?
+    #@api @apache @warc
+    #Scenario: Edit WARC object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     Then I should see "Z (WARC) TEST"
@@ -279,10 +297,10 @@ Feature: Test WARC CModel
     Given I am on "/islandora/search/Z%20%28WARC%29%20TEST?type=dismax"
     Then I should see "Z (WARC) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @warc
-  Scenario: Delete newly ingested WARC object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @warc
+    #Scenario: Delete newly ingested WARC object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
     # Delete new object
     Then I should see "In collections"

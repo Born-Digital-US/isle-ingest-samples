@@ -5,14 +5,26 @@ Feature: Test LargeImage CModel
 
 
   # Able to ingest the test Large Image sample objects?
-  @api @apache @largeimage @javascript
+  @api @apache @largeimage @javascript @sample-setup @sample-teardown
   Scenario: Ingest Large Image Sample Object
     Given I am logged in as a user with the "administrator" role
+        # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-large-image-cmodel-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
     Then I click "Add an object to this Collection"
     Then I should see "Select a Content Model to Ingest"
     When select "Islandora Large Image Content Model" from "models"
@@ -32,7 +44,8 @@ Feature: Test LargeImage CModel
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    And wait 25 seconds
+    And wait 20 seconds
+    Then wait for Ingest to complete
     ## Make sure the object ingested
 
     Given I am logged in as a user with the "administrator" role
@@ -42,10 +55,10 @@ Feature: Test LargeImage CModel
     
 
 
-  # Able to upload (replace) thumbnail for Large Image object?
-  @api @apache @javascript @largeimage
-  Scenario: Replace Large Image Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for Large Image object?
+    #@api @apache @javascript @largeimage
+    #Scenario: Replace Large Image Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -70,15 +83,15 @@ Feature: Test LargeImage CModel
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-   Given I click "regenerate" in the "TN" row
+    Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for Large Image object? *** 
-  @api @apache @javascript @largeimage
-  Scenario: Delete TN derivative for Large Image Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for Large Image object? *** 
+    #@api @apache @javascript @largeimage
+    #Scenario: Delete TN derivative for Large Image Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -110,10 +123,10 @@ Feature: Test LargeImage CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for Large Image object?
-  @api @apache @javascript @largeimage
-  Scenario: Regenerate all derivatives for Large Image Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for Large Image object?
+    #@api @apache @javascript @largeimage
+    #Scenario: Regenerate all derivatives for Large Image Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -131,29 +144,33 @@ Feature: Test LargeImage CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an Large Image object? *** TODO Ask Noah how to do this link***
-  @api @apache @largeimage
-  Scenario: Check for Large Image OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download an Large Image object? *** TODO Ask Noah how to do this link***
+    #@api @apache @largeimage
+    #Scenario: Check for Large Image OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
-    Then I should get a 200 HTTP response
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "OBJ"
+    Given I click "download" in the "OBJ" row
 
 
 
-  # Able to search for newly ingested Large Image object using Islandora simple search?
-  @api @apache @largeimage
-  Scenario: Check for Large Image Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+
+    ## Able to search for newly ingested Large Image object using Islandora simple search?
+    #@api @apache @largeimage
+    #Scenario: Check for Large Image Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Large%20Image?type=dismax"
     Then I should see "islandora:sp_large_image_collection"
     Then I should see "Z (Large Image) TEST"
 
 
 
-  # Able to edit MODS datastream for Large Image object? ("replace") ****
-  @api @apache @javascript @largeimage
-  Scenario: Replace MODS datastream for Large Image Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for Large Image object? ("replace") ****
+    #@api @apache @javascript @largeimage
+    #Scenario: Replace MODS datastream for Large Image Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     Then I should see "Z (Large Image) TEST"
@@ -208,10 +225,10 @@ Feature: Test LargeImage CModel
     And I should see "Z (Large Image) TEST"
 
 
-  # Able to edit Object Title for Large Image Object 
-  @api @apache @javascript @largeimage
-  Scenario: Edit Large Image object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for Large Image Object 
+    #@api @apache @javascript @largeimage
+    #Scenario: Edit Large Image object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     Then I should see "Z (Large Image) TEST"  
@@ -241,13 +258,13 @@ Feature: Test LargeImage CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Large%20Image%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an Large Image object's Properties?
-  @api @apache @largeimage
-  Scenario: Edit Large Image object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an Large Image object's Properties?
+    #@api @apache @largeimage
+    #Scenario: Edit Large Image object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     Then I should see "Z (Large Image) TEST"
@@ -274,10 +291,10 @@ Feature: Test LargeImage CModel
     Given I am on "/islandora/search/Z%20%28Large%20Image%29%20TEST?type=dismax"
     Then I should see "Z (Large Image) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @largeimage
-  Scenario: Delete newly ingested Large Image object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @largeimage
+    #Scenario: Delete newly ingested Large Image object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
     # Delete new object
     Then I should see "In collections"

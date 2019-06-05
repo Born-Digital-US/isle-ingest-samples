@@ -4,15 +4,26 @@ Feature: Test Newspaper CModel
   I need to test some sample data
 
 # Able to ingest the test Newspaper sample objects?
-  @api @apache @javascript @newspaper
+  @api @apache @javascript @newspaper @sample-setup @sample-teardown
   Scenario: Ingest Newspaper Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
-    # Ingest Newspaper Content Model
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandoranewspapercmodel-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
     Then I click "Add an object to this Collection"
     When select "Islandora Newspaper Content Model" from "models"
     And I wait for AJAX to finish
@@ -40,8 +51,16 @@ Feature: Test Newspaper CModel
     Then I click on the selector "#edit-next"
     # And I wait for AJAX to finish
     And wait for the page to be loaded
-    # And wait 360 seconds
+    Then wait 20 seconds
+
+    # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+
     
     Then I should see "Z (Newspaper) TEST"
     # Make sure the object ingested
@@ -55,10 +74,10 @@ Feature: Test Newspaper CModel
     
 
 
-  # Able to upload (replace) thumbnail for Newspaper object?
-  @api @apache @javascript @newspaper
-  Scenario: Replace Newspaper Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for Newspaper object?
+    #@api @apache @javascript @newspaper
+    #Scenario: Replace Newspaper Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -83,15 +102,15 @@ Feature: Test Newspaper CModel
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-   Given I click "regenerate" in the "TN" row
+    Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for Newspaper object? *** 
-  @api @apache @javascript @newspaper
-  Scenario: Delete TN derivative for Newspaper Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for Newspaper object? *** 
+    #@api @apache @javascript @newspaper
+    #Scenario: Delete TN derivative for Newspaper Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -123,10 +142,10 @@ Feature: Test Newspaper CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for Newspaper object? ***  See lower tests
-  @api @apache @javascript @newspaper
-  Scenario: Regenerate all derivatives for Newspaper Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for Newspaper object? ***  See lower tests
+    #@api @apache @javascript @newspaper
+    #Scenario: Regenerate all derivatives for Newspaper Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -135,7 +154,13 @@ Feature: Test Newspaper CModel
     Then I press "Regenerate all derivatives"
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
-    Given wait 400 seconds
+    # MAX 30 minutes for this (3x)
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     Then I should see the link "Derivatives successfully created." 
 
 
@@ -143,29 +168,33 @@ Feature: Test Newspaper CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an Newspaper object? *** TODO Ask Noah how to do this link***
-  @api @apache @newspaper
-  Scenario: Check for Newspaper OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download an Newspaper object? 
+    #@api @apache @newspaper @javascript
+    #Scenario: Check for Newspaper OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
-    Then I should get a 200 HTTP response
+    Then I click "Manage"
+    #Then grab me a screenshot
+    Then I click "Datastreams"
+    Then I should see "PDF"
+    Given I click "download" in the "PDF" row
 
 
 
-  # Able to search for newly ingested Newspaper object using Islandora simple search?
-  @api @apache @newspaper
-  Scenario: Check for Newspaper Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested Newspaper object using Islandora simple search?
+    #@api @apache @newspaper
+    #Scenario: Check for Newspaper Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Newspaper?type=dismax"
     Then I should see "islandora:newspaper_collection"
     Then I should see "Z (Newspaper) TEST"
 
 
 
-  # Able to edit MODS datastream for Newspaper object? ("replace") ****
-  @api @apache @javascript @newspaper
-  Scenario: Replace MODS datastream for Newspaper Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for Newspaper object? ("replace") ****
+    #@api @apache @javascript @newspaper
+    #Scenario: Replace MODS datastream for Newspaper Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see "Z (Newspaper) TEST"
@@ -220,10 +249,10 @@ Feature: Test Newspaper CModel
     And I should see "Z (Newspaper) TEST"
 
 
-  # Able to edit Object Title for Newspaper Object 
-  @api @apache @newspaper
-  Scenario: Edit Newspaper object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for Newspaper Object 
+    #@api @apache @newspaper
+    #Scenario: Edit Newspaper object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see "Z (Newspaper) TEST"  
@@ -253,13 +282,13 @@ Feature: Test Newspaper CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an Newspaper object's Properties?
-  @api @apache @newspaper
-  Scenario: Edit Newspaper object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an Newspaper object's Properties?
+    #@api @apache @newspaper
+    #Scenario: Edit Newspaper object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see "Z (Newspaper) TEST"
@@ -286,10 +315,10 @@ Feature: Test Newspaper CModel
     Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST?type=dismax"
     Then I should see "Z (Newspaper) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @newspaper
-  Scenario: Delete newly ingested Newspaper object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @newspaper
+    #Scenario: Delete newly ingested Newspaper object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Newspaper Content) TEST"
     Then I click "Expand all months"
     Then I should see the link "January 01, 2019"
@@ -301,8 +330,11 @@ Feature: Test Newspaper CModel
     Then I should see "This will remove the"
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 120 seconds
-    # Check that new object is deleted
-    And wait 60 seconds
-    When I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
-    Then I should see "(0 - 0 of 0)"
+    And wait 40 seconds
+    # MAX 30 minutes for this (3x)
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot

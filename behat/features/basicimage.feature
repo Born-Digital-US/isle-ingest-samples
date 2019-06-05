@@ -42,8 +42,8 @@ Feature: Test BasicImage CModel
     Then I press "Upload"
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
-    And wait for the page to be loaded
-    And wait 25 seconds
+    And wait 20 seconds
+    Then wait for Ingest to complete
     ## Make sure the object ingested
 
     #Given I am logged in as a user with the "administrator" role

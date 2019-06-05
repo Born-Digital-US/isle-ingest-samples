@@ -4,14 +4,27 @@ Feature: Test Video CModel
   I need to test some sample data
 
 # Able to ingest the test Video sample objects?
-  @api @apache @video @javascript
+  @api @apache @video @javascript @sample-setup @sample-teardown
   Scenario: Ingest Video Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-videocmodel-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
+
     Then I click "Add an object to this Collection"
     Then I should see "Select a Content Model to Ingest"
     When select "Islandora Video Content Model" from "models"
@@ -33,6 +46,13 @@ Feature: Test Video CModel
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
     And wait 10 seconds
+    # MAX 30 minutes for this (3x)
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     ## Make sure the object ingested
 
     Given I am logged in as a user with the "administrator" role
@@ -42,10 +62,10 @@ Feature: Test Video CModel
     
 
 
-  # Able to upload (replace) thumbnail for Video object?
-  @api @apache @javascript @video
-  Scenario: Replace Video Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for Video object?
+    #@api @apache @javascript @video
+    #Scenario: Replace Video Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -63,22 +83,22 @@ Feature: Test Video CModel
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-   Given I click "regenerate" in the "TN" row
+    Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for Video object? *** 
-  @api @apache @javascript @video
-  Scenario: Delete TN derivative for Video Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for Video object? *** 
+    #@api @apache @javascript @video
+    #Scenario: Delete TN derivative for Video Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -110,10 +130,10 @@ Feature: Test Video CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for Video object? ***  See lower tests
-  @api @apache @javascript @video
-  Scenario: Regenerate all derivatives for Video Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for Video object? ***  See lower tests
+    #@api @apache @javascript @video
+    #Scenario: Regenerate all derivatives for Video Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -123,6 +143,8 @@ Feature: Test Video CModel
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
     Given wait 20 seconds
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
@@ -131,29 +153,33 @@ Feature: Test Video CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an Video object? *** TODO Ask Noah how to do this link***
-  @api @apache @video
-  Scenario: Check for Video OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download an Video object?
+    #@api @apache @video @javascript
+    #Scenario: Check for Video OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
-    Then I should get a 200 HTTP response
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "download" in the "OBJ" row
+    Then wait 30 seconds
 
 
 
-  # Able to search for newly ingested Video object using Islandora simple search?
-  @api @apache @video
-  Scenario: Check for Video Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested Video object using Islandora simple search?
+    #@api @apache @video
+    #Scenario: Check for Video Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Video?type=dismax"
     Then I should see "islandora:video_collection"
     Then I should see "Z (Video) TEST"
 
 
 
-  # Able to edit MODS datastream for Video object? ("replace") ****
-  @api @apache @javascript @video
-  Scenario: Replace MODS datastream for Video Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for Video object? ("replace") ****
+    #@api @apache @javascript @video
+    #Scenario: Replace MODS datastream for Video Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see "Z (Video) TEST"
@@ -208,10 +234,10 @@ Feature: Test Video CModel
     And I should see "Z (Video) TEST"
 
 
-  # Able to edit Object Title for Video Object 
-  @api @apache @video
-  Scenario: Edit Video object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for Video Object 
+    #@api @apache @video
+    #Scenario: Edit Video object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see "Z (Video) TEST"  
@@ -241,13 +267,13 @@ Feature: Test Video CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Video%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    #similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an Video object's Properties?
-  @api @apache @video
-  Scenario: Edit Video object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an Video object's Properties?
+    #@api @apache @video
+    #Scenario: Edit Video object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Video) TEST"
     Then I should see "Z (Video) TEST"
@@ -274,10 +300,10 @@ Feature: Test Video CModel
     Given I am on "/islandora/search/Z%20%28Video%29%20TEST?type=dismax"
     Then I should see "Z (Video) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @video
-  Scenario: Delete newly ingested Video object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @video
+    #Scenario: Delete newly ingested Video object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
     # Delete new object
     Then I should see "In collections"

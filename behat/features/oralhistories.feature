@@ -3,23 +3,28 @@ Feature: Test ORAL HISTORIES CModel
   As a developer
   I need to test some sample data
 
-  @api @apache @setup
-  Scenario: Enable Simple Search
-    Given I am logged in as a user with the "administrator" role
-    And I am on "/admin/structure/block"
-    Then I should see the link "Add block"
-    Given I select "Sidebar first" from "edit-blocks-islandora-solr-simple-region"
-    Then I press "Save blocks"
-
 # Able to ingest the test ORAL HISTORIES sample objects?
-  @api @apache @javascript @oralhistories
+  @api @apache @javascript @oralhistories @sample-setup @sample-teardown
   Scenario: Ingest ORAL HISTORIES Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandoraoralhistoriescmodel-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
+
     Then I click "Add an object to this Collection"
     When select "Islandora Oral Histories Content Model" from "models"
     And I wait for AJAX to finish
@@ -38,7 +43,14 @@ Feature: Test ORAL HISTORIES CModel
     And wait 30 seconds
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    And wait 40 seconds
+    And wait 20 seconds
+    # MAX 30 minutes for this (3x)
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     # Make sure the object ingested
     Given I am on "/islandora/search/%22Z%20%28ORAL%20HISTORIES%29%20TEST%22?type=dismax"
     Then I should see "(1 - 1 of 1)"
@@ -46,10 +58,10 @@ Feature: Test ORAL HISTORIES CModel
     
 
 
-  # Able to upload (replace) thumbnail for ORAL HISTORIES object?
-  @api @apache @javascript @oralhistories
-  Scenario: Replace ORAL HISTORIES Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for ORAL HISTORIES object?
+    #@api @apache @javascript @oralhistories
+    #Scenario: Replace ORAL HISTORIES Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -67,7 +79,7 @@ Feature: Test ORAL HISTORIES CModel
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Re-upload original thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -82,10 +94,10 @@ Feature: Test ORAL HISTORIES CModel
     Then I should see "Z (ORAL HISTORIES) TEST"
 
 
-  # Able to delete TN derivative for ORAL HISTORIES object? *** 
-  @api @apache @javascript @oralhistories
-  Scenario: Delete TN derivative for ORAL HISTORIES Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for ORAL HISTORIES object? *** 
+    #@api @apache @javascript @oralhistories
+    #Scenario: Delete TN derivative for ORAL HISTORIES Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -99,7 +111,7 @@ Feature: Test ORAL HISTORIES CModel
     # TODO add the "delete TN" actions, do a search and assert no TN visible
 
     #Add Original Thumbnail and Thumbnail datastream back
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -119,10 +131,10 @@ Feature: Test ORAL HISTORIES CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for ORAL HISTORIES object? 
-  @api @apache @javascript @oralhistories
-  Scenario: Regenerate all derivatives for ORAL HISTORIES Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for ORAL HISTORIES object? 
+    #@api @apache @javascript @oralhistories
+    #Scenario: Regenerate all derivatives for ORAL HISTORIES Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -132,6 +144,8 @@ Feature: Test ORAL HISTORIES CModel
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
     Given wait 20 seconds
+    Then wait for Ingest to complete
+    #Then grab me a screenshot
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
@@ -139,28 +153,31 @@ Feature: Test ORAL HISTORIES CModel
 
 
 
-  # Able to download a ORAL HISTORIES object? *** TODO ASK NOAH HOW TO DO THIS LINK!? ***
-  @api @apache @oralhistories
-  Scenario: Check for ORAL HISTORIES OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download a ORAL HISTORIES object? 
+    #@api @apache @oralhistories @javascript
+    #Scenario: Check for ORAL HISTORIES OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
-    Then I should get a 200 HTTP response
+    Then I should see the link "Manage"
+    When I click "Manage"
+    Then I click "Datastreams"
+    Given I click "download" in the "OBJ" row
+    Then wait 30 seconds
 
 
-
-  # Able to search for newly ingested ORAL HISTORIES object using Islandora simple search?
-  @api @apache @oralhistories
-  Scenario: Check for ORAL HISTORIES Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested ORAL HISTORIES object using Islandora simple search?
+    #@api @apache @oralhistories
+    #Scenario: Check for ORAL HISTORIES Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/ORAL%20HISTORIES?type=dismax"
     Then I should see "Z (ORAL HISTORIES) TEST"
 
 
 
-  # Able to edit MODS datastream for ORAL HISTORIES object? ("replace") ****
-  @api @apache @oralhistories
-  Scenario: Replace MODS datastream for ORAL HISTORIES Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for ORAL HISTORIES object? ("replace") ****
+    #@api @apache @oralhistories
+    #Scenario: Replace MODS datastream for ORAL HISTORIES Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see "Z (ORAL HISTORIES) TEST"
@@ -190,7 +207,7 @@ Feature: Test ORAL HISTORIES CModel
     Then I should see "Z (ORAL HISTORIES) TEST REPLACED"
   
     # Restore Original MODS Datastream
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST REPLACED"
     Then I should see "Z (ORAL HISTORIES) TEST"
     Then I click "Manage"
@@ -215,10 +232,10 @@ Feature: Test ORAL HISTORIES CModel
     And I should see "Z (ORAL HISTORIES) TEST"
 
 
-  # Able to edit Object Title for ORAL HISTORIES Object 
-  @api @apache @oralhistories
-  Scenario: Edit ORAL HISTORIES object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for ORAL HISTORIES Object 
+    #@api @apache @oralhistories
+    #Scenario: Edit ORAL HISTORIES object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see "Z (ORAL HISTORIES) TEST"  
@@ -246,13 +263,13 @@ Feature: Test ORAL HISTORIES CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28ORAL%20HISTORIES%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    #similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an ORAL HISTORIES object's Properties?
-  @api @apache @oralhistories
-  Scenario: Edit ORAL HISTORIES object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an ORAL HISTORIES object's Properties?
+    #@api @apache @oralhistories
+    #Scenario: Edit ORAL HISTORIES object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     Then I should see "Z (ORAL HISTORIES) TEST"
@@ -279,10 +296,10 @@ Feature: Test ORAL HISTORIES CModel
     Given I am on "/islandora/search/Z%20%28ORAL%20HISTORIES%29%20TEST?type=dismax"
     Then I should see "Z (ORAL HISTORIES) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @oralhistories
-  Scenario: Delete newly ingested ORAL HISTORIES object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @oralhistories
+    #Scenario: Delete newly ingested ORAL HISTORIES object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
     # Delete new object
     Then I should see "In collections"
@@ -293,7 +310,7 @@ Feature: Test ORAL HISTORIES CModel
     Then I should see "This action cannot be undone."
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 5 seconds
+    And wait 20 seconds
     # Check that new object is deleted
     Given I am on "/islandora/search/%22Z%20%28%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"

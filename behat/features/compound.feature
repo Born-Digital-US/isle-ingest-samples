@@ -54,7 +54,8 @@ Feature: Test Compound Object CModel
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    And wait 25 seconds
+    And wait 20 seconds
+    Then wait for Ingest to complete
     ## Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%201%22?type=dismax"
@@ -81,7 +82,8 @@ Feature: Test Compound Object CModel
     Then I wait for AJAX to finish
     Then I click on the selector "#edit-next"
     And wait for the page to be loaded
-    And wait 25 seconds
+    And wait 20 seconds
+    Then wait for Ingest to complete
     ## Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%202%22?type=dismax"
