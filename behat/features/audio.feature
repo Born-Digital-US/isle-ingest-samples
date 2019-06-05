@@ -317,20 +317,11 @@ Feature: Test Audio CModel
     Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
 
-    #@api @apache @javascript @audio
-    #Scenario: Delete Behat Test Collection Audio
-    #Given I am logged in as a user with the "administrator" role
-    When I am on "/islandora/object/behattest:collection"
-    When I click "Manage"
-    Then I click "Properties"
-    Then I click on the selector "#edit-delete"
-    Then I click on the selector "#edit-submit"
-    And I wait for AJAX to finish
 
-      # @api @apache @javascript @audio
-      # Scenario: Delete Behat Test Orphaned Objects Audio
-      #   Given I am logged in as a user with the "administrator" role
-      #   When I am on "/admin/reports/orphaned_objects/list"
-      #   And I click on the selector "#edit-submit-all"
-      #   And I click on the selector "#edit-confirm-submit"
-      #   Then wait 30 seconds
+    # @api @apache @javascript @audio
+    # Scenario: Delete Behat Test Orphaned Objects Audio
+    #   Given I am logged in as a user with the "administrator" role
+    #   When I am on "/admin/reports/orphaned_objects/list"
+    #   And I click on the selector "#edit-submit-all"
+    #   And I click on the selector "#edit-confirm-submit"
+    #   Then wait 30 seconds
