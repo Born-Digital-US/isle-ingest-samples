@@ -133,9 +133,9 @@
 * 3-40	Able to ingest these test COMPOUND OBJECT sample objects?
     * Covered by compound.feature: "Ingest Compound Object Sample Object"
 * 3-41	Able to view a COMPOUND OBJECT object?
-    * TODO - figure out how to view Compound Object Is this theme specific?
+    * This is theme specific.
 * 3-42	Able to download a COMPOUND OBJECT object?
-    * TODO - figure out how to download Compound Object
+    * This is theme specific.
 * 3-43	Able to search for newly ingested COMPOUND OBJECT object using Islandora simple search?
     * Covered by compound.feature: "Check for Compound Object Objects using simple search"
 * 3-44	Able to edit COMPOUND OBJECT object’s title using the XML form?

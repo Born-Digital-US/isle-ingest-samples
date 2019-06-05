@@ -4,14 +4,26 @@ Feature: Test BasicImage CModel
   I need to test some sample data
 
   # Able to ingest the test Basic Image sample objects?
-  @api @apache @basicimage @javascript
+  @api @apache @basicimage @javascript @sample-setup @sample-teardown
   Scenario: Ingest Basic Image Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-basic-image-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
     Then I click "Add an object to this Collection"
     Then I should see "Select a Content Model to Ingest"
     When select "Islandora Basic Image Content Model" from "models"
@@ -34,17 +46,17 @@ Feature: Test BasicImage CModel
     And wait 25 seconds
     ## Make sure the object ingested
 
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/%22Z%20%28Basic%20Image%29%20TEST%22?type=dismax"
     Then I should see "(1 - 1 of 1)"
     Then I should see "Z (Basic Image) TEST"
     
 
 
-  # Able to upload (replace) thumbnail for Basic Image object?
-  @api @apache @javascript @basicimage
-  Scenario: Replace Basic Image Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for Basic Image object?
+    #@api @apache @javascript @basicimage
+    #Scenario: Replace Basic Image Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -62,22 +74,22 @@ Feature: Test BasicImage CModel
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Given I wait for AJAX to finish
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
-   Given I click "regenerate" in the "TN" row
+    Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for Basic Image object? *** 
-  @api @apache @javascript @basicimage
-  Scenario: Delete TN derivative for Basic Image Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for Basic Image object? *** 
+    #@api @apache @javascript @basicimage
+    #Scenario: Delete TN derivative for Basic Image Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -109,10 +121,10 @@ Feature: Test BasicImage CModel
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
   
-  # Able to regenerate all derivatives for Basic Image object?
-  @api @apache @javascript @basicimage
-  Scenario: Regenerate all derivatives for Basic Image Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to regenerate all derivatives for Basic Image object?
+    #@api @apache @javascript @basicimage
+    #Scenario: Regenerate all derivatives for Basic Image Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -130,29 +142,32 @@ Feature: Test BasicImage CModel
     ## figure out how to check for original thumbnail image
 
 
-  # Able to download an Basic Image object? *** TODO Ask Noah how to do this link***
-  @api @apache @basicimage
-  Scenario: Check for Basic Image OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download an Basic Image object?
+    #@api @apache @basicimage
+    #Scenario: Check for Basic Image OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
-    Then I should get a 200 HTTP response
+    Then I click "Manage"
+    Then I click "Datastreams"
+    Then I should see "OBJ"
+    Given I click "download" in the "OBJ" row
 
 
 
-  # Able to search for newly ingested Basic Image object using Islandora simple search?
-  @api @apache @basicimage
-  Scenario: Check for Basic Image Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    ## Able to search for newly ingested Basic Image object using Islandora simple search?
+    #@api @apache @basicimage
+    #Scenario: Check for Basic Image Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Basic%20Image?type=dismax"
     Then I should see "islandora:sp_basic_image_collection"
     Then I should see "Z (Basic Image) TEST"
 
 
 
-  # Able to edit MODS datastream for Basic Image object? ("replace") ****
-  @api @apache @javascript @basicimage
-  Scenario: Replace MODS datastream for Basic Image Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for Basic Image object? ("replace") ****
+    #@api @apache @javascript @basicimage
+    #Scenario: Replace MODS datastream for Basic Image Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see "Z (Basic Image) TEST"
@@ -182,7 +197,7 @@ Feature: Test BasicImage CModel
     Then I should see "Z (Basic Image) TEST REPLACED"
   
     # Restore Original MODS Datastream
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST REPLACED"
     Then I should see "Z (Basic Image) TEST"
     Then I click "Manage"
@@ -207,10 +222,10 @@ Feature: Test BasicImage CModel
     And I should see "Z (Basic Image) TEST"
 
 
-  # Able to edit Object Title for Basic Image Object 
-  @api @apache @javascript @basicimage
-  Scenario: Edit Basic Image object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for Basic Image Object 
+    #@api @apache @javascript @basicimage
+    #Scenario: Edit Basic Image object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see "Z (Basic Image) TEST"  
@@ -240,13 +255,12 @@ Feature: Test BasicImage CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Basic%20Image%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an Basic Image object's Properties?
-  @api @apache @basicimage
-  Scenario: Edit Basic Image object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an Basic Image object's Properties?
+    #@api @apache @basicimage
+    #Scenario: Edit Basic Image object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     Then I should see "Z (Basic Image) TEST"
@@ -273,10 +287,10 @@ Feature: Test BasicImage CModel
     Given I am on "/islandora/search/Z%20%28Basic%20Image%29%20TEST?type=dismax"
     Then I should see "Z (Basic Image) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @basicimage
-  Scenario: Delete newly ingested Basic Image object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @basicimage
+    #Scenario: Delete newly ingested Basic Image object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
     # Delete new object
     Then I should see "In collections"

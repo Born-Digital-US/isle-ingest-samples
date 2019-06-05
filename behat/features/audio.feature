@@ -12,10 +12,10 @@ Feature: Test Audio CModel
     #  Then I press "Save blocks"
 
 # Able to ingest the test AUDIO sample objects?
-  @api @apache @javascript @audio
+  @api @apache @javascript @audio @sample-setup @sample-teardown
   Scenario: Ingest Audio Sample Object
     Given I am logged in as a user with the "administrator" role
-    Then I create the behat test collection
+    #Then I create the behat test collection
     # Navigate to parent collection
     And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
@@ -57,9 +57,9 @@ Feature: Test Audio CModel
 
 
     # Able to upload (replace) thumbnail for Audio object?
-      #@api @apache @javascript @audio
-      #Scenario: Replace Audio Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @javascript @audio
+    #Scenario: Replace Audio Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -93,9 +93,9 @@ Feature: Test Audio CModel
 
 
     # Able to delete TN derivative for AUDIO object? *** 
-      #@api @apache @javascript @audio
-      #Scenario: Delete TN derivative for Audio Object
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @javascript @audio
+    #Scenario: Delete TN derivative for Audio Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -130,9 +130,9 @@ Feature: Test Audio CModel
     Then I press "Regenerate"
   
     # Able to regenerate all derivatives for AUDIO object? ***  See lower tests
-      #@api @apache @javascript @audio
-      #Scenario: Regenerate all derivatives for Audio Object
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @javascript @audio
+    #Scenario: Regenerate all derivatives for Audio Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -152,24 +152,22 @@ Feature: Test Audio CModel
     # Able to view / hear an AUDIO object?
     ## TESTS: Noah is skeptical that we can test for audio output
 
-      ## Able to download an AUDIO object? *** TODO ASK NOAH HOW TO DO THIS LINK!? ***
-      #@api @apache @audio
-      #Scenario: Check for Audio OBJ download
-    Given I am logged in as a user with the "administrator" role
+    ## Able to download an AUDIO object?
+    #@api @apache @audio
+    #Scenario: Check for Audio OBJ download
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
     Then I click "Datastreams"
-    Then I click "OBJ"
-    Then grab me a screenshot
-
-
+    Given I click "download" in the "OBJ" row
+    Then wait 30 seconds
 
 
     # Able to search for newly ingested AUDIO object using Islandora simple search?
-      #@api @apache @audio
-      #Scenario: Check for Audio Objects using simple search
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @audio
+    #Scenario: Check for Audio Objects using simple search
+    #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Audio?type=dismax"
     Then I should see "islandora:audio_collection"
     Then I should see "Z (Audio) TEST"
@@ -177,9 +175,9 @@ Feature: Test Audio CModel
 
 
     # Able to edit MODS datastream for AUDIO object? ("replace") ****
-      #@api @apache @audio
-      #Scenario: Replace MODS datastream for Audio Object
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @audio
+    #Scenario: Replace MODS datastream for Audio Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see "Z (Audio) TEST"
@@ -209,7 +207,7 @@ Feature: Test Audio CModel
     Then I should see "Z (Audio) TEST REPLACED"
   
     # Restore Original MODS Datastream
-    Given I am logged in as a user with the "administrator" role
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST REPLACED"
     Then I should see "Z (Audio) TEST"
     Then I click "Manage"
@@ -235,9 +233,9 @@ Feature: Test Audio CModel
 
 
     # Able to edit Object Title for audio Object 
-      #@api @apache @audio
-      #Scenario: Edit Audio object title 
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @audio
+    #Scenario: Edit Audio object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see "Z (Audio) TEST"  
@@ -271,9 +269,9 @@ Feature: Test Audio CModel
 
 
     # Able to edit the Item Label of an AUDIO object's Properties?
-      #@api @apache @audio
-      #Scenario: Edit Audio object Item Label
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @audio
+    #Scenario: Edit Audio object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     Then I should see "Z (Audio) TEST"
@@ -300,10 +298,10 @@ Feature: Test Audio CModel
     Given I am on "/islandora/search/Z%20%28Audio%29%20TEST?type=dismax"
     Then I should see "Z (Audio) TEST"
 
-      ##Delete newly ingested object
-      #@api @apache @javascript @audio
-      #Scenario: Delete newly ingested Audio object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @audio
+    #Scenario: Delete newly ingested Audio object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
     # Delete new object
     Then I should see "In collections"
@@ -319,9 +317,9 @@ Feature: Test Audio CModel
     Given I am on "/islandora/search/%22Z%20%28Audio%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
 
-  @api @apache @javascript @audio
-  Scenario: Delete Behat Test Collection Audio
-    Given I am logged in as a user with the "administrator" role
+    #@api @apache @javascript @audio
+    #Scenario: Delete Behat Test Collection Audio
+    #Given I am logged in as a user with the "administrator" role
     When I am on "/islandora/object/behattest:collection"
     When I click "Manage"
     Then I click "Properties"

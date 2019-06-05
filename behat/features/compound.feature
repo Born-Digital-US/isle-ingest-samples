@@ -4,43 +4,40 @@ Feature: Test Compound Object CModel
   I need to test some sample data
 
 
-  ## @apache @compound @javascript @api
-  ## Scenario: Testing autocomplete
-  ##   Given I am logged in as a user with the "administrator" role
-  ##   And I am on "/islandora/object/samples%3A533/manage/compound"
-  ##   # And I press the "a" key in the "edit-child" field
-  ##   Then I fill in "edit-child" with "appl"
-  ##   And I press the "e" key in the "edit-child" field
-  ##   And I wait for AJAX to finish 
-  ##   Then I click on the selector "#autocomplete"
-  ##   Then I should see "samples:4"
-
-
-  # Able to ingest these test COMPOUND OBJECT sample objects?
-  # Able to view a COMPOUND OBJECT object?
-  #  able to view the children by clicking through manage -> compound
-  # Able to download a COMPOUND OBJECT object?
-  #  already covered by child tests?
-  # Able to search for newly ingested COMPOUND OBJECT object using Islandora simple search? (parent)
-  # Able to edit COMPOUND OBJECT object’s title using the XML form? (parent)
-  # Able to search for newly edited COMPOUND OBJECT object’s title using Islandora simple search? (parent)
-  # Able to edit the Item Label of an COMPOUND OBJECT object's Properties? (parent)
-  # Able to search for newly edited Item Label of an COMPOUND OBJECT object's Properties using Islandora simple search? (parent)
-  # Able to edit MODS datastream for COMPOUND OBJECT object?
-  # Able to search for newly edited MODS datastream for COMPOUND OBJECT object using Islandora simple search?
-  # Able to delete TN derivative for COMPOUND OBJECT object?
-  # Able to regenerate all derivatives for COMPOUND OBJECT object?
+    ## @apache @compound @javascript @api
+    ## Scenario: Testing autocomplete
+    ##   Given I am logged in as a user with the "administrator" role
+    ##   And I am on "/islandora/object/samples%3A533/manage/compound"
+    ##   # And I press the "a" key in the "edit-child" field
+    ##   Then I fill in "edit-child" with "appl"
+    ##   And I press the "e" key in the "edit-child" field
+    ##   And I wait for AJAX to finish 
+    ##   Then I click on the selector "#autocomplete"
+    ##   Then I should see "samples:4"
 
 
   # Able to ingest the test Compound Object sample objects?
-  @api @apache @compound @javascript
+  @api @apache @compound @javascript @sample-setup @sample-teardown
   Scenario: Ingest Compound Object Sample Object
     Given I am logged in as a user with the "administrator" role
+    # Then I create the behat test collection
+
     # Navigate to parent collection
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
-    # Navigate through new object form and ingest first object
+    # Navigate through new object form and ingest new object
+
     Then I click "Manage"
+    Then I click "Properties"
+    Then I select "A" from "edit-object-state"
+    Then I click on the selector "#edit-submit"
+    Then I click "Collection"
+    Then I click on the selector "#edit-table-rows-islandoracollectioncmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandoracompoundcmodel-selected"
+    Then I click on the selector "#edit-table-rows-islandorasp-basic-image-selected"
+    Then I click on the selector "#edit-submit"
+    Then I click "Overview"
+
     Then I click "Add an object to this Collection"
     Then I should see "Select a Content Model to Ingest"
     When select "Islandora Basic Image Content Model" from "models"
@@ -64,7 +61,7 @@ Feature: Test Compound Object CModel
     Then I should see "(1 - 1 of 1)"
     Then I should see "Z (Compound Child) 1"
     # Add second object
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through new object form and ingest new object
     Then I click "Manage"
@@ -90,7 +87,7 @@ Feature: Test Compound Object CModel
     When I am on "/islandora/search/%22Z%20%28Compound%20Child%29%202%22?type=dismax"
     Then I should see "(1 - 1 of 1)"
     Then I should see "Z (Compound Child) 2"
-    And I am on "/islandora/object/samples%3Acollection"
+    And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
     # Navigate through compound object form and ingest compound object
     Then I click "Manage"
@@ -121,7 +118,7 @@ Feature: Test Compound Object CModel
     And I press the "1" key in the "edit-child" field
     And I wait for AJAX to finish 
     Then I click on the selector "#autocomplete"
-    Then I should see "samples:"
+    Then I should see "behattest:"
     Then I click on the selector "#edit-submit"
     And wait 20 seconds
     Then I should see "Add child objects"
@@ -129,7 +126,7 @@ Feature: Test Compound Object CModel
     And I press the "2" key in the "edit-child" field
     And I wait for AJAX to finish 
     Then I click on the selector "#autocomplete"
-    Then I should see "samples:"
+    Then I should see "behattest:"
     Then I click on the selector "#edit-submit"
     And wait 20 seconds
     Given I am logged in as a user with the "administrator" role
@@ -138,10 +135,10 @@ Feature: Test Compound Object CModel
     
 
 
-  # Able to upload (replace) thumbnail for Compound Object object?
-  @api @apache @javascript @compound
-  Scenario: Replace Compound Object Thumbnail
-    Given I am logged in as a user with the "administrator" role
+    ## Able to upload (replace) thumbnail for Compound Object object?
+    #@api @apache @javascript @compound
+    #Scenario: Replace Compound Object Thumbnail
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -181,10 +178,10 @@ Feature: Test Compound Object CModel
     # Then I press "Regenerate"
 
 
-  # Able to delete TN derivative for Compound Object object? *** 
-  @api @apache @javascript @compound
-  Scenario: Delete TN derivative for Compound Object Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to delete TN derivative for Compound Object object? *** 
+    #@api @apache @javascript @compound
+    #Scenario: Delete TN derivative for Compound Object Object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     Then I should see the link "Manage"
     When I click "Manage"
@@ -216,42 +213,21 @@ Feature: Test Compound Object CModel
     # Given I click "regenerate" in the "TN" row
     # Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     # Then I press "Regenerate"
-  
-  # # Able to regenerate all derivatives for Compound Object object? ***TODO - ASK NOAH HOW?!?!?
-  # @api @apache @javascript @compound
-  # Scenario: Regenerate all derivatives for Compound Object Object
-  #   Given I am logged in as a user with the "administrator" role
-  #   Given that I navigate to the page for the object named "Z (Compound Object) TEST"
-  #   Then I should see the link "Manage"
-  #   When I click "Manage"
-  #   Then I click "Properties"
-  #   Then I should see "Item Label"
-  #   Then I press "Regenerate all derivatives"
-  #   Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
-  #   Given I press "Regenerate"
-  #   Given wait 20 seconds
-  #   Then I should see the link "Derivatives successfully created."
-  #   Given I click "Derivatives successfully created." 
-  #   Then I should see "Created"
 
 
-    ## figure out how to check for original thumbnail image
-
-
-
-  # Able to search for newly ingested Compound Object object using Islandora simple search?
-  @api @apache @compound
-  Scenario: Check for Compound Object Objects using simple search
+    ## Able to search for newly ingested Compound Object object using Islandora simple search?
+    #@api @apache @compound
+    #Scenario: Check for Compound Object Objects using simple search
     Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Compound%20Object?type=dismax"
     Then I should see "Z (Compound Object) TEST"
 
 
 
-  # Able to edit MODS datastream for Compound Object object? ("replace") ****
-  @api @apache @javascript @compound
-  Scenario: Replace MODS datastream for Compound Object Object
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit MODS datastream for Compound Object object? ("replace") ****
+    #@api @apache @javascript @compound
+    #Scenario: Replace MODS datastream for Compound Object Object
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     Then I should see "Z (Compound Child) 1"
@@ -305,10 +281,10 @@ Feature: Test Compound Object CModel
     Then I should see "Z (Compound Object) TEST"
 
 
-  # Able to edit Object Title for Compound Object Object 
-  @api @apache @javascript @compound
-  Scenario: Edit Compound Object object title 
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit Object Title for Compound Object Object 
+    #@api @apache @javascript @compound
+    #Scenario: Edit Compound Object object title 
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     Then I should see "Z (Compound Child) 1"  
@@ -343,10 +319,10 @@ Feature: Test Compound Object CModel
   #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
-  # Able to edit the Item Label of an Compound Object object's Properties?
-  @api @apache @javascript @compound
-  Scenario: Edit Compound Object object Item Label
-    Given I am logged in as a user with the "administrator" role
+    ## Able to edit the Item Label of an Compound Object object's Properties?
+    #@api @apache @javascript @compound
+    #Scenario: Edit Compound Object object Item Label
+    #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     Then I should see "Z (Compound Child) 1"
@@ -375,10 +351,10 @@ Feature: Test Compound Object CModel
     Given I am on "/islandora/search/Z%20%28Compound%20Object%29%20TEST?type=dismax"
     Then I should see "Z (Compound Object) TEST"
 
-  #Delete newly ingested object
-  @api @apache @javascript @compound
-  Scenario: Delete newly ingested Compound Object object
-    Given I am logged in as a user with the "administrator" role
+    ##Delete newly ingested object
+    #@api @apache @javascript @compound 
+    #Scenario: Delete newly ingested Compound Object object
+    #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Compound Object) TEST"
     # Delete new object
     Then I should see "In collections"
