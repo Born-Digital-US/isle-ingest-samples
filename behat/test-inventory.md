@@ -7,7 +7,7 @@
 # ISLE/DOCKER IMAGES
 
 * 1-1	Able to create new ISLE instance?
-    * TODO? Covered by isle-services.feature?
+    * N/A - our CI tool can set up various situations, one of which could be a new ISLE instance.
 * 1-2	Able to view Traefik admin port?
     * Covered by isle-services.feature "traefik online"
 * 1-3	Able to view Portainer Admin panel?
@@ -35,27 +35,26 @@
 * 2-2	Able to login to Drupal site as an admin user?
     * Covered by isle-drupal.feature "Viewing login page as admin" 
 * 2-3	Able to view persistent data folders for xml/xslt/sites and for fedora data store?
-    * TODO? Covered by isle-drupal.feature
+    * WONTFIX- N/A
 * 2-4	If Drupal multisite, able to login to multisite (not parent) site?
-    * TODO? Covered by isle-drupal.feature
-* 2-5	Drupal Status Report not showing errors? https://<domain>/node#overlay=admin/reports/status
-    * TODO? Covered by isle-drupal.feature
+    * MAYBE TODO Not covered. Need test case?
+* 2-5	Drupal Status Report not showing errors? https://<domain>/admin/reports/status
+    * WONTFIX- Intentionally commented out, but left relic in isle-drupal.feature
 
 # SAMPLE OBJECT INGESTION
 ## Collections
 * 3-1	Able to create a new collection e.g. test:collection?
-    * TODO? This currently happens on test setup
-    * We probably want to explicitly test this too
+    * This currently happens on test setup
 * 3-2	Able to modify a new collection's Collection policies and add Content Models?
-    * TODO?
+    * Covered in the first steps of almost all content model feature files
 
-## Audio Content Model - 100%
+## Audio Content Model
 * 3-3	Able to ingest the test AUDIO sample objects?
     * Covered by audio.feature: "Ingest Audio Sample Object"
 * 3-4	Able to upload thumbnail for Audio object?
     * Covered by audio.feature: "Replace Audio Thumbnail
 * 3-5	Able to view / hear an AUDIO object?
-    * TODO? Not covered - does not appear to be possible?
+    * WONTFIX Not covered - does not appear to be possible?
 * 3-6	Able to download an AUDIO object?
     * Covered by audio.feature: "Check for Audio OBJ download"
 * 3-7	Able to search for newly ingested AUDIO object using Islandora simple search?
@@ -77,7 +76,7 @@
 * 3-15	Able to regenerate all derivatives for AUDIO object?
     * Covered by audio.feature: "Regenerate all derivatives for Audio Object"
 
-## Basic Image Content Model - 100%
+## Basic Image Content Model
 * 3-16	Able to ingest these test BASIC IMAGE sample objects?
     * Covered by basicimage.feature: "Ingest Basic Image Sample Object"
 * 3-17	Able to view a BASIC IMAGE object?
@@ -103,7 +102,7 @@
 * 3-27	Able to regenerate all derivatives for BASIC IMAGE object?
     * Covered by basicimage.feature: "Regenerate all derivatives for Basic Image Object"
 
-## Book Content Model - 100%
+## Book Content Model
 * 3-28	Able to ingest these test BOOK sample objects?
     * Covered by book.feature: "Ingest Book Sample Object"
 * 3-29	Able to view a BOOK object?
@@ -129,7 +128,7 @@
 * 3-39	Able to regenerate all derivatives for BOOK object?
     * Covered by book.feature: "Regenerate all derivatives for BOOK Object"
 
-## Compound Object Content Model - 100%
+## Compound Object Content Model
 * 3-40	Able to ingest these test COMPOUND OBJECT sample objects?
     * Covered by compound.feature: "Ingest Compound Object Sample Object"
 * 3-41	Able to view a COMPOUND OBJECT object?
@@ -153,12 +152,12 @@
 * 3-50	Able to delete TN derivative for COMPOUND OBJECT object?
     * Covered by compound.feature: "Delete TN derivative for Compound Object Object"
 * 3-51	Able to regenerate all derivatives for COMPOUND OBJECT object?
-    * Does not appear to be possible as derivatives are tied to child objects
-    * TODO - Is there any reason to test for this?
-* Intentionally not done
-    * Testing viewers - this is theme dependent. All we do is ingest and test relationships
+    * WONTFIX- Does not appear to be possible as derivatives are tied to child objects
+    * Testing regen derivs is already covered in the other content types that appear as children of compounds
+* Testing viewers 
+    * WONTFIX- this is theme dependent. All we do is ingest and test relationships and data integrity
 
-## Large Image Content Model - 100%
+## Large Image Content Model
 * 3-52	Able to ingest these test LARGE IMAGE sample objects?
     * Covered by largeimage.feature: "Ingest Large Image Sample Object"
 * 3-53	Able to view a LARGE IMAGE object?
@@ -184,13 +183,13 @@
 * 3-63	Able to regenerate all derivatives for LARGE IMAGE object?
     * Covered by largeimage.feature: "Regenerate all derivatives for Large Image Object"
 
-## Newspaper Content Model - 100%
+## Newspaper Content Model
 * 3-64	Able to ingest these test NEWSPAPER sample objects?
     * Covered by newspaper.feature: "Ingest Newspaper Sample Object"
 * 3-65	Able to view a NEWSPAPER object?
     * Covered by newspaper.feature: "Check for Newspaper OBJ download"
 * 3-66	Able to download a NEWSPAPER object?
-    * TODO? not sure that the current "Check for Newspaper OBJ download" really tests for this
+    * Covered by newspaper.feature: "Check for Newspaper OBJ download"
 * 3-67	Able to search for newly ingested NEWSPAPER object using Islandora simple search?
     * Covered by newspaper.feature: "Check for Newspaper Objects using simple search"
 * 3-68	Able to edit NEWSPAPER object’s title using the XML form?
@@ -210,7 +209,7 @@
 * 3-75	Able to regenerate all derivatives for NEWSPAPER object?
     * Covered by newspaper.feature: "Regenerate all derivatives for Newspaper Object"
 
-## Oral History Content Model (TODO?)
+## Oral History Content Model 
 * 3-76	Able to ingest these test ORAL HISTORY sample objects?
     * Covered by oralhistories.feature: "Ingest ORAL HISTORIES Sample Object"
 * 3-77	Able to view a ORAL HISTORY object?
@@ -236,11 +235,11 @@
 * 3-87	Able to regenerate all derivatives for ORAL HISTORY object?
     * Covered by oralhistories.feature: "Regenerate all derivatives for ORAL HISTORIES Object"
 
-## PDF Content Model - 100%
+## PDF Content Model
 * 3-88	Able to ingest these test PDF sample objects?
     * Covered by pdf.feature: "Ingest PDF Sample Object"
 * 3-89	Able to view a PDF object?
-    * TODO - Is this covered by pdf.feature: "Check for PDF OBJ download"?
+    * Covered by pdf.feature: "Check for PDF OBJ download"
 * 3-90	Able to download a PDF object?
     * Covered by pdf.feature: "Check for PDF OBJ download"
 * 3-91	Able to search for newly ingested PDF object using Islandora simple search?
@@ -262,7 +261,7 @@
 * 3-99	Able to regenerate all derivatives for PDF object?
     * Covered by pdf.feature: "Regenerate all derivatives for PDF Object"
 
-## Video Content Model - 100%
+## Video Content Model
 * 3-100	Able to ingest these test VIDEO sample objects?
     * Covered by video.feature: "Ingest Video Sample Object"
 * 3-101	Able to view a VIDEO object?
@@ -292,11 +291,11 @@
 * 3-113	Able to regenerate all derivatives for VIDEO object?
     * Covered by video.feature: "Regenerate all derivatives for Video Object"
 
-## WARC Content Model (TODO?)
+## WARC Content Model 
 * 3-114	Able to ingest these test WEB ARCHIVE sample objects?
     * Covered by warc.feature: "Ingest WARC Sample Object"
 * 3-115	Able to view a WEB ARCHIVE object?
-    * Covered by warc.feature: "Check for WARC OBJ download"
+    * N/A There is no WARC viewer
 * 3-116	Able to download a WEB ARCHIVE object?
     * Covered by warc.feature: "Check for WARC OBJ download"
 * 3-117	Able to search for newly ingested WEB ARCHIVE object using Islandora simple search?
@@ -320,27 +319,44 @@
 
 # MAINTENANCE TASKS
 * 4-1	Able to view the expected number of data objects?
+    * N/A
 * 4-2	Able to run Drupal cron manuall as signed in user?
+    * Covered by )-sile-drupal.feature: "Run cron"
 * 4-3	Confirm that Drupal cron runs automatically as scheduled?
+    * N/A
 * 4-4	Able to view / tail logs from within containers
+    * N/A
 * 4-5	Able to view / tail logs on Host server?
+    * N/A
 * 4-6	Able to run a Solr search from website and find ingested objects?
+    * Covered above
 * 4-7	Able to reindex / rebuild Fedora RI?
+    * 
 * 4-8	Able to reindex / rebuild Fedora db MYSQL?
 * 4-9	Able to reindex SOLR?
 	
 # Additional Testing
 * 5-1	Able to create single host server with multi-sites (link to Ben's instructions)
-* 5-2	Able to use mounts instead of Docker volumes
+    * WONTFIX - ISLE doesn't support this anymore
+* 5-2	Able to use mounts instead of Docker 
+    * N/A - To be covered by one or more CI configurations
 * 5-3	Able to create new config directories for services
+    * N/A - To be covered by one or more CI configurations
 
 ## FEDORA - Able to overide existing settings for: 
 * 5-4	      - ./config/fedora/akubra-llstore.xml:/usr/local/fedora/server/config/spring/akubra-llstore.xml (Allows for deeper hash directories for larger Fedora collections)
+    * N/A - To be covered by one or more CI configurations
 * 5-5	foxmltoSolr.xslt
+    * N/A - To be covered by one or more CI configurations
 * 5-6	islandora_transforms
+    * N/A - To be covered by one or more CI configurations
 
 ## SOLR - Able to overide existing settings for: 
 * 5-7	schema.xml
+    * N/A - To be covered by one or more CI configurations
 * 5-8	solrconfig.xml
+    * N/A - To be covered by one or more CI configurations
 * 5-9 	Use IMI for sample ingest testing to speed things up
+    * N/A
 * 5-10	Test bind mounting - with nested ancestors set to true foxmltoSolr.xslt and all islandora_transforms, along with solrconfig and schemas
+    * N/A - To be covered by one or more CI configurations

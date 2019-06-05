@@ -134,6 +134,7 @@ Feature: Test BasicImage CModel
     Then I should see "This will create a new version for every datastream on the object. Please wait while this happens."
     Given I press "Regenerate"
     Given wait 20 seconds
+    Then wait for Ingest to complete
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"

@@ -9,7 +9,7 @@ Feature: Drupal Basics
   # If Drupal multisite, able to login to multisite (not parent) site?
   # Drupal Status Report not showing errors? https://<domain>/node#overlay=admin/reports/status
 
-  @apache @javascript @api
+  @apache @javascript @api @drupal
   Scenario: Check for orphaned objects
     Given I am logged in as a user with the "administrator" role
     And I am on "/admin/reports/orphaned_objects/list"
@@ -18,7 +18,7 @@ Feature: Drupal Basics
     # THIS IS NECESSARY BECAUSE IN OUR TEARDOWN WE DELETE ALL ORPHANS AND WE
     # DON'T WANT TO DELETE SOMETHING YOU CARE ABOUT...
 
-  @apache @javascript
+  @apache @javascript @drupal
   Scenario: Viewing homepage
     Given I am an anonymous user
     And I am on "/"
@@ -27,20 +27,20 @@ Feature: Drupal Basics
     And I wait for AJAX to finish
     Then I should see "Powered by Drupal"
 
-  @apache
+  @apache @drupal
   Scenario: Viewing login page anonymously
     Given I am an anonymous user
     And I am on "/user"
     Then I should see a "body" element
     Then I should see "User account"
 
-  @apache @javascript @api
+  @apache @javascript @api @drupal
   Scenario: Viewing login page as admin
     Given I am logged in as a user with the "administrator" role
     And I am on "/user"
     Then I should see "Member for"
 
-  @apache @api
+  @apache @api @drupal
   Scenario: Viewing login page as new user
     # Given I log in as isle
     Given users:
@@ -52,3 +52,19 @@ Feature: Drupal Basics
     Then I should see a "body" element
     Then I should see "behat"
     Then I should see "Member for"
+
+  @apache @javascript @api @drupal
+  Scenario: Run cron
+    Given I am logged in as a user with the "administrator" role
+    When I run cron
+    And am on "admin/reports/dblog"
+    Then I should see the link "Cron run completed"
+
+  # This covers the case where we want to automatically check for updates.
+  #  Intentionally commented out: some institutions run a little behind
+  # @apache @javascript @api @drupal
+  # Scenario: Check for insecure modules
+  #   Given I am logged in as a user with the "administrator" role
+  #   And I am on "/admin/reports/status"
+  #   Then I should not see "Out of date"
+  #   And I should not see "Not secure!"
