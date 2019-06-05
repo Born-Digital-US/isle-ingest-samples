@@ -239,7 +239,7 @@
 * 3-88	Able to ingest these test PDF sample objects?
     * Covered by pdf.feature: "Ingest PDF Sample Object"
 * 3-89	Able to view a PDF object?
-    * Covered by pdf.feature: "Check for PDF OBJ download"
+    * N/A - Viewer is theme dependent
 * 3-90	Able to download a PDF object?
     * Covered by pdf.feature: "Check for PDF OBJ download"
 * 3-91	Able to search for newly ingested PDF object using Islandora simple search?

@@ -8,8 +8,7 @@ Feature: Test LargeImage CModel
   @api @apache @largeimage @javascript @sample-setup @sample-teardown
   Scenario: Ingest Large Image Sample Object
     Given I am logged in as a user with the "administrator" role
-        # Then I create the behat test collection
-
+    # Then I create the behat test collection
     # Navigate to parent collection
     And I am on "/islandora/object/behattest:collection"
     Then I should see "Behat Test Collection"
@@ -32,7 +31,6 @@ Feature: Test LargeImage CModel
     Then I press "Next"
     And wait for the page to be loaded
     Then I should see "MARCXML File"
-    # Then wait 3 seconds
     # Then I press "Next"
     Then I click on the selector "#edit-next"
 
@@ -73,8 +71,6 @@ Feature: Test LargeImage CModel
     And I press "Add Contents"
     Then I should see "Z (Large Image) TEST"
     
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Large Image) TEST"
@@ -141,10 +137,7 @@ Feature: Test LargeImage CModel
     Then I should see "Created"
 
 
-    ## figure out how to check for original thumbnail image
-
-
-    ## Able to download an Large Image object? *** TODO Ask Noah how to do this link***
+    ## Able to download an Large Image object?
     #@api @apache @largeimage
     #Scenario: Check for Large Image OBJ download
     #Given I am logged in as a user with the "administrator" role
@@ -258,7 +251,7 @@ Feature: Test LargeImage CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Large%20Image%29%20TEST?type=dismax"
     Then I should see "samples:"
-    # similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace"
 
 
     ## Able to edit the Item Label of an Large Image object's Properties?

@@ -31,7 +31,6 @@ Feature: Test BasicImage CModel
     Then I press "Next"
     And wait for the page to be loaded
     Then I should see "MARCXML File"
-    # Then wait 3 seconds
     # Then I press "Next"
     Then I click on the selector "#edit-next"
 
@@ -71,8 +70,6 @@ Feature: Test BasicImage CModel
     And I press "Add Contents"
     Then I should see "Z (Basic Image) TEST"
     
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
     #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Basic Image) TEST"
@@ -139,10 +136,6 @@ Feature: Test BasicImage CModel
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
 
-
-    ## figure out how to check for original thumbnail image
-
-
     ## Able to download an Basic Image object?
     #@api @apache @basicimage
     #Scenario: Check for Basic Image OBJ download
@@ -153,17 +146,12 @@ Feature: Test BasicImage CModel
     Then I should see "OBJ"
     Given I click "download" in the "OBJ" row
 
-
-
     ## Able to search for newly ingested Basic Image object using Islandora simple search?
     #@api @apache @basicimage
     #Scenario: Check for Basic Image Objects using simple search
     #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Basic%20Image?type=dismax"
-    Then I should see "islandora:sp_basic_image_collection"
     Then I should see "Z (Basic Image) TEST"
-
-
 
     ## Able to edit MODS datastream for Basic Image object? ("replace") ****
     #@api @apache @javascript @basicimage

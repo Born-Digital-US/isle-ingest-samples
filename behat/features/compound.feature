@@ -3,19 +3,6 @@ Feature: Test Compound Object CModel
   As a developer
   I need to test some sample data
 
-
-    ## @apache @compound @javascript @api
-    ## Scenario: Testing autocomplete
-    ##   Given I am logged in as a user with the "administrator" role
-    ##   And I am on "/islandora/object/samples%3A533/manage/compound"
-    ##   # And I press the "a" key in the "edit-child" field
-    ##   Then I fill in "edit-child" with "appl"
-    ##   And I press the "e" key in the "edit-child" field
-    ##   And I wait for AJAX to finish 
-    ##   Then I click on the selector "#autocomplete"
-    ##   Then I should see "samples:4"
-
-
   # Able to ingest the test Compound Object sample objects?
   @api @apache @compound @javascript @sample-setup @sample-teardown
   Scenario: Ingest Compound Object Sample Object
@@ -167,18 +154,6 @@ Feature: Test Compound Object CModel
     When wait 3 seconds
     And I press "Add Contents"
     Then I should see "Z (Compound Child) 1"
-    # # Regenerate original thumbnail ***TODO - HOW? ***
-    # Given I am logged in as a user with the "administrator" role
-    # Given that I navigate to the page for the object named "Z (Compound Object) TEST"
-    # Then I should see the link "Manage"
-    # When I click "Manage"
-    # Given I wait for AJAX to finish
-    # Then I should see "PARENT COLLECTIONS"
-    # Then I click "Datastreams"
-    # Given I click "regenerate" in the "TN" row
-    # Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
-    # Then I press "Regenerate"
-
 
     ## Able to delete TN derivative for Compound Object object? *** 
     #@api @apache @javascript @compound
@@ -208,14 +183,6 @@ Feature: Test Compound Object CModel
     When wait 5 seconds
     And I press "Add Datastream"
     Then I should see "Z (Compound Child) 1"
-    # *** Would normally regenerate TN Derrivative but I dont' know how
-    # Then I should see the link "Manage"
-    # When I click "Manage"
-    # Then I click "Datastreams"
-    # Given I click "regenerate" in the "TN" row
-    # Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
-    # Then I press "Regenerate"
-
 
     ## Able to search for newly ingested Compound Object object using Islandora simple search?
     #@api @apache @compound
@@ -318,7 +285,7 @@ Feature: Test Compound Object CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Compound%20Object%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    #similar test for "replace"
 
 
     ## Able to edit the Item Label of an Compound Object object's Properties?

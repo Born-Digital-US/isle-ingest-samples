@@ -74,9 +74,7 @@ Feature: Test WARC CModel
     When wait 3 seconds
     And I press "Add Contents"
     Then I should see "Z (WARC) TEST"
-    
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
+
     # Re-upload original thumbnail
     #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (WARC) TEST"
@@ -149,10 +147,6 @@ Feature: Test WARC CModel
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
-
-
-    ## figure out how to check for original thumbnail image
-
 
     ## Able to download a WARC object?
     #@api @apache @warc @javascript
@@ -264,7 +258,7 @@ Feature: Test WARC CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28WARC%29%20TEST?type=dismax"
     Then I should see "samples:"
-    # similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace"
 
 
     ## Able to edit the Item Label of an WARC object's Properties?

@@ -39,7 +39,6 @@ Feature: Test Newspaper CModel
     Then I click "Add Issue"
     Then I press "Next"
     And wait for the page to be loaded
-    # Then wait 3 seconds
     # Then I press "Next"
     Then I click on the selector "#edit-next"
     Then I fill in "edit-titleinfo-title" with "Z (Newspaper) TEST"
@@ -164,10 +163,6 @@ Feature: Test Newspaper CModel
     Then I should see the link "Derivatives successfully created." 
 
 
-
-    ## figure out how to check for original thumbnail image
-
-
     ## Able to download an Newspaper object? 
     #@api @apache @newspaper @javascript
     #Scenario: Check for Newspaper OBJ download
@@ -186,7 +181,6 @@ Feature: Test Newspaper CModel
     #Scenario: Check for Newspaper Objects using simple search
     #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Newspaper?type=dismax"
-    Then I should see "islandora:newspaper_collection"
     Then I should see "Z (Newspaper) TEST"
 
 
@@ -282,7 +276,7 @@ Feature: Test Newspaper CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST?type=dismax"
     Then I should see "samples:"
-    # similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace"
 
 
     ## Able to edit the Item Label of an Newspaper object's Properties?
@@ -338,3 +332,6 @@ Feature: Test Newspaper CModel
     #Then grab me a screenshot
     Then wait for Ingest to complete
     #Then grab me a screenshot
+    # Check that new object is deleted
+    Given I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
+    Then I should see "(0 - 0 of 0)"

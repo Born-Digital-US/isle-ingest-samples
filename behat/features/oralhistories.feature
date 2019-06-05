@@ -76,8 +76,6 @@ Feature: Test ORAL HISTORIES CModel
     And I press "Add Contents"
     Then I should see "Z (ORAL HISTORIES) TEST"
     
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
     # Re-upload original thumbnail
     #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (ORAL HISTORIES) TEST"
@@ -108,7 +106,6 @@ Feature: Test ORAL HISTORIES CModel
     Given I click "delete" in the "TN" row
     Then I check the box "Delete Derivatives" 
     Then I press "Delete"
-    # TODO add the "delete TN" actions, do a search and assert no TN visible
 
     #Add Original Thumbnail and Thumbnail datastream back
     #Given I am logged in as a user with the "administrator" role
@@ -149,8 +146,6 @@ Feature: Test ORAL HISTORIES CModel
     Then I should see the link "Derivatives successfully created."
     Given I click "Derivatives successfully created." 
     Then I should see "Created"
-
-
 
 
     ## Able to download a ORAL HISTORIES object? 
@@ -263,7 +258,7 @@ Feature: Test ORAL HISTORIES CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28ORAL%20HISTORIES%29%20TEST?type=dismax"
     Then I should see "samples:"
-    #similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    #similar test for "replace"
 
 
     ## Able to edit the Item Label of an ORAL HISTORIES object's Properties?

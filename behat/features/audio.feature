@@ -74,8 +74,6 @@ Feature: Test Audio CModel
     And I press "Add Contents"
     Then I should see "Z (Audio) TEST"
 
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
     # Re-upload original thumbnail
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Audio) TEST"
@@ -106,7 +104,6 @@ Feature: Test Audio CModel
     Given I click "delete" in the "TN" row
     Then I check the box "Delete Derivatives"
     Then I press "Delete"
-    # TODO add the "delete TN" actions, do a search and assert no TN visible
 
     #Add Original Thumbnail and Thumbnail datastream back
     Given I am logged in as a user with the "administrator" role
@@ -147,11 +144,6 @@ Feature: Test Audio CModel
     Then I should see "Created"
 
 
-    ## figure out how to check for original thumbnail image
-
-    # Able to view / hear an AUDIO object?
-    ## TESTS: Noah is skeptical that we can test for audio output
-
     ## Able to download an AUDIO object?
     #@api @apache @audio
     #Scenario: Check for Audio OBJ download
@@ -169,7 +161,6 @@ Feature: Test Audio CModel
     #Scenario: Check for Audio Objects using simple search
     #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Audio?type=dismax"
-    Then I should see "islandora:audio_collection"
     Then I should see "Z (Audio) TEST"
 
 
@@ -265,7 +256,6 @@ Feature: Test Audio CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Audio%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
 
 
     # Able to edit the Item Label of an AUDIO object's Properties?

@@ -3,10 +3,6 @@ Feature: Test Book CModel
   As a developer
   I need to test some sample data
 
-    #@api @apache @javascript @book @sample-setup @sample-teardown
-    #Scenario: Dummy Sample
-    #  Given I am logged in as a user with the "administrator" role
-
   # Able to ingest the test BOOK sample objects?
   @api @apache @javascript @book @sample-setup @sample-teardown
   Scenario: Ingest Book Sample Object
@@ -82,8 +78,6 @@ Feature: Test Book CModel
     And I press "Add Contents"
     Then I should see "Z (BOOK) TEST"
 
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
     #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (BOOK) TEST"
@@ -154,10 +148,9 @@ Feature: Test Book CModel
     Then I should see the link "Derivatives successfully created."
 
 
-    ## figure out how to check for original thumbnail image
 
 
-    # Able to download an BOOK object? *** TODO Ask Noah how to do this link***
+    # Able to download an BOOK object?
     #@api @apache @javascript @book
     #Scenario: Check for BOOK OBJ download
     #Given I am logged in as a user with the "administrator" role
@@ -170,7 +163,6 @@ Feature: Test Book CModel
     Then I click "Datastreams"
     Then I should see "PDF"
     Given I click "download" in the "PDF" row
-    #Then I should get a 200 HTTP response
 
 
     ## Able to search for newly ingested BOOK object using Islandora simple search?
@@ -178,7 +170,6 @@ Feature: Test Book CModel
     #Scenario: Check for BOOK Objects using simple search
     #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/BOOK?type=dismax"
-    Then I should see "islandora:bookCollection"
     Then I should see "Z (BOOK) TEST"
 
 
@@ -274,7 +265,7 @@ Feature: Test Book CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28BOOK%29%20TEST?type=dismax"
     Then I should see "samples:"
-  #  similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    # similar test for "replace" 
 
 
     ## Able to edit the Item Label of an BOOK object's Properties?

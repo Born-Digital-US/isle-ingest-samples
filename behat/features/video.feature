@@ -32,7 +32,6 @@ Feature: Test Video CModel
     Then I press "Next"
     And wait for the page to be loaded
     Then I should see "MARCXML File"
-    # Then wait 3 seconds
     # Then I press "Next"
     Then I click on the selector "#edit-next"
 
@@ -80,8 +79,6 @@ Feature: Test Video CModel
     And I press "Add Contents"
     Then I should see "Z (Video) TEST"
     
-    # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
-    # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
     #Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Video) TEST"
@@ -150,9 +147,6 @@ Feature: Test Video CModel
     Then I should see "Created"
 
 
-    ## figure out how to check for original thumbnail image
-
-
     ## Able to download an Video object?
     #@api @apache @video @javascript
     #Scenario: Check for Video OBJ download
@@ -171,7 +165,6 @@ Feature: Test Video CModel
     #Scenario: Check for Video Objects using simple search
     #Given I am logged in as a user with the "administrator" role
     Given I am on "/islandora/search/Video?type=dismax"
-    Then I should see "islandora:video_collection"
     Then I should see "Z (Video) TEST"
 
 
@@ -267,7 +260,7 @@ Feature: Test Video CModel
     # Check that object title is original and that search is picking it up
     Given I am on "/islandora/search/Z%20%28Video%29%20TEST?type=dismax"
     Then I should see "samples:"
-    #similar test for "replace" - but we'll need to add a new MODS xml file to "assets" so we can upload it like a TN
+    #similar test for "replace"
 
 
     ## Able to edit the Item Label of an Video object's Properties?
