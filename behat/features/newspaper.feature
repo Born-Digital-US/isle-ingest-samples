@@ -324,7 +324,7 @@ Feature: Test Newspaper CModel
     Then I should see "This will remove the"
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 40 seconds
+    And wait 120 seconds
     # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
     #Then grab me a screenshot
