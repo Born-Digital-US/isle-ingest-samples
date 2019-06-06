@@ -324,10 +324,10 @@ Feature: Test Newspaper CModel
     Then I should see "This will remove the"
     Then I press "Delete"
     And I wait for AJAX to finish
-    And wait 120 seconds
+    And wait 40 seconds
     # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
-    #Then grab me a screenshot
+    Then grab me a screenshot
     Then wait for Ingest to complete
     #Then grab me a screenshot
     Then wait for Ingest to complete
@@ -335,3 +335,5 @@ Feature: Test Newspaper CModel
     # Check that new object is deleted
     Given I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
+    Then grab me a screenshot
+    
