@@ -60,7 +60,7 @@ Feature: Test Newspaper CModel
     Then wait for Ingest to complete
     #Then grab me a screenshot
 
-    
+
     Then I should see "Z (Newspaper) TEST"
     # Make sure the object ingested
     Given I am logged in as a user with the "administrator" role
@@ -70,7 +70,7 @@ Feature: Test Newspaper CModel
     Then I click "Expand all months"
     When I click "January 01, 2019"
     Then I should see "Z (Newspaper) TEST"
-    
+
 
 
     ## Able to upload (replace) thumbnail for Newspaper object?
@@ -90,7 +90,7 @@ Feature: Test Newspaper CModel
     When wait 3 seconds
     And I press "Add Contents"
     Then I should see "Z (Newspaper) TEST"
-    
+
     # another way to test: https://isle.localdomain/islandora/object/samples%3A1/datastream/TN
     # ultimately we want to regen thumbs in this test to go back to the original
     # Regenerate original thumbnail
@@ -106,7 +106,7 @@ Feature: Test Newspaper CModel
     Then I press "Regenerate"
 
 
-    ## Able to delete TN derivative for Newspaper object? *** 
+    ## Able to delete TN derivative for Newspaper object? ***
     #@api @apache @javascript @newspaper
     #Scenario: Delete TN derivative for Newspaper Object
     #Given I am logged in as a user with the "administrator" role
@@ -118,7 +118,7 @@ Feature: Test Newspaper CModel
     Then I should see "PARENT COLLECTIONS"
     Then I click "Datastreams"
     Given I click "delete" in the "TN" row
-    Then I check the box "Delete Derivatives" 
+    Then I check the box "Delete Derivatives"
     Then I press "Delete"
     #Add Original Thumbnail and Thumbnail datastream back
     Given I am logged in as a user with the "administrator" role
@@ -140,7 +140,7 @@ Feature: Test Newspaper CModel
     Given I click "regenerate" in the "TN" row
     Then I should see "Are you sure you want to regenerate the derivative for the TN datastream?"
     Then I press "Regenerate"
-  
+
     ## Able to regenerate all derivatives for Newspaper object? ***  See lower tests
     #@api @apache @javascript @newspaper
     #Scenario: Regenerate all derivatives for Newspaper Object
@@ -160,10 +160,10 @@ Feature: Test Newspaper CModel
     #Then grab me a screenshot
     Then wait for Ingest to complete
     #Then grab me a screenshot
-    Then I should see the link "Derivatives successfully created." 
+    Then I should see the link "Derivatives successfully created."
 
 
-    ## Able to download an Newspaper object? 
+    ## Able to download an Newspaper object?
     #@api @apache @newspaper @javascript
     #Scenario: Check for Newspaper OBJ download
     #Given I am logged in as a user with the "administrator" role
@@ -216,7 +216,7 @@ Feature: Test Newspaper CModel
     # Able to search for newly edited MODS datastream for Newspaper object using Islandora simple search?
     Given I am on "/islandora/search/Z%20%28Newspaper%29%20TEST%20REPLACED?type=dismax"
     Then I should see "Z (Newspaper) TEST REPLACED"
-  
+
     # Restore Original MODS Datastream
     Given I am logged in as a user with the "administrator" role
     Given that I navigate to the page for the object named "Z (Newspaper) TEST REPLACED"
@@ -243,13 +243,13 @@ Feature: Test Newspaper CModel
     And I should see "Z (Newspaper) TEST"
 
 
-    ## Able to edit Object Title for Newspaper Object 
+    ## Able to edit Object Title for Newspaper Object
     #@api @apache @newspaper
-    #Scenario: Edit Newspaper object title 
+    #Scenario: Edit Newspaper object title
     #Given I am logged in as a user with the "administrator" role
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
-    Then I should see "Z (Newspaper) TEST"  
+    Then I should see "Z (Newspaper) TEST"
     # Navigate to and change Object title
     Then I click "Manage"
     Then I click "Datastreams"
@@ -286,7 +286,7 @@ Feature: Test Newspaper CModel
     # Navigate to Object
     Given that I navigate to the page for the object named "Z (Newspaper) TEST"
     Then I should see "Z (Newspaper) TEST"
-    # Navigate to and change item label form  
+    # Navigate to and change item label form
     Then I click "Manage"
     Then I click "Properties"
     Then I should see "A human-readable label"
@@ -328,6 +328,7 @@ Feature: Test Newspaper CModel
     # MAX 30 minutes for this (3x)
     Then wait for Ingest to complete
     Then grab me a screenshot
+    Then I clean up orphaned objects
     Then wait for Ingest to complete
     #Then grab me a screenshot
     Then wait for Ingest to complete
@@ -336,4 +337,3 @@ Feature: Test Newspaper CModel
     Given I am on "/islandora/search/%22Z%20%28Newspaper%20Content%29%20TEST%22?type=dismax"
     Then I should see "(0 - 0 of 0)"
     Then grab me a screenshot
-    
